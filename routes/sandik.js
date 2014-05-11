@@ -6,11 +6,9 @@ var Sandik  = mongoose.model( 'Sandik' );
 
 router.get('/', function(req, res) {
    Sandik.find( function ( err, sandik, count ){
-  			res.render('sandik', { title: 'Sandik',sandiklar:sandik });
+  			res.render('sandik', { title: 'Sandik', sandiklar: sandik });
   		});
 });
-
-
 
  //    date_created: {type: Date, default: Date.now},
  //    author: {type: String, default: 'Anon'},
@@ -19,7 +17,7 @@ router.get('/', function(req, res) {
  //    no: {type: String, default: ''},
 
 router.post('/', function(req, res) {
-  
+
   new Sandik({
     il    : "yalova",
     no : req.body.sandiknum,
@@ -29,6 +27,5 @@ router.post('/', function(req, res) {
   });
 
 });
-
 
 module.exports = router;

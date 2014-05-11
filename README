@@ -1,6 +1,4 @@
-
-
-Seçim Gözetimi Applikasyon
+# Seçim Gözetimi Applikasyon
 
 Taslak:
 https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
@@ -19,12 +17,36 @@ npm install
 Run:
 node bin/www
 
-Controllers: 
-sandik.js
+## APP Structure
 
-Models:
-sandikmodel:
-
-Templates:
+Views:
 layout.ejs: shared template
 sandik.ejs: base template for sandiks
+
+Database Models:
+
+User:
+    id: session
+
+<!-- Secim -->
+Event:
+
+<!-- Tutanak -->
+Evidence:
+
+<!-- Karşılşatırma için -->
+Provider:
+  name: "YSK"
+  website:
+  reader: (js function)
+
+<!-- Yayın için -->
+Client:
+  name: "Turkiye'nin Oylari"
+  website:
+  img:
+  pub_URL: "/widget"
+
+## API
+
+API/:il/:ilce/:sandikno
