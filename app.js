@@ -22,7 +22,7 @@ var evidence_router = require('./routes/evidence')
 
 
 // connect to Mongo when the app initializes
-mongoose.connect('mongodb://localhost/saydirgac');
+mongoose.connect('mongodb://newyork:newyork@oceanic.mongohq.com:10019/app25115492');
 
 var app = express();
 
