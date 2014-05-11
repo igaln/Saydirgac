@@ -30,22 +30,13 @@ node bin/www
 
 #### Models:
 
-Event: Secim
+Event: Seçim
 
 Evidence: Tutanak
 
-<!-- Karşılşatırma için -->
-Provider:
-  name: "YSK"
-  website:
-  reader: (js function)
+Provider: Karşılşatırma veri kaynaklari
 
-<!-- Yayın için -->
-Client:
-  name: "Turkiye'nin Oylari"
-  website:
-  img:
-  pub_URL: "/widget"
+Client: Sonuclari yayınlayan yerler
 
 #### Views:
 
@@ -55,4 +46,4 @@ sandik.ejs: base template for sandiks
 
 #### API
 
-API/:il/:ilce/:sandikno
+/:il/:ilce/:sandikno

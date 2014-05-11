@@ -1,8 +1,8 @@
-var evidence = require('evidence');
-
 var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.ObjectId;
+
+var evidence = require('evidence');
 
 var event = new Schema({
   name:           {type: String, default: "", index: true}, // Turkiye 2014 Yerel Seçimi
