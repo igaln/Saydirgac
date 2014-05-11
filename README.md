@@ -32,11 +32,13 @@ node bin/www
 
 Event: Seçim
 
-Evidence: Tutanak
+Evidence: Tutanaklar
 
-Provider: Karşılşatırma veri kaynaklari
+Candidate: Adaylar
 
-Client: Sonuclari yayınlayan yerler
+Provider: Karşılşatırma veri kaynakları
+
+Client: Sonuçları yayınlayan yerler
 
 #### Views:
 
