@@ -6,13 +6,10 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 
 ### Teknoloji:
 
-Stack: Node.js
-
-Framework: Express http://expressjs.com/guide.html
-
-Template Engine: EJS http://embeddedjs.com/
-
-Database: Mongodb ve Mongoose http://mongoosejs.com/
+* Stack: Node.js
+* Framework: Express http://expressjs.com/guide.html
+* Template Engine: EJS http://embeddedjs.com/
+* Database: Mongodb ve Mongoose http://mongoosejs.com/
 
 ### Installation:
 
