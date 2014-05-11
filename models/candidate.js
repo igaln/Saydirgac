@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.ObjectId;
 
-var provider = require('provider');
+var provider = require('./provider');
 
 var candidate = new Schema({
   name:                {type: String, default: "", index: true}, // Party name
