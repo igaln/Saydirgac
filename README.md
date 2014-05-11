@@ -1,20 +1,24 @@
-# Seçim Gözetimi Applikasyon
+# Seçim Gözetimi Uygulaması
 
-Taslak:
+## Taslak:
+
 https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
+
+## Teknoloji:
 
 Stack:                  __ Node.js
 Framework:              __ Express http://expressjs.com/guide.html
 Template Engine:        __ EJS http://embeddedjs.com/
 DB:						__ Mongodb w/ Mongoose http://mongoosejs.com/
 
-Installation:
+## Installation:
 
-clone
-dir saygirgac
+git clone git@github.com:igaln/Saydirgac.git
+cd Saydirgac
 npm install
 
-Run:
+## Run:
+
 node bin/www
 
 ## APP Structure
