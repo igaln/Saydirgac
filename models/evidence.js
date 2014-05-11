@@ -2,7 +2,8 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.ObjectId;
 
-var candidate = require('candidate');
+var candidate = require('./candidate');
+var event = require('./event');
 
 var evidence = new Schema({
   event:          {id: ObjectId, name: {type:String,default: ''}},
@@ -26,3 +27,17 @@ var evidence = new Schema({
 });
 
 module.exports = mongoose.model('Evidence', evidence);
+
+evidence.post('save', function (doc) {
+      
+      console.log('%s has been saved', doc._id);
+
+      // event.find({_id:doc.event.id},function(err,event) {
+
+      //         if (err) console.log(err);
+
+      //         console.log(event._id);
+      //         // event.evidences.push(doc);
+      //         // event.save();
+      // });
+})

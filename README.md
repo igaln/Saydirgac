@@ -49,3 +49,14 @@ sandik.ejs: base template for sandiks
 #### API
 
 /:il/:ilce/:sandikno
+
+
+#### SAMPLE DATA 
+->node
+require("./app")
+var mongoose = require('mongoose');
+var model_event     = mongoose.model('Event');
+var model_evidence  = mongoose.model( 'Evidence' );
+var event = new model_event({name:"Turkiye 2014 Yerel Seçimi",country:"Turkiye",type:"Yerel Secim"})
+var evidence = new model_evidence({event:{id:event._id},city:"Istanbul"})
+var ev = model_event.find({_id:event.id})
