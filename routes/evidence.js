@@ -7,12 +7,12 @@
 var express         = require('express');
 var router          = express.Router();
 var mongoose        = require('mongoose');
-var model_evidence  = mongoose.model( 'Evidence' );
-var model_event     = mongoose.model('Event');
+var Evidence        = mongoose.model( 'Evidence' );
+var Event           = mongoose.model('Event');
 
 router.get('/', function(req, res) {
    
-   model_evidence.find( function ( err, evidence_result, count ){
+   Evidence.find( function ( err, evidence_result, count ){
   			res.render('sandik', { title: 'Evidence', evidence: evidence_result });
   		});
 
@@ -26,7 +26,7 @@ router.put('/', function(req, res) {
   var update_query = {updated_at:Date.now()}
   var update_filter = {_id:evidence_id}
 
-  model_evidence.findById(update_filter,update_query, function ( err, evidence_result ){
+  Evidence.findById(update_filter,update_query, function ( err, evidence_result ){
 
             if (err) return handleError(err);
             res.send(evidence_result);      
@@ -39,7 +39,7 @@ router.delete('/', function(req, res) {
 
   var evidence_id = reg.body.evidence_id;
 
-  model_evidence.fineOneAndRemove(evidence_id, function ( err, evidence_result ){
+  Event.fineOneAndRemove(evidence_id, function ( err, evidence_result ){
           if (err) return handleError(err);
             res.send(evidence_result);
   });
@@ -53,18 +53,18 @@ router.post('/', function(req, res) {
   var event_id      = req.body.event_id;
   var sandik_no     = req.body.sandik_no;
 
-    new model_evidence({
+    new Evidence({
            no : sandik_no
     }).save( function( err, evidence, count ){
 
-            
-            // model_event.findById(event_id, function ( err, event_result ){
 
-            //       if (err) return handleError(err);
+            Event.findById(event_id, function ( err, event_result ){
 
-            //       event_result.evidences.push(evidence);
-            //       res.redirect( '/evidence' );
-            // });
+                  if (err) return handleError(err);
+
+                  event_result.evidences.push(evidence);
+                  res.redirect( '/evidence' );
+            });
            
     });
 });
