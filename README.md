@@ -52,7 +52,7 @@ sandik.ejs: base template for sandiks
 
 
 #### SAMPLE DATA
-->node
+> node
 ```
 require("./app")
 var mongoose = require('mongoose');
