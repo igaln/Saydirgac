@@ -56,6 +56,9 @@ var mongoose = require('mongoose');
 var Event     = mongoose.model('Event');
 var Evidence  = mongoose.model('Evidence');
 var event = new Event({name:"Turkiye 2014 Yerel Seçimi",country:"Turkiye",type:"Yerel Secim"});
+event.save();
 var evidence = new Evidence({event:{id:event._id},city:"Istanbul"});
+evidence.save();
 var ev = Event.find({_id:event.id});
+
 ```
