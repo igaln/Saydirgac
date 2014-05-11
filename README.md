@@ -36,7 +36,7 @@ Evidence: Tutanaklar
 
 Candidate: Adaylar
 
-Provider: Karşılşatırma veri kaynakları
+Provider: Karşılaştırma veri kaynakları
 
 Client: Sonuçları yayınlayan yerler
 
