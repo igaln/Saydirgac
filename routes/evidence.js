@@ -7,9 +7,19 @@
 var express         = require('express');
 var router          = express.Router();
 var mongoose        = require('mongoose');
+
 var Evidence        = mongoose.model( 'Evidence' );
 var Event           = mongoose.model('Event');
 
+
+// @arikan: controller yapisi CRUD ve RESTFUL olacak şekilde duzenlendi (rails'ten de bilinen)
+// TODO: eksik CRUD fonksiyonlarini olusturmak lazim
+
+// index
+// GET /evidences
+
+// show
+// GET /evidences/1
 router.get('/', function(req, res) {
 
    Evidence.find( function ( err, evidence_result, count ){
@@ -18,36 +28,14 @@ router.get('/', function(req, res) {
 
 });
 
-// update evidence
-router.put('/', function(req, res) {
+// new
+// GET /evidences/new
 
-  var evidence_id = reg.body.evidence_id;
+// edit
+// GET /evidences/1/edit
 
-  var update_query = {updated_at:Date.now()}
-  var update_filter = {_id:evidence_id}
-
-  Evidence.findById(update_filter,update_query, function ( err, evidence_result ){
-
-            if (err) return handleError(err);
-            res.send(evidence_result);
-  });
-});
-
-
-// remove evidence
-router.delete('/', function(req, res) {
-
-  var evidence_id = reg.body.evidence_id;
-
-  Event.fineOneAndRemove(evidence_id, function ( err, evidence_result ){
-          if (err) return handleError(err);
-            res.send(evidence_result);
-  });
-
-});
-
-
-// post new evidence
+// create
+// POST /evidences
 router.post('/', function(req, res) {
 
   var event_id      = req.body.event_id;
@@ -68,5 +56,35 @@ router.post('/', function(req, res) {
 
     });
 });
+
+// update
+// PUT /evidences/1
+router.put('/', function(req, res) {
+
+  var evidence_id = reg.body.evidence_id;
+
+  var update_query = {updated_at:Date.now()}
+  var update_filter = {_id:evidence_id}
+
+  Evidence.findById(update_filter,update_query, function ( err, evidence_result ){
+
+            if (err) return handleError(err);
+            res.send(evidence_result);
+  });
+});
+
+// destroy
+// DELETE /evidences/1
+router.delete('/', function(req, res) {
+
+  var evidence_id = reg.body.evidence_id;
+
+  Event.fineOneAndRemove(evidence_id, function ( err, evidence_result ){
+          if (err) return handleError(err);
+            res.send(evidence_result);
+  });
+
+});
+
 
 module.exports = router;
