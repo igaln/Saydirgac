@@ -66,6 +66,16 @@ layout.ejs: shared main template
 
 #### API
 
+##### Şimdilik
+
+/evidence/new
+
+/evidence/:id
+
+/evidence/:id/edit
+
+##### Gelecek
+
 /:il/:ilce/:sandikno
 
 /:il/:ilce/:sandikno/edit
