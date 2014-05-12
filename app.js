@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
 // Sandik Mongo Modeli
@@ -33,9 +34,11 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(methodOverride());  
 app.use(cookieParser());
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 app.use('/users', users);

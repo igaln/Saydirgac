@@ -11,6 +11,9 @@ var mongoose        = require('mongoose');
 var Evidence        = mongoose.model( 'Evidence' );
 var Event           = mongoose.model('Event');
 
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 // @arikan: controller yapisi CRUD ve RESTFUL olacak şekilde duzenlendi (rails'ten de bilinen)
 // TODO: eksik CRUD fonksiyonlarini olusturmak lazim
 // path /evidence yerine /evidences olabilir mi?
@@ -34,6 +37,8 @@ router.get('/:id', function(req, res) {
 router.get('/', function(req, res) {
   // TODO: burada gariplik var inatla evidence_show view render ediyor...
   // new form gostermek isterken veri cekmeye gerek yok, bu Model wrapper lazim mi?
+
+  // burda URL pathde /:id olmadigi icin, :id pas edilen yerde yukardaki route u yukluyor, o yuuzden show view u render edyor
   Evidence.findById(req.params.id, function (err, evidence) {
     res.render('evidence_new', {title: 'Yeni tutanak kanıtı gir'});
   });
@@ -50,26 +55,78 @@ router.get('/:id/edit', function(req, res) {
 
 });
 
-// create
-// POST /evidences
-router.post('/', function(req, res) {
 
-  var event_id      = req.body.event_id;
-  var sandik_no     = req.body.sandik_no;
+router.post('/', multipartMiddleware,function(req, res) {
 
-    new Evidence({
-           no : sandik_no
-        }).save( function( err, evidence, count ){
 
-          Event.findById(event_id, function ( err, event_result ){
+  // post params
+   var city = req.body.city;
+   var district = req.body.district;
+   var evidenceno = req.body.no;
 
-                if (err) return handleError(err);
+  //begin s3 file upload
+  var fs = require('fs');
+  var AWS = require('aws-sdk');
 
-                event_result.evidences.push(evidence);
-                res.redirect( '/evidence' );
-          });
+  AWS.config.loadFromPath('./s3creds.json');
+  AWS.config.update({region: 'us-east-1'});
+  var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+
+      // Lists your s3 buckets, using this for debug 
+      // s3.listBuckets(function(err, data) {
+      //     for (var index in data.Buckets) {
+      //       var bucket = data.Buckets[index];
+      //       console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
+      //     }
+      // });
+
+
+      // create filename string from date 
+      //TODO: make this a proper CITY + DISTRICT + NO and extension
+      var d = Date.now();
+      var filetosave  = d.toString() + "_" + req.files.image.name;
+   
+    fs.readFile(req.files.image.path, function (err, data) {  
+      
+       var params = {
+            Bucket: "journosweb", 
+            Key:  "sandik/images/" + filetosave, 
+            Body: data,
+            ContentType: 'application/image'
+        };
+
+       s3.putObject(params, function(error, data) {
+           
+            if (error) {
+                console.log(error);
+                callback(error, null);
+            } else {
+                // callback(null, pdf_key);
+               
+                   
+
+                    var doc = {city:city,district:district,no:evidenceno,img:filetosave};
+
+
+                    new Evidence(doc).save( function( err, evidence, count ){
+                          if (err) return handleError(err);
+                          res.redirect( '/evidence' );
+                          
+                          //TODO: (igaln, bind event id )
+                          // Event.findById(event_id, function ( err, event_result ){
+
+                          //       if (err) return handleError(err);
+
+                          //       event_result.evidences.push(evidence);
+                          //       res.redirect( '/evidence' );
+                          // });
+
+                    });
+            }
+        });
 
     });
+
 });
 
 // update
