@@ -58,11 +58,7 @@ Candidate (Adaylar)
 
 Provider (karşılaştırma yapılacak yerler, örn. YSK)
 
-Client (sonuçları yayınlayacak yerler, örn. Turkiyenin Oylari)
-
-#### Views
-
-layout.ejs: shared main template
+Client (sonuçları yayınlayacak yerler, örn. Tukiyenin Oylari)
 
 #### API
 
