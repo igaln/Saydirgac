@@ -32,6 +32,10 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 ```
 > node
 
+.load test.js in REPL
+
+or
+
 require("./app")
 var mongoose = require('mongoose');
 var Event     = mongoose.model('Event');
