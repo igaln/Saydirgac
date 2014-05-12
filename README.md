@@ -1,10 +1,10 @@
 # Seçim Gözetimi Uygulaması
 
-### Taslak:
+### Taslak
 
 https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 
-### Teknoloji:
+### Teknoloji
 
 * Stack: Node.js
 * Framework: Express http://expressjs.com/guide.html
@@ -67,3 +67,4 @@ layout.ejs: shared main template
 #### API
 
 /:il/:ilce/:sandikno
+/:il/:ilce/:sandikno/edit
