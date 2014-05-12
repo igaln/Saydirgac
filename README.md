@@ -24,7 +24,7 @@ npm install
 #### Server
 
 ```
-node bin/www
+> node bin/www
 ```
 
 #### Console
