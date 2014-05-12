@@ -11,28 +11,44 @@ var mongoose        = require('mongoose');
 var Evidence        = mongoose.model( 'Evidence' );
 var Event           = mongoose.model('Event');
 
-
 // @arikan: controller yapisi CRUD ve RESTFUL olacak şekilde duzenlendi (rails'ten de bilinen)
 // TODO: eksik CRUD fonksiyonlarini olusturmak lazim
+// path /evidence yerine /evidences olabilir mi?
+// views/evidence.js simdilik kaldirildi yerine controller match eden evidence_show evidence_new gibi dosyalar geldi
 
 // index
 // GET /evidences
 
 // show
 // GET /evidences/1
-router.get('/', function(req, res) {
+router.get('/:id', function(req, res) {
 
-   Evidence.find( function ( err, evidence_result, count ){
-			res.render('evidence', { title: 'Tutanak kanıtı', evidence: evidence_result });
-		});
+  Evidence.findById(req.params.id, function (err, evidence) {
+    res.render('evidence_show', { title: 'Tutanak '+ req.params.id, evidence: evidence });
+  });
 
 });
 
 // new
 // GET /evidences/new
+router.get('/', function(req, res) {
+  // TODO: burada gariplik var inatla evidence_show view render ediyor...
+  // new form gostermek isterken veri cekmeye gerek yok, bu Model wrapper lazim mi?
+  Evidence.findById(req.params.id, function (err, evidence) {
+    res.render('evidence_new', {title: 'Yeni tutanak kanıtı gir'});
+  });
+
+});
 
 // edit
 // GET /evidences/1/edit
+router.get('/:id/edit', function(req, res) {
+
+  Evidence.findById(req.params.id, function (err, evidence) {
+    res.render('evidence_edit', { title: 'Tutanak '+ req.params.id + ' düzenle', evidence: evidence });
+  });
+
+});
 
 // create
 // POST /evidences
@@ -43,16 +59,15 @@ router.post('/', function(req, res) {
 
     new Evidence({
            no : sandik_no
-    }).save( function( err, evidence, count ){
+        }).save( function( err, evidence, count ){
 
+          Event.findById(event_id, function ( err, event_result ){
 
-            Event.findById(event_id, function ( err, event_result ){
+                if (err) return handleError(err);
 
-                  if (err) return handleError(err);
-
-                  event_result.evidences.push(evidence);
-                  res.redirect( '/evidence' );
-            });
+                event_result.evidences.push(evidence);
+                res.redirect( '/evidence' );
+          });
 
     });
 });
