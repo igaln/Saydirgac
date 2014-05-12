@@ -23,12 +23,15 @@ npm install
 
 #### Server
 
+```
 node bin/www
+```
 
 #### Console
 
--> node
 ```
+> node
+
 require("./app")
 var mongoose = require('mongoose');
 var Event     = mongoose.model('Event');
