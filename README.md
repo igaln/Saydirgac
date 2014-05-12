@@ -68,6 +68,8 @@ layout.ejs: shared main template
 
 ##### Şimdilik
 
+/evidence
+
 /evidence/new
 
 /evidence/:id
