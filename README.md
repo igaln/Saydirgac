@@ -56,9 +56,9 @@ Evidence (Tutanaklar)
 
 Candidate (Adaylar)
 
-Provider (Karşılaştırma veri kaynakları)
+Provider (karşılaştırma yapılacak yerler, örn. YSK)
 
-Client (Sonuçları yayınlayan yerler)
+Client (sonuçları yayınlayacak yerler, örn. Turkiyenin Oylari)
 
 #### Views
 
@@ -67,4 +67,5 @@ layout.ejs: shared main template
 #### API
 
 /:il/:ilce/:sandikno
+
 /:il/:ilce/:sandikno/edit
