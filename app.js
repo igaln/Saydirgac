@@ -19,9 +19,8 @@ var users = require('./routes/users');
 var sandik = require('./routes/sandik');
 var evidence_router = require('./routes/evidence')
 
-
-
 // connect to Mongo when the app initializes
+// TODO: move connector user pass to a config file
 mongoose.connect('mongodb://newyork:newyork@oceanic.mongohq.com:10019/app25115492');
 
 var app = express();
