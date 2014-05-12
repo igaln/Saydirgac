@@ -14,9 +14,9 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 ### Installation
 
 ```
-git clone git@github.com:igaln/Saydirgac.git
-cd Saydirgac
-npm install
+> git clone git@github.com:igaln/Saydirgac.git
+> cd Saydirgac
+> npm install
 ```
 
 ### Usage
