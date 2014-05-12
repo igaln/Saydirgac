@@ -1,6 +1,6 @@
 /*
-    REST Controller for basic evidence operations on the 
-    Model: models/evidence.js 
+    REST Controller for basic evidence operations on the
+    Model: models/evidence.js
     View: views/evidence.ejs
 */
 
@@ -11,10 +11,10 @@ var Evidence        = mongoose.model( 'Evidence' );
 var Event           = mongoose.model('Event');
 
 router.get('/', function(req, res) {
-   
+
    Evidence.find( function ( err, evidence_result, count ){
-  			res.render('sandik', { title: 'Evidence', evidence: evidence_result });
-  		});
+			res.render('evidence', { title: 'Tutanak kanıtı', evidence: evidence_result });
+		});
 
 });
 
@@ -29,7 +29,7 @@ router.put('/', function(req, res) {
   Evidence.findById(update_filter,update_query, function ( err, evidence_result ){
 
             if (err) return handleError(err);
-            res.send(evidence_result);      
+            res.send(evidence_result);
   });
 });
 
@@ -65,7 +65,7 @@ router.post('/', function(req, res) {
                   event_result.evidences.push(evidence);
                   res.redirect( '/evidence' );
             });
-           
+
     });
 });
 
