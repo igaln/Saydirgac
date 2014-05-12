@@ -11,7 +11,7 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 * Template Engine: EJS http://embeddedjs.com/
 * Database: Mongodb ve Mongoose http://mongoosejs.com/
 
-### Installation:
+### Installation
 
 git clone git@github.com:igaln/Saydirgac.git
 
@@ -19,35 +19,14 @@ cd Saydirgac
 
 npm install
 
-### Run:
+### Usage
+
+#### Server
 
 node bin/www
 
-### Uygulama Yapısı
+#### Console
 
-#### Models:
-
-Event: Seçim
-
-Evidence: Tutanaklar
-
-Candidate: Adaylar
-
-Provider: Karşılaştırma veri kaynakları
-
-Client: Sonuçları yayınlayan yerler
-
-#### Views:
-
-layout.ejs: shared template
-
-sandik.ejs: base template for sandiks
-
-#### API
-
-/:il/:ilce/:sandikno
-
-#### Usage
 -> node
 ```
 require("./app")
@@ -63,3 +42,25 @@ evidence.save();
 
 var ev = Event.find({_id:event.id});
 ```
+
+### Uygulama Yapısı
+
+#### Models
+
+Event (Seçim)
+
+Evidence (Tutanaklar)
+
+Candidate (Adaylar)
+
+Provider (Karşılaştırma veri kaynakları)
+
+Client (Sonuçları yayınlayan yerler)
+
+#### Views
+
+layout.ejs: shared main template
+
+#### API
+
+/:il/:ilce/:sandikno
