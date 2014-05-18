@@ -32,7 +32,7 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 ```
 > node
 
-.load test.js in REPL
+.load test.js
 
 or
 
@@ -48,6 +48,23 @@ var evidence = new Evidence({event:{id:event._id},city:"Istanbul"});
 evidence.save();
 
 var ev = Event.find({_id:event.id});
+```
+
+#### Browser
+
+```
+List evidences
+/evidences
+
+New evidence
+/evidences/new
+
+Show evidence
+/evidences/:id
+
+Edit evidence
+/evidences/:id/edit
+
 ```
 
 ### Uygulama Yapısı

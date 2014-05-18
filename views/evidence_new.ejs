@@ -1,7 +1,6 @@
-<!-- @arikan: this is evidences/new -->
+<!-- evidences/new -->
 <h1>
  <%= current_event.name %>
-  
 </h1>
 <h2>
  <%= title %>
@@ -17,17 +16,22 @@
 
   <div class="form-group">
     <label for="city">İl</label>
-    <input type="text" class="form-control" id="city" placeholder="İl">
+    <input type="text" class="form-control" name="city" placeholder="İl">
   </div>
 
   <div class="form-group">
     <label for="district">İlçe</label>
-    <input type="text" class="form-control" id="district" placeholder="İlçe">
+    <input type="text" class="form-control" name="district" placeholder="İlçe">
   </div>
 
   <div class="form-group">
     <label for="no">Sandık no</label>
-    <input type="text" class="form-control" id="no" placeholder="Sandık no">
+    <input type="text" class="form-control" name="no" placeholder="Sandık no">
+  </div>
+
+  <div class="form-group">
+    <label for="type">Türü</label>
+    <input type="text" class="form-control" name="type" placeholder="Türü">
   </div>
 
 <!--   <div class="checkbox">
