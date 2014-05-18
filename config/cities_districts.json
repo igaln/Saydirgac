@@ -1,0 +1,27 @@
+{
+	"cities": [
+
+		{"Ağrı": {
+				"districts": ["Ağrı (il merkezi)",
+											"Diyadin",
+											"Doğubayazıt",
+											"Eleşkirt",
+											"Hamur",
+											"Patnos",
+											"Taşlıçay",
+											"Tutak"
+											]
+								}
+		},
+		{"Yalova": {
+				"districts": ["Yalova (il merkezi)",
+											"Altınova",
+											"Armutlu",
+											"Çınarcık",
+											"Çiftlikköy",
+											"Termal"
+				]
+			}
+		}
+	]
+}
