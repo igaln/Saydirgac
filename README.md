@@ -50,20 +50,24 @@ evidence.save();
 var ev = Event.find({_id:event.id});
 ```
 
-#### Browser
+#### Browser / API
 
 ```
 List evidences
-/evidences
+http://localhost:3000/evidences
 
 New evidence
-/evidences/new
+http://localhost:3000/evidences/new
 
 Show evidence
-/evidences/:id
+http://localhost:3000/evidences/:id
+<!-- http://localhost:3000/:eventslug/:il/:ilce/:sandikno/:type -->
 
 Edit evidence
-/evidences/:id/edit
+http://localhost:3000/evidences/:id/edit
+
+
+/:il/:ilce/:sandikno/edit
 
 ```
 
@@ -80,21 +84,3 @@ Candidate (Adaylar)
 Provider (karşılaştırma yapılacak yerler, örn. YSK)
 
 Client (sonuçları yayınlayacak yerler, örn. Tukiyenin Oylari)
-
-#### API
-
-##### Şimdilik
-
-/evidence
-
-/evidence/new
-
-/evidence/:id
-
-/evidence/:id/edit
-
-##### Gelecek
-
-/:il/:ilce/:sandikno
-
-/:il/:ilce/:sandikno/edit
