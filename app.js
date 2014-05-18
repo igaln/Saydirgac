@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
-
-
 // Sandik Mongo Modeli
 require('./models/sandikmodel');
 require('./models/evidence');
@@ -23,9 +21,8 @@ var sandik = require('./routes/sandik');
 var evidence_router = require('./routes/evidence')
 
 
-
-
 var app = express();
+require('express-helpers')(app);
 
 // Application configiration according to environment
 
@@ -39,7 +36,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(methodOverride());  
+app.use(methodOverride());
 app.use(cookieParser());
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/sandik', sandik);
-app.use('/evidence', evidence_router);
+app.use('/evidences', evidence_router);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

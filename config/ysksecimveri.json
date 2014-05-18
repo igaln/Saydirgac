@@ -1,15 +1,15 @@
 {
-	"Sehirler": [
+	"cities": [
 
 		{ "Agri" : {
-				"Ilceler" : [
+				"districts" : [
 						"Ilce1",
 						"Ilce2"
 				]
 			}
 		},
 		{ "Yalova" : {
-				"Ilceler" : [
+				"districts" : [
 						"Ilce1",
 						"Ilce2"
 				]

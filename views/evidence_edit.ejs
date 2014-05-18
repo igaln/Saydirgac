@@ -1,4 +1,4 @@
-<!-- @arikan: this is evidences/:id/edit -->
+<!-- evidences/:id/edit -->
 
 <h1>
   <%= title %>
@@ -7,7 +7,7 @@
 <form role="form" action="/evidence" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
   <% if(evidence.img) { %>
-      <img src="<%=path + evidence.img %>" width="320px">
+      <img src="<%=s3path + evidence.img %>" width="320px">
 
   <% }  else {%>
     
