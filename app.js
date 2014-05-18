@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
+
+
 // Sandik Mongo Modeli
 require('./models/sandikmodel');
 require('./models/evidence');
@@ -20,11 +22,12 @@ var users = require('./routes/users');
 var sandik = require('./routes/sandik');
 var evidence_router = require('./routes/evidence')
 
-// connect to Mongo when the app initializes
-// TODO: move connector user pass to a config file
-mongoose.connect('mongodb://newyork:newyork@oceanic.mongohq.com:10019/app25115492');
+
 
 var app = express();
+
+// Application configiration according to environment
+var config = require('./config/environment.json')[app.get('env')];
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,6 +54,10 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+// connect to Mongo when the app initializes
+// TODO: move connector user pass to a config file
+mongoose.connect(config.mongoURI);
 
 /// error handlers
 

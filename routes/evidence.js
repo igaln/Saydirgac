@@ -1,7 +1,7 @@
 /*
-    REST Controller for basic evidence operations on the
+    @igaln: Evidences REST Controller for basic evidence operations on the
     Model: models/evidence.js
-    View: views/evidence.ejs
+    View: views/evidence_*.ejs
 */
 
 var express         = require('express');
@@ -35,12 +35,27 @@ router.get('/:id', function(req, res) {
 // new
 // GET /evidences/new
 router.get('/', function(req, res) {
-  // TODO: burada gariplik var inatla evidence_show view render ediyor...
-  // new form gostermek isterken veri cekmeye gerek yok, bu Model wrapper lazim mi?
 
-  // burda URL pathde /:id olmadigi icin, :id pas edilen yerde yukardaki route u yukluyor, o yuuzden show view u render edyor
-  Evidence.findById(req.params.id, function (err, evidence) {
-    res.render('evidence_new', {title: 'Yeni tutanak kanıtı gir'});
+  // @igaln: using the latest Event to pass to evidences
+  // this might not be the best practice moving forward,
+  // TODO: best to have a interface to match events with evidences.
+
+  var options = { 
+    limit:1,
+    sort:{
+        date_added: 1 //Sort by Date Added ASC
+    }
+  }
+  var filter = {};
+
+  Event.find(filter,'name',options,function(err,events) {
+
+       //@igaln: removed the Evidence query here, @arikan, not sure why it was being used.     
+       // we have to have at least 1 event to add evidences to
+       if(events.length > 0) 
+         res.render('evidence_new', {title: 'Yeni tutanak kanıtı gir',current_event:events[0]});
+       else 
+         res.send("Sorry, nothing is happening in the world.")
   });
 
 });
@@ -63,12 +78,13 @@ router.post('/', multipartMiddleware,function(req, res) {
    var city = req.body.city;
    var district = req.body.district;
    var evidenceno = req.body.no;
+   var current_event = req.body.event_id;
 
   //begin s3 file upload
   var fs = require('fs');
   var AWS = require('aws-sdk');
 
-  AWS.config.loadFromPath('./s3creds.json');
+  AWS.config.loadFromPath('./config/s3creds.json');
   AWS.config.update({region: 'us-east-1'});
   var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
@@ -101,25 +117,18 @@ router.post('/', multipartMiddleware,function(req, res) {
                 console.log(error);
                 callback(error, null);
             } else {
-                // callback(null, pdf_key);
                
-                   
-
                     var doc = {city:city,district:district,no:evidenceno,img:filetosave};
-
-
                     new Evidence(doc).save( function( err, evidence, count ){
-                          if (err) return handleError(err);
-                          res.redirect( '/evidence' );
-                          
-                          //TODO: (igaln, bind event id )
-                          // Event.findById(event_id, function ( err, event_result ){
+                          if (err) return handleError(err); 
+                         
+                          Event.findById(current_event, function ( err, event_result ){
 
-                          //       if (err) return handleError(err);
+                                if (err) return handleError(err);
 
-                          //       event_result.evidences.push(evidence);
-                          //       res.redirect( '/evidence' );
-                          // });
+                                event_result.evidences.push(evidence);
+                                res.redirect( '/evidence' );
+                          });
 
                     });
             }
