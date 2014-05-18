@@ -171,7 +171,7 @@ router.post('/', multipartMiddleware, function(req, res) {
             event_result.evidences.push(evidence);
             event_result.save(function(err, result) {
               if (err) return handleError(err);
-              res.redirect('/evidence');
+              res.redirect('/evidences/' + evidence.id + '/edit');
             });
           });
         });
