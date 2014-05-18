@@ -1,9 +1,14 @@
 <!-- @arikan: this is evidences/new -->
 <h1>
-  <%= title %>
+ <%= current_event.name %>
+  
 </h1>
+<h2>
+ <%= title %>
+</h2>
 
 <form role="form" action="/evidence" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+  <input type="hidden" id="event_id" value="<%= current_event._id %>"/>
   <div class="form-group">
     <label for="img">Tutanak fotoğrafı</label>
     <input type="file" id="files" name="image"/>
