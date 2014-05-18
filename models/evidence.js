@@ -23,6 +23,8 @@ var evidence = new Schema({
                           sandiktan_cikan_gecersiz_zarf_sayisi: Number,
                           gecerli_oy_sayisi: Number,
                           gecersiz_oy_sayisi: Number,
+                          flag: {type:Number, default:0},
+                          resolved: {type:Boolean, default:false},
                           oylar: [candidate]
                         }
 });
