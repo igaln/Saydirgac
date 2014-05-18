@@ -24,9 +24,11 @@ var evidence_router = require('./routes/evidence')
 
 
 
+
 var app = express();
 
 // Application configiration according to environment
+
 var config = require('./config/environment.json')[app.get('env')];
 
 // view engine setup
@@ -83,5 +85,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
+// make config available app wide
+app.set('config', config);
 module.exports = app;
