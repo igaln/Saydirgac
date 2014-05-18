@@ -14,6 +14,7 @@ var Event = mongoose.model('Event');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+
 // @arikan: controller yapisi CRUD ve RESTFUL olacak şekilde duzenlendi (rails'ten de bilinen)
 // TODO: eksik CRUD fonksiyonlarini olusturmak lazim
 // path /evidence yerine /evidences olabilir mi?
@@ -70,10 +71,15 @@ router.get('/', function(req, res) {
 // GET /evidences/1/edit
 router.get('/:id/edit', function(req, res) {
 
+  var config =  req.app.get('config');
+  var yskveri =  require('../config/ysksecimveri.json');
+
   Evidence.findById(req.params.id, function(err, evidence) {
     res.render('evidence_edit', {
       title: 'Tutanak ' + req.params.id + ' düzenle',
-      evidence: evidence
+      evidence: evidence,
+      path: config.s3URL + config.s3Path,
+      yskveri: JSON.stringify(yskveri)
     });
   });
 
@@ -119,7 +125,7 @@ router.post('/', multipartMiddleware, function(req, res) {
 
     var params = {
       Bucket: "journosweb",
-      Key: "sandik/images/" + filetosave,
+      Key: "sayman/images/" + filetosave,
       Body: data,
       ContentType: 'application/image'
     };
@@ -131,13 +137,13 @@ router.post('/', multipartMiddleware, function(req, res) {
         callback(error, null);
       } else {
 
-        var doc = {
+        var evidence_obj = {
           city: city,
           district: district,
           no: evidenceno,
           img: filetosave
         };
-        new Evidence(doc).save(function(err, evidence, count) {
+        new Evidence(evidence_obj).save(function(err, evidence, count) {
           if (err) return handleError(err);
 
           //TODO: Make the data association in the model

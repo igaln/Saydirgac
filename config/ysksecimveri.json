@@ -1,0 +1,20 @@
+{
+	"Sehirler": [
+
+		{ "Agri" : {
+				"Ilceler" : [
+						"Ilce1",
+						"Ilce2"
+				]
+			}
+		},
+		{ "Yalova" : {
+				"Ilceler" : [
+						"Ilce1",
+						"Ilce2"
+				]
+			}
+		}
+
+	]
+}
