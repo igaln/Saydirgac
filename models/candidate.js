@@ -13,4 +13,4 @@ var candidate = new Schema({
   updated_at:          {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Candidate', candidate);
+module.exports = mongoose.model('Candidate', candidate);*
