@@ -1,0 +1,40 @@
+<!-- @arikan: this is evidences/new -->
+<h1>
+ <%= current_event.name %>
+  
+</h1>
+<h2>
+ <%= title %>
+</h2>
+
+<form role="form" action="/evidence" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+  <input type="hidden" id="event_id" name="event_id" value="<%= current_event._id %>"/>
+  <div class="form-group">
+    <label for="img">Tutanak fotoğrafı</label>
+    <input type="file" id="files" name="image"/>
+    <!-- <p class="help-block">Example block-level help text here.</p> -->
+  </div>
+
+  <div class="form-group">
+    <label for="city">İl</label>
+    <input type="text" class="form-control" id="city" placeholder="İl">
+  </div>
+
+  <div class="form-group">
+    <label for="district">İlçe</label>
+    <input type="text" class="form-control" id="district" placeholder="İlçe">
+  </div>
+
+  <div class="form-group">
+    <label for="no">Sandık no</label>
+    <input type="text" class="form-control" id="no" placeholder="Sandık no">
+  </div>
+
+<!--   <div class="checkbox">
+    <label>
+      <input type="checkbox"> Sorunsuz
+    </label>
+  </div>
+ -->
+  <button type="submit" class="btn btn-default">Gönder</button>
+</form>
