@@ -32,7 +32,7 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 ```
 > node
 
-.load test.js in REPL
+.load test.js
 
 or
 
@@ -50,6 +50,27 @@ evidence.save();
 var ev = Event.find({_id:event.id});
 ```
 
+#### Browser / API
+
+```
+List evidences
+http://localhost:3000/evidences
+
+New evidence
+http://localhost:3000/evidences/new
+
+Show evidence
+http://localhost:3000/evidences/:id
+<!-- http://localhost:3000/:eventslug/:il/:ilce/:sandikno/:type -->
+
+Edit evidence
+http://localhost:3000/evidences/:id/edit
+
+
+/:il/:ilce/:sandikno/edit
+
+```
+
 ### Uygulama Yapısı
 
 #### Models
@@ -63,21 +84,3 @@ Candidate (Adaylar)
 Provider (karşılaştırma yapılacak yerler, örn. YSK)
 
 Client (sonuçları yayınlayacak yerler, örn. Tukiyenin Oylari)
-
-#### API
-
-##### Şimdilik
-
-/evidence
-
-/evidence/new
-
-/evidence/:id
-
-/evidence/:id/edit
-
-##### Gelecek
-
-/:il/:ilce/:sandikno
-
-/:il/:ilce/:sandikno/edit

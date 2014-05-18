@@ -16,16 +16,25 @@ var multipartMiddleware = multipart();
 
 
 // @arikan: controller yapisi CRUD ve RESTFUL olacak şekilde duzenlendi (rails'ten de bilinen)
-// TODO: eksik CRUD fonksiyonlarini olusturmak lazim
 // path /evidence yerine /evidences olabilir mi?
-// views/evidence.js simdilik kaldirildi yerine controller match eden evidence_show evidence_new gibi dosyalar geldi
 
 // index
 // GET /evidences
+router.get('/', function(req, res) {
+
+  Evidence.find(function(err, evidences){
+    res.render('evidence_index', {
+      title: 'Tutanaklar',
+      evidences: evidences
+    });
+  });
+
+});
+
 
 // show
 // GET /evidences/1
-router.get('/:id', function(req, res) {
+router.get('/:id/evidence', function(req, res) {
 
   Evidence.findById(req.params.id, function(err, evidence) {
     res.render('evidence_show', {
@@ -38,7 +47,7 @@ router.get('/:id', function(req, res) {
 
 // new
 // GET /evidences/new
-router.get('/', function(req, res) {
+router.get('/new', function(req, res) {
 
   // @igaln: using the latest Event to pass to evidences
   // this might not be the best practice moving forward,
@@ -54,7 +63,7 @@ router.get('/', function(req, res) {
 
   Event.find(filter, 'name', options, function(err, events) {
 
-    //@igaln: removed the Evidence query here, @arikan, not sure why it was being used.     
+    //@igaln: removed the Evidence query here, @arikan, not sure why it was being used.
     // we have to have at least 1 event to add evidences to
     if (events.length > 0)
       res.render('evidence_new', {
@@ -78,22 +87,28 @@ router.get('/:id/edit', function(req, res) {
     res.render('evidence_edit', {
       title: 'Tutanak ' + req.params.id + ' düzenle',
       evidence: evidence,
-      path: config.s3URL + config.s3Path,
+      s3path: config.s3URL + config.s3Path,
       yskveri: JSON.stringify(yskveri)
     });
   });
 
 });
 
+// router.get('/:il/:ilce/:sandikno/:type/edit', function(req, res) {
 
+//   Evidence.findById(req.params.id, function(err, evidence) {
+//     res.render('evidence_edit', {
+//       title: 'Tutanak ' + req.params.id + ' düzenle',
+//       evidence: evidence
+//     });
+//   });
+
+// });
+
+// POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
-
-
-  // post params
-  var city = req.body.city;
-  var district = req.body.district;
-  var evidenceno = req.body.no;
-  var current_event = req.body.event_id;
+  var started_at = Date.now();
+  console.log(started_at);
 
   //begin s3 file upload
   var fs = require('fs');
@@ -107,7 +122,7 @@ router.post('/', multipartMiddleware, function(req, res) {
     apiVersion: '2006-03-01'
   });
 
-  // Lists your s3 buckets, using this for debug 
+  // Lists your s3 buckets, using this for debug
   // s3.listBuckets(function(err, data) {
   //     for (var index in data.Buckets) {
   //       var bucket = data.Buckets[index];
@@ -115,9 +130,8 @@ router.post('/', multipartMiddleware, function(req, res) {
   //     }
   // });
 
-
-  // create filename string from date 
-  //TODO: make this a proper CITY + DISTRICT + NO and extension
+  // create filename string from date
+  // TODO: make this a proper CITY + DISTRICT + NO and extension
   var d = Date.now();
   var filetosave = d.toString() + "_" + req.files.image.name;
 
@@ -137,32 +151,40 @@ router.post('/', multipartMiddleware, function(req, res) {
         callback(error, null);
       } else {
 
-        var evidence_obj = {
-          city: city,
-          district: district,
-          no: evidenceno,
+        console.log("S3 uploaded, saving...");
+        var doc = {
+          city: req.body.city,
+          district: req.body.district,
+          no: req.body.no,
+          type: req.body.type,
           img: filetosave
         };
-        new Evidence(evidence_obj).save(function(err, evidence, count) {
+
+        new Evidence(doc).save(function(err, evidence, count) {
           if (err) return handleError(err);
 
           //TODO: Make the data association in the model
-          Event.findById(current_event, function(err, event_result) {
+          Event.findById(req.body.event_id, function(err, event_result) {
 
             if (err) return handleError(err);
 
             event_result.evidences.push(evidence);
             event_result.save(function(err, result) {
               if (err) return handleError(err);
-
               res.redirect('/evidence');
             });
           });
         });
+
+        var ended_at = Date.now();
+        var seconds = Math.round((ended_at - started_at)/1000);
+        console.log(seconds + " seconds");
+
       }
     });
 
   });
+
 });
 
 // update
