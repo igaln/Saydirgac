@@ -1,8 +1,15 @@
-<!-- @arikan: this is evidences/show -->
+<!-- evidences/show -->
 <h1>
   <%= title %>
 </h1>
 
+<p><%= evidence.img %></p>
+<p><%= evidence.city %></p>
+<p><%= evidence.district %></p>
+<p><%= evidence.no %></p>
+<p><%= evidence.type %></p>
+<p><%= evidence.created_at %></p>
+
 <p>
-  Tutanak verisi
+  <%= link_to("Tutanaklar", "evidences/") %>
 </p>
