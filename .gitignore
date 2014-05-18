@@ -20,4 +20,4 @@ node_modules
 /.DS_Store
 
 /public/.DS_Store
-/config/s3creds.json
+./config/s3creds.json
