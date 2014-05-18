@@ -23,6 +23,7 @@ var evidence_router = require('./routes/evidence')
 
 var app = express();
 require('express-helpers')(app);
+var expressLayouts = require('express-ejs-layouts')
 
 // Application configiration according to environment
 
@@ -30,6 +31,9 @@ var config = require('./config/environment.json')[app.get('env')];
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// app.set('layout', 'myLayout') // defaults to 'layout'     
+
+app.use(expressLayouts)
 app.set('view engine', 'ejs');
 
 app.use(favicon());
@@ -53,6 +57,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 // connect to Mongo when the app initializes
 // TODO: move connector user pass to a config file
