@@ -78,19 +78,32 @@ router.get('/new', function(req, res) {
 
 // edit
 // GET /evidences/1/edit
-router.get('/:id/edit', function(req, res) {
+router.get('/:id/:edit', function(req, res) {
 
   var config =  req.app.get('config');
-  var yskveri =  require('../config/ysksecimveri.json');
+  var yskveri =  require('../config/cities_districts.json');
 
-  Evidence.findById(req.params.id, function(err, evidence) {
-    res.render('evidence_edit', {
-      title: 'Tutanak ' + req.params.id + ' düzenle',
-      evidence: evidence,
-      s3path: config.s3URL + config.s3Path,
-      yskveri: JSON.stringify(yskveri)
+  if(req.params.edit === "edit") {
+
+    Evidence.findById(req.params.id, function(err, evidence) {
+      res.render('evidence_edit', {
+        title: 'TUTANAK DETAYLARINI GIR',
+        evidence: evidence,
+        s3path: config.s3URL + config.s3Path,
+        yskveri: JSON.stringify(yskveri)
+      });
     });
-  });
+
+  } else if(req.params.edit === "show") {
+
+      Evidence.findById(req.params.id, function(err, evidence) {
+      res.render('evidence_show', {
+        title: 'TUTANAK DETAYLARI',
+        evidence: evidence,
+        s3path: config.s3URL + config.s3Path
+      });
+    });
+  }
 
 });
 
@@ -107,83 +120,109 @@ router.get('/:id/edit', function(req, res) {
 
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
-  var started_at = Date.now();
-  console.log(started_at);
 
-  //begin s3 file upload
-  var fs = require('fs');
-  var AWS = require('aws-sdk');
+  console.log("evidences " + req.files);
 
-  AWS.config.loadFromPath('./config/s3creds.json');
-  AWS.config.update({
-    region: 'us-east-1'
-  });
-  var s3 = new AWS.S3({
-    apiVersion: '2006-03-01'
-  });
+  if(req.files) {
 
-  // Lists your s3 buckets, using this for debug
-  // s3.listBuckets(function(err, data) {
-  //     for (var index in data.Buckets) {
-  //       var bucket = data.Buckets[index];
-  //       console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
-  //     }
-  // });
+        var started_at = Date.now();
+        console.log(started_at);
+        //begin s3 file upload
+        var fs = require('fs');
+        var AWS = require('aws-sdk');
 
-  // create filename string from date
-  // TODO: make this a proper CITY + DISTRICT + NO and extension
-  var d = Date.now();
-  var filetosave = d.toString() + "_" + req.files.image.name;
+        AWS.config.loadFromPath('./config/s3creds.json');
+        AWS.config.update({
+          region: 'us-east-1'
+        });
 
-  fs.readFile(req.files.image.path, function(err, data) {
+        var s3 = new AWS.S3({
+          apiVersion: '2006-03-01'
+        });
+        // create filename string from date
+        // TODO: make this a proper CITY + DISTRICT + NO and extension
+        var d = Date.now();
+        var filetosave = d.toString() + "_" + req.files.image.name;
 
-    var params = {
-      Bucket: "journosweb",
-      Key: "sayman/images/" + filetosave,
-      Body: data,
-      ContentType: 'application/image'
-    };
+        fs.readFile(req.files.image.path, function(err, data) {
 
-    s3.putObject(params, function(error, data) {
+          var params = {
+            Bucket: "journosweb",
+            Key: "sayman/images/" + filetosave,
+            Body: data,
+            ContentType: 'application/image'
+          };
 
-      if (error) {
-        console.log(error);
-        callback(error, null);
-      } else {
+          s3.putObject(params, function(error, data) {
 
-        console.log("S3 uploaded, saving...");
-        var doc = {
-          city: req.body.city,
-          district: req.body.district,
-          no: req.body.no,
-          type: req.body.type,
-          img: filetosave
-        };
+            if (error) {
+              console.log(error);
+              callback(error, null);
+            } else {
 
-        new Evidence(doc).save(function(err, evidence, count) {
-          if (err) return handleError(err);
+              console.log("S3 uploaded, saving...");
+              var doc = {
+                img: filetosave
+              };
 
-          //TODO: Make the data association in the model
-          Event.findById(req.body.event_id, function(err, event_result) {
+              new Evidence(doc).save(function(err, evidence, count) {
+                if (err) return handleError(err);
 
-            if (err) return handleError(err);
+                //TODO: Make the data association in the model
+                Event.findById(req.body.event_id, function(err, event_result) {
 
-            event_result.evidences.push(evidence);
-            event_result.save(function(err, result) {
-              if (err) return handleError(err);
-              res.redirect('/evidences/' + evidence.id + '/edit');
-            });
+                  if (err) return handleError(err);
+
+                  event_result.evidences.push(evidence);
+                  event_result.save(function(err, result) {
+                    if (err) return handleError(err);
+                    res.redirect('/evidences/' + evidence.id + '/edit');
+                  });
+                });
+              });
+
+              var ended_at = Date.now();
+              var seconds = Math.round((ended_at - started_at)/1000);
+              console.log(seconds + " seconds");
+
+            }
           });
         });
 
-        var ended_at = Date.now();
-        var seconds = Math.round((ended_at - started_at)/1000);
-        console.log(seconds + " seconds");
+    } else {
 
-      }
-    });
 
-  });
+       // var doc = {
+       //          city: req.body.city,
+       //          district: req.body.district,
+       //          no: req.body.no,
+       //          type: req.body.type
+       //        };
+
+        console.log("id " + req.body.event_id);
+
+        Evidence.findOne({_id:req.body.event_id}, function (err, doc) {
+           if (err) return handleError(err);
+
+              console.log(doc);
+
+              doc.city = req.body.city
+              doc.district = req.body.district
+              doc.no = req.body.no
+              doc.type =req.body.type
+            
+              doc.save(function(err, doc) {
+                  if (err) return handleError(err);
+
+                  console.log(doc);
+                  res.send(doc);
+                  //res.redirect('/evidences/' + doc.id + '/show');
+              });
+        })
+
+
+      
+    }
 
 });
 
