@@ -2,7 +2,7 @@
 	"cities": [
 
 		{"Ağrı": {
-				"districts": ["Ağrı (il merkezi)",
+				"districts": ["Ağrı Merkez",
 											"Diyadin",
 											"Doğubayazıt",
 											"Eleşkirt",
@@ -14,7 +14,7 @@
 								}
 		},
 		{"Yalova": {
-				"districts": ["Yalova (il merkezi)",
+				"districts": ["Yalova Merkez",
 											"Altınova",
 											"Armutlu",
 											"Çınarcık",

@@ -14,6 +14,8 @@
     "body-parser": "~1.0.0",
     "method-override": "~1.0.0",
     "multiparty":"*",
+    "csv":"*",
+    "request":"*",
     "connect-multiparty":"*",
     "debug": "~0.7.4",
     "ejs": "~0.8.5",

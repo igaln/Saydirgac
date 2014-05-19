@@ -164,12 +164,11 @@ router.post('/', multipartMiddleware, function(req, res) {
           if (err) return handleError(err);
 
           //TODO: Make the data association in the model
-          Event.findById(req.body.event_id, function(err, event_result) {
-
+          Event.findById(req.body.event_id, function(err, event) {
             if (err) return handleError(err);
 
-            event_result.evidences.push(evidence);
-            event_result.save(function(err, result) {
+            event.evidences.push(evidence);
+            event.save(function(err, result) {
               if (err) return handleError(err);
               res.redirect('/evidences/' + evidence.id + '/edit');
             });
