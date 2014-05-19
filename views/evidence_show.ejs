@@ -1,15 +1,41 @@
 <!-- evidences/show -->
+<div class="row ">
+          <div class="col-xs-11">
 <h1>
   <%= title %>
 </h1>
+       </div>
+  </div>
 
-<p><%= evidence.img %></p>
+
+<div class="row ">
+          <div class="col-xs-11">
+              <img src="<%=s3path + evidence.img %>" width="100%">
+          </div>
+</div>
 <p><%= evidence.city %></p>
 <p><%= evidence.district %></p>
 <p><%= evidence.no %></p>
 <p><%= evidence.type %></p>
 <p><%= evidence.created_at %></p>
 
+
+<div class="row ">
+          <div class="col-xs-3">
+          		Twitter
+          </div>
+           <div class="col-xs-3">
+           		Face	
+          </div>
+           <div class="col-xs-3">
+           		E-Mail
+          </div>
+</div>
+
+<div class="row ">
+	<div class="col-xs-11">
 <p>
-  <%= link_to("Tutanaklar", "evidences/") %>
+  <%- link_to("Tutanaklar", "evidences/") %>
 </p>
+</div>
+</div>
