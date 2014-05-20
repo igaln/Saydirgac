@@ -121,8 +121,8 @@ router.get('/:id/:edit', function(req, res) {
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
 
-  console.log("evidences " + req.files);
 
+  // if there is an image file in the post, create
   if(req.files) {
 
         var started_at = Date.now();
@@ -161,24 +161,28 @@ router.post('/', multipartMiddleware, function(req, res) {
             } else {
 
               console.log("S3 uploaded, saving...");
-              var doc = {
-                img: filetosave
-              };
+             
 
-              new Evidence(doc).save(function(err, evidence, count) {
+              Event.findById(req.body.event_id, function(err, event_result) {
+
                 if (err) return handleError(err);
+                console.log(event_result);
 
-                //TODO: Make the data association in the model
-                Event.findById(req.body.event_id, function(err, event_result) {
+                var doc = {
+                  img: filetosave,
+                  event:req.body.event_id
+                };
+                new Evidence(doc).save(function(err, evidence, count) {
+                      if (err) return handleError(err);
 
-                  if (err) return handleError(err);
+                       event_result.evidences.push(evidence._id);
+                       event_result.save(function(err, result) {
+                          if (err) return handleError(err);
+                          res.redirect('/evidences/' + evidence.id + '/edit');
+                       });
 
-                  event_result.evidences.push(evidence);
-                  event_result.save(function(err, result) {
-                    if (err) return handleError(err);
-                    res.redirect('/evidences/' + evidence.id + '/edit');
                   });
-                });
+               
               });
 
               var ended_at = Date.now();
@@ -186,20 +190,13 @@ router.post('/', multipartMiddleware, function(req, res) {
               console.log(seconds + " seconds");
 
             }
+
           });
         });
 
     } else {
 
-
-       // var doc = {
-       //          city: req.body.city,
-       //          district: req.body.district,
-       //          no: req.body.no,
-       //          type: req.body.type
-       //        };
-
-        console.log("id " + req.body.event_id);
+      
 
         Evidence.findOne({_id:req.body.event_id}, function (err, doc) {
            if (err) return handleError(err);
@@ -219,9 +216,7 @@ router.post('/', multipartMiddleware, function(req, res) {
                   //res.redirect('/evidences/' + doc.id + '/show');
               });
         })
-
-
-      
+  
     }
 
 });
@@ -261,3 +256,7 @@ router.delete('/', function(req, res) {
 
 
 module.exports = router;
+
+var handleError = function(err){
+  console.log(err);
+}
