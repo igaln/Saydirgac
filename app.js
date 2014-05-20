@@ -8,15 +8,17 @@ var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
 
-require('./models/evidence');
 require('./models/event');
+require('./models/box');
 require('./models/candidate');
+require('./models/evidence');
+require('./models/reading');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var evidence_router = require('./routes/evidence')
 
+var evidence_router = require('./routes/evidence')
 
 var app = express();
 require('express-helpers')(app);

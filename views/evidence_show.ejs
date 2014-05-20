@@ -8,34 +8,49 @@
   </div>
 
 
+<table class="table table-condensed">
+    <tr>
+        <th scope="row">Sehir</th>
+        <td><%= evidence.city %></td>
+    </tr>
+    <tr>
+        <th scope="row">Ilce</th>
+        <td><%= evidence.district %></td>
+    </tr>
+     <tr>
+        <th scope="row">Sandik Numarasi</th>
+        <td><%= evidence.no %></td>
+    </tr>
+      <tr>
+        <th scope="row">Sandik Turu</th>
+        <td><%= evidence.type %></td>
+    </tr>
+      <tr>
+        <th scope="row"></th>
+        <td><%= evidence.created_at %></td>
+    </tr>
+</table>
 <div class="row ">
           <div class="col-xs-11">
               <img src="<%=s3path + evidence.img %>" width="100%">
           </div>
 </div>
-<p><%= evidence.city %></p>
-<p><%= evidence.district %></p>
-<p><%= evidence.no %></p>
-<p><%= evidence.type %></p>
-<p><%= evidence.created_at %></p>
-
+<br>
 
 <div class="row ">
-          <div class="col-xs-3">
-          		Twitter
+          <div class="col-xs-4">
+          		 <%- link_to("Twitter", "twitter.com") %>
           </div>
-           <div class="col-xs-3">
-           		Face	
+           <div class="col-xs-4">
+           		 <%- link_to("Facebook", "facebook.com") %>
           </div>
-           <div class="col-xs-3">
-           		E-Mail
+           <div class="col-xs-4">
+           		 <%- link_to("email", "mailto:") %>
           </div>
 </div>
-
+<hr>
 <div class="row ">
-	<div class="col-xs-11">
-<p>
+	<div class="col-xs-4 col-xs-offset-8">
   <%- link_to("Tutanaklar", "evidences/") %>
-</p>
 </div>
 </div>
