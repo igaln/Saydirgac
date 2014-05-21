@@ -27,13 +27,10 @@ var Evidence = new Schema({
 module.exports = mongoose.model('Evidence', Evidence);
 
 Evidence.post('validate', function (doc) {
-
     // console.log('evidence %s saved', doc._id);
-
     if(doc.city != null && doc.district != null && doc.no != null && doc.type != null){
       doc.il_ilce_sandikno_tur = doc.city + "_" + doc.district + "_" + doc.no + "_" + doc.type;
     }
-
     // console.log(doc);
 });
 
