@@ -1,81 +1,75 @@
 <!-- evidences/:id/edit -->
 
-
-
 <div class="row">
-   <div class="col-xs-12">
-      <h4>
-        <%= title %>
-      </h4>
-  </div>
+ <div class="col-xs-12">
+  <h4>
+    <%= title %>
+  </h4>
+</div>
 </div>
 
 <form role="form" class="form-horizontal" action="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
-               <input type="hidden" id="event_id" name="event_id" value="<%= evidence._id %>"/>
+ <input type="hidden" id="event_id" name="event_id" value="<%= evidence._id %>"/>
 
-                <div class="form-group">  
-                  <div class="col-xs-11 col-sm-6">
-                    <select class="form-control" name="city"  id="city"  style="background-color:#FFF;">
-                      <option value="-1">İl Seç</option>
+   <div class="form-group">
+    <div class="col-xs-11 col-sm-6">
+      <select class="form-control" name="city"  id="city"  style="background-color:#FFF;">
+        <option value="-1">İl Seç</option>
 
-                    </select>
-                  </div>
-                </div>
-              
-              <div class="form-group">
-               
-               <div class="col-xs-11 col-sm-6">
-                  <select class="form-control" name="district"  id="district"  style="background-color:#FFF;">
-                      <option value="-1">İlçe Seç</option>  
-                    </select>
-                </div>
-              </div>
-     
-            
-            <div class="form-group">
-            
-             <div class="col-xs-11 col-sm-6">
-                <select class="form-control" name="no"  id="no"  style="background-color:#FFF;">
-                      <option value="-1">Sandık Seç</option>  
-                    </select>
-              </div>
-            </div>
-          
-           <div class="form-group">  
-                  <div class="col-xs-11 col-sm-6">
-                    <select class="form-control" name="type"  id="type"  style="background-color:#FFF;">
-                      <option value="-1">Tur Seç</option>
-                      <option value="bbbst"> İl Belediye Başkanlığı Sonuç Tutanağı       </option>
-                      <option value="ibbbmu">İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı </option>
-                    </select>
-                  </div>
-                </div>
+      </select>
+    </div>
+  </div>
 
-                 <div class="form-group">
-   <div class="col-xs-11 col-sm-11">
-                <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="Kaydet"/>
-   </div>
+  <div class="form-group">
+
+   <div class="col-xs-11 col-sm-6">
+    <select class="form-control" name="district"  id="district"  style="background-color:#FFF;">
+      <option value="-1">İlçe Seç</option>
+    </select>
+  </div>
+  </div>
+
+
+  <div class="form-group">
+
+   <div class="col-xs-11 col-sm-6">
+    <select class="form-control" name="no"  id="no"  style="background-color:#FFF;">
+      <option value="-1">Sandık Seç</option>
+    </select>
+  </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-xs-11 col-sm-6">
+      <select class="form-control" name="type"  id="type"  style="background-color:#FFF;">
+        <option value="-1">Tur Seç</option>
+        <option value="bbbst"> İl Belediye Başkanlığı Sonuç Tutanağı       </option>
+        <option value="ibbbmu">İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-xs-11 col-sm-11">
+      <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="Kaydet"/>
+    </div>
+  </div>
+
+</form>
+
+
+<div class="row ">
+  <div class="col-xs-11">
+    <img src="<%=s3path + evidence.img %>" width="100%">
+  </div>
 </div>
-
-   </form>
-
-
-       <div class="row ">
-              <div class="col-xs-11">
-                  <img src="<%=s3path + evidence.img %>" width="100%">
-              </div>
-      </div>
-
-    
-   
-
 
 
 
  <script type="text/javascript">
     $(document).ready(function() {
-         
+
          // Get the cities, districts and boxes from EJS
          var election_data = <%- yskveri %>
 
@@ -84,10 +78,10 @@
          $.each(election_data.cities, function(key, value){
                   console.log(key, value);
                   $("#city").append('<option value="'+key+'">'+value.name+'</option>');
-         }); 
+         });
 
-         $( "#city" ).change(function() {      
-               
+         $( "#city" ).change(function() {
+
                // clear other values
                $("#district" ).empty();
                $("#no" ).empty();
@@ -96,7 +90,7 @@
                $.each(districts, function(key, value){
                      console.log(key, value);
                      $("#district").append('<option value="'+key+'">'+value.name+'</option>');
-               }); 
+               });
          });
 
          $( "#district" ).change(function() {
@@ -107,14 +101,14 @@
                $.each(boxes, function(key, value){
                      console.log(key, value);
                      $("#no").append('<option value="'+key+'">'+value+'</option>');
-               }); 
+               });
          });
 
          $("form").on('submit', function(e) {
 
                e.preventDefault();
                e.returnValue = false;
-               
+
                var city = $("#city option:selected").text();
                var city = $("#city option:selected").text();
                var district = $("#district option:selected").text();
