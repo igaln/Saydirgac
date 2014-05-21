@@ -11,6 +11,7 @@ var Box = new Schema({
   city:                 {type: String, required: true, index: true},
   district:             {type: String, required: true, index: true},
   no:                   {type: String, required: true, index: true},
+  il_ilce_sandikno_tur: {type: String, index: true},
   results:               [{
                           id: ObjectId,       // Candidate.id
                           party: String,
@@ -31,6 +32,14 @@ var Box = new Schema({
 
 module.exports = mongoose.model('Box', Box);
 
+Box.post('validate', function (box) {
+    // console.log('evidence %s saved', box._id);
+    if(box.city != null && box.district != null && box.no != null && box.type != null){
+      box.il_ilce_sandikno_tur = box.city + "_" + box.district + "_" + box.no + "_" + box.type;
+    }
+    // console.log(box);
+});
+
 var Event = mongoose.model('Event');
 
 Box.post('save', function (box) {
@@ -49,3 +58,4 @@ Box.post('save', function (box) {
     console.log('%s has been saved', box._id);
     // console.log(box);
 });
+

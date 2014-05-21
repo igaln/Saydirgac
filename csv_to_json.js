@@ -92,7 +92,7 @@ request(url_in, function (error, response, body) {
       .on('close', function(count){
         // when writing to a file, use the 'close' event
         // the 'end' event may fire before the file has been written
-        fs.writeFileSync(file_out, 'var mmcore.cateroryRedirectList = ' + JSON.stringify(outObj) + ';');
+        // fs.writeFileSync(file_out, 'var mmcore.cateroryRedirectList = ' + JSON.stringify(outObj) + ';');
         console.log('Number of lines: '+count);
       })
       .on('error', function(error){
