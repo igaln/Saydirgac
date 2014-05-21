@@ -56,6 +56,5 @@ Box.post('save', function (box) {
     });
 
     console.log('%s has been saved', box._id);
-    // console.log(box);
 });
 
