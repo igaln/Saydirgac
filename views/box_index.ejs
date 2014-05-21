@@ -1,0 +1,26 @@
+<!-- boxes/ -->
+<h1>
+  <%= title %>
+</h1>
+
+<table class="table">
+  <tr>
+    <th>İl</th>
+    <th>İlçe</th>
+    <th>Sandık no</th>
+    <th>Türü</th>
+    <th>Gönderim Tarihi</th>
+    <th>Durum</th>
+  </tr>
+  <% boxes.forEach( function(box){ %>
+  <tr>
+    <td><%- link_to(box.img, "/boxes/"+box.id+"/edit") %></td>
+    <td><%= box.city %></td>
+    <td><%= box.district %></td>
+    <td><%= box.no %></td>
+    <td><%= box.type %></td>
+    <td><%= box.created_at %></td>
+    <td></td>
+  </tr>
+  <% }); %>
+</table>

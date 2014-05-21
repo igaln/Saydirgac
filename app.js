@@ -19,6 +19,7 @@ var users = require('./routes/users');
 
 
 var evidence_router = require('./routes/evidence')
+var box_router = require('./routes/box')
 
 var app = express();
 require('express-helpers')(app);
@@ -30,7 +31,7 @@ var config = require('./config/environment.json')[app.get('env')];
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-// app.set('layout', 'myLayout') // defaults to 'layout'     
+// app.set('layout', 'myLayout') // defaults to 'layout'
 
 app.use(expressLayouts)
 app.set('view engine', 'ejs');
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/evidences', evidence_router);
+app.use('/boxes', box_router);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
