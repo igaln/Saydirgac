@@ -1,0 +1,52 @@
+<!-- boxes/show -->
+
+<div class="row ">
+  <div class="col-xs-11">
+    <h1>
+      <%= title %>
+    </h1>
+  </div>
+</div>
+
+
+<table class="table table-condensed">
+  <tr>
+    <th scope="row">İl</th>
+    <td><%= box.city %></td>
+  </tr>
+  <tr>
+    <th scope="row">İlçe</th>
+    <td><%= box.district %></td>
+  </tr>
+  <tr>
+    <th scope="row">Sandik Numarasi</th>
+    <td><%= box.no %></td>
+  </tr>
+  <tr>
+    <th scope="row">Sandik Turu</th>
+    <td><%= box.type %></td>
+  </tr>
+  <tr>
+    <th scope="row"></th>
+    <td><%= box.created_at %></td>
+  </tr>
+</table>
+
+<div class="row ">
+  <div class="col-xs-11">
+    Tutanaklar...
+  </div>
+</div>
+
+<div class="row ">
+  <div class="col-xs-4">
+   <%- link_to("Twitter", "twitter.com") %>
+ </div>
+ <div class="col-xs-4">
+   <%- link_to("Facebook", "facebook.com") %>
+ </div>
+ <div class="col-xs-4">
+   <%- link_to("email", "mailto:") %>
+ </div>
+</div>
+
