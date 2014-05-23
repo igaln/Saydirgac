@@ -33,28 +33,27 @@ var Box = new Schema({
 module.exports = mongoose.model('Box', Box);
 
 Box.post('validate', function (box) {
-    // console.log('evidence %s saved', box._id);
+  
     if(box.city != null && box.district != null && box.no != null && box.type != null){
       box.il_ilce_sandikno_tur = box.city + "_" + box.district + "_" + box.no + "_" + box.type;
     }
-    // console.log(box);
 });
 
-var Event = mongoose.model('Event');
 
-Box.post('save', function (box) {
 
-    Event.find({id: box.event.id}, function(err, events) {
-      if (err) return handleError(err);
-      var event = events[0];
-      event.boxes.push(box);
+// Box.post('save', function (box) {
 
-      event.save(function(err, result) {
-        if (err) return handleError(err);
-        console.log("event %s saved", event.id);
-      });
-    });
+//     Event.find({id: box.event.id}, function(err, events) {
+//       if (err) return handleError(err);
+//       var event = events[0];
+//       event.boxes.push(box);
 
-    console.log('%s has been saved', box._id);
-});
+//       event.save(function(err, result) {
+//         if (err) return handleError(err);
+//         console.log("event %s saved", event.id);
+//       });
+//     });
+
+//     console.log('%s has been saved', box._id);
+// });
 

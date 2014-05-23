@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 
 var Evidence = mongoose.model('Evidence');
 var Event = mongoose.model('Event');
+var Box = mongoose.model('Box');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -122,87 +123,75 @@ router.get('/:id/:edit', function(req, res) {
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
 
-
   // if there is an image file in the post, create
   if(req.files) {
 
-        var started_at = Date.now();
-        console.log(started_at);
-        //begin s3 file upload
-        var fs = require('fs');
-        var AWS = require('aws-sdk');
+    var started_at = Date.now();
+    console.log(started_at);
+    //begin s3 file upload
+    var fs = require('fs');
+    var AWS = require('aws-sdk');
 
-        AWS.config.loadFromPath('./config/s3creds.json');
-        AWS.config.update({
-          region: 'us-east-1'
-        });
+    AWS.config.loadFromPath('./config/s3creds.json');
+    AWS.config.update({
+      region: 'us-east-1'
+    });
 
-        var s3 = new AWS.S3({
-          apiVersion: '2006-03-01'
-        });
-        // create filename string from date
-        // TODO: make this a proper CITY + DISTRICT + NO and extension
-        var d = Date.now();
-        var filetosave = d.toString() + "_" + req.files.image.name;
+    var s3 = new AWS.S3({
+      apiVersion: '2006-03-01'
+    });
 
-        fs.readFile(req.files.image.path, function(err, data) {
+    var d = Date.now();
+    var filetosave = d.toString() + "_" + req.files.image.name;
 
-          var params = {
-            Bucket: "journosweb",
-            Key: "sayman/images/" + filetosave,
-            Body: data,
-            ContentType: 'application/image'
-          };
+    fs.readFile(req.files.image.path, function(err, data) {
 
-          s3.putObject(params, function(error, data) {
+      var params = {
+        Bucket: "journosweb",
+        Key: "sayman/images/" + filetosave,
+        Body: data,
+        ContentType: 'application/image'
+      };
 
-            if (error) {
-              console.log(error);
-              callback(error, null);
-            } else {
+      s3.putObject(params, function(error, data) {
 
-              console.log("S3 uploaded, saving...");
-             
+        if (error) {
+          callback(error, null);
+        } else {
 
-              Event.findById(req.body.event_id, function(err, event_result) {
+          console.log("S3 uploaded, saving...");
+        
+          Event.findById(req.body.event_id, function(err, event_result) {
+            if (err) return handleError(err);
 
-                if (err) return handleError(err);
-                console.log(event_result);
+            new Evidence({ img: filetosave, event:req.body.event_id }).save(function(err, evidence, count) {
+                  if (err) return handleError(err);
 
-                var doc = {
-                  img: filetosave,
-                  event:req.body.event_id
-                };
-                new Evidence(doc).save(function(err, evidence, count) {
+                   event_result.evidences.push(evidence._id);
+                   event_result.save(function(err, result) {
                       if (err) return handleError(err);
-
-                       event_result.evidences.push(evidence._id);
-                       event_result.save(function(err, result) {
-                          if (err) return handleError(err);
-                          res.redirect('/evidences/' + evidence.id + '/edit');
-                       });
-
-                  });
-               
+                      res.redirect('/evidences/' + evidence.id + '/edit');
+                   });
               });
-
-              var ended_at = Date.now();
-              var seconds = Math.round((ended_at - started_at)/1000);
-              console.log(seconds + " seconds");
-
-            }
-
           });
-        });
+
+          var ended_at = Date.now();
+          var seconds = Math.round((ended_at - started_at)/1000);
+          console.log(seconds + " seconds");
+        }
+      });
+    });
 
     } else {
 
-      
+      // Box.findOne({no:req.body.no}, function(err, boxes_result) {
+      //   if (err) return handleError(err);
+      //   if(boxes_result == null) {
+      //        console.log("Boxes result " + boxes_result);
+      //   }
 
         Evidence.findOne({_id:req.body.event_id}, function (err, doc) {
            if (err) return handleError(err);
-
-              console.log(doc);
 
               doc.city = req.body.city
               doc.district = req.body.district
@@ -211,15 +200,11 @@ router.post('/', multipartMiddleware, function(req, res) {
             
               doc.save(function(err, doc) {
                   if (err) return handleError(err);
-
-                  console.log(doc);
-                  res.send(doc);
-                  //res.redirect('/evidences/' + doc.id + '/show');
+                  res.send(doc); 
               });
         })
-  
-    }
-
+    //  }); //BOX QUERY
+    } //if 
 });
 
 // update

@@ -7,7 +7,7 @@ var Event = require('./event');
 // var Reading = require('./reading');
 
 var Evidence = new Schema({
-  box:                  {id: ObjectId, no: String},
+  box:               { type : Schema.ObjectId, ref : 'Box' },
   event:             { type : Schema.ObjectId, ref : 'Event' },
   img:                  {type: String, default: ''},
   // event:                {id: ObjectId, name: {type:String, required: true}},
@@ -31,7 +31,6 @@ Evidence.post('validate', function (doc) {
     if(doc.city != null && doc.district != null && doc.no != null && doc.type != null){
       doc.il_ilce_sandikno_tur = doc.city + "_" + doc.district + "_" + doc.no + "_" + doc.type;
     }
-    // console.log(doc);
 });
 
 

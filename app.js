@@ -16,8 +16,6 @@ require('./models/reading');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
-
 var evidence_router = require('./routes/evidence')
 var box_router = require('./routes/box')
 

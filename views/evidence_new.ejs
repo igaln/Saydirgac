@@ -23,11 +23,16 @@
 </form>
 
 
+<script src="/javascripts/spin.min.js"></script>
+<script src="/javascripts/jquery.spin.js"></script>
  <script type="text/javascript">
     $(document).ready(function(){
       $(".file-input").change(function() {
             $( "#tutanak" ).submit();
+            $('#tutanak').spin();
       });
+
     });
+
 
 </script>
