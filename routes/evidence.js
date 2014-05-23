@@ -109,16 +109,33 @@ router.get('/:id/:edit', function(req, res) {
 
 });
 
-// router.get('/:il/:ilce/:sandikno/:type/edit', function(req, res) {
+router.get('/:city/:district/:boxno', function(req, res) {
 
-//   Evidence.findById(req.params.id, function(err, evidence) {
-//     res.render('evidence_edit', {
-//       title: 'Tutanak ' + req.params.id + ' düzenle',
-//       evidence: evidence
-//     });
-//   });
+ // var config =  req.app.get('config');
 
-// });
+  Evidence.find({city:req.params.city,district:req.params.district,no:req.params.boxno},function(err, evidences){
+    res.render('evidence_index', {
+      title: 'Tutanaklar',
+      evidences: evidences
+    });
+  });
+
+});
+
+router.get('/:city/:district/:boxno/:type', function(req, res) {
+
+  var evidence_key = req.params.city + "_" + req.params.district + "_" + req.params.boxno + "_" + req.params.type;
+  var config =  req.app.get('config');
+
+  Evidence.findOne(evidence_key, function(err, evidence) {
+   res.render('evidence_show', {
+        title: 'TUTANAK DETAYLARI',
+        evidence: evidence,
+        s3path: config.s3URL + config.s3Path
+  });
+  });
+
+});
 
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
