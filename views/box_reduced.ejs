@@ -1,0 +1,28 @@
+<!-- boxes/ -->
+<h1>
+  <%= title %>
+</h1>
+
+<table class="table">
+  <tr>
+    <th>İl</th>
+    <th>İlçe</th>
+    <th>No</th>
+    <th>Tutanaklar</th>
+  </tr>
+  <% boxes.forEach( function(box){ %>
+  <tr>
+     <td><%= box._id.city %></td>
+     <td><%= box._id.district %></td>
+     <td><%= box._id.no %></td>
+
+    <td>
+    <% box.value.evidences.forEach( function(value){ %>
+        <a href="/evidences/<%=value._id %>/show"><img src='<%= s3path + value.img %>' width="100px"></a>
+    <% }); %>
+    </td>
+
+  </tr>
+
+  <% }); %>
+</table>

@@ -28,6 +28,39 @@ router.get('/', function(req, res) {
 });
 
 
+router.get('/boxreduce',function(req, res) {
+
+   var config =  req.app.get('config');
+
+    var o = {};
+    o.map = function () {
+      emit({id:this.il_ilce_sandikno_tur,no:this.no,city:this.city,district:this.district}, {evidences:[this]})
+    }
+    o.reduce = function (k, values) {
+      evidence_list = { evidences: [] };
+      values.forEach(function (value) {
+        evidence_list.evidences = value.evidences.concat(evidence_list.evidences);
+      });
+      return evidence_list;
+    }
+
+    Evidence.mapReduce(o, function (err, results) {
+    if(err) throw err;
+
+      results.forEach(function(value) {
+        console.log(value);
+      });
+
+      res.render('box_reduced', {
+        title: 'Sandıklar',
+        s3path: config.s3URL + config.s3Path,
+        boxes: results
+      });
+    })
+
+});
+
+
 // show
 // GET /boxes/1
 router.get('/:id/box', function(req, res) {
