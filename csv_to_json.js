@@ -1,14 +1,16 @@
-require("./app")
-var request = require('request');
-var csv = require('csv');
-var fs = require('fs');
-var mongoose  = require('mongoose');
-var Candidate = mongoose.model('Candidate');
+require("./app");
+var request = require("request");
+var csv = require("csv");
+var fs = require("fs");
+var mongoose  = require("mongoose");
+var Candidate = mongoose.model("Candidate");
 
 docid = "14KZYVcS5jwQFKvqTIjsyRZSCYJRYmEb9ZOY5yJ6oha8";  // spreadsheet id
 gid = "0";  // type                                      // sheet id
-url_in = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid+"&format=csv"
+url_in = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid+"&format=csv";
 file_out = __dirname + "/config/candidates.json";
+
+console.log(url_in);
 
 var i = 0;
 // obj_out = {
@@ -54,7 +56,6 @@ var i = 0;
 
 request(url_in, function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    // console.log(body);
     // csv()
     //   .from.string(body)
     //   .to.array(function(data){
@@ -63,16 +64,10 @@ request(url_in, function (error, response, body) {
     csv()
       .from.string(body)
       .to.array(function (data) {
-          var outObj = {};
           data.forEach(function (row) {
             if(i < 0){
-              // header
+              // csv header
             }else{
-              // outObj.push({
-              //     "o": row[0],
-              //     "n": row[3]
-              // });
-              // outObj[parseInt(row[0], 10)] = parseFloat(row[4].substring(1,row[4].length));
               console.log(row);
               var obj = {
                 city: row[0],
@@ -87,17 +82,16 @@ request(url_in, function (error, response, body) {
             }
             i += 1;
           });
-
       })
-      .on('close', function(count){
+      .on("close", function(count){
         // when writing to a file, use the 'close' event
         // the 'end' event may fire before the file has been written
         // fs.writeFileSync(file_out, 'var mmcore.cateroryRedirectList = ' + JSON.stringify(outObj) + ';');
-        console.log('Number of lines: '+count);
+        console.log(file_out);
+        console.log("Number of lines: " + count);
       })
-      .on('error', function(error){
+      .on("error", function(error){
         console.log(error.message);
       });
-
   }
 });
