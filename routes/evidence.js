@@ -244,7 +244,7 @@ router.delete('/', function(req, res) {
 
   var evidence_id = reg.body.evidence_id;
 
-  Event.fineOneAndRemove(evidence_id, function(err, evidence_result) {
+  Evidence.fineOneAndRemove(evidence_id, function(err, evidence_result) {
     if (err) return handleError(err);
     res.send(evidence_result);
   });

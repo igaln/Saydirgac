@@ -1,0 +1,314 @@
+
+<div class="row">
+ <div class="col-xs-12">
+  <h4>
+    <%= title %>
+  </h4>
+</div>
+</div>
+<div class="row ">
+      <div class="col-xs-6">
+<table class="table table-condensed">
+    <tr>
+        <th scope="row">Sehir</th>
+        <td><%= evidence.city %></td>
+    </tr>
+    <tr>
+        <th scope="row">Ilce</th>
+        <td><%= evidence.district %></td>
+    </tr>
+     <tr>
+        <th scope="row">Sandik Numarasi</th>
+        <td><%= evidence.no %></td>
+    </tr>
+      <tr>
+        <th scope="row">Sandik Turu</th>
+        <td><%= evidence.type %></td>
+    </tr>
+      <tr>
+        <th scope="row"></th>
+        <td></td>
+    </tr>
+</table>
+   </div>
+    <div class="col-xs-5">
+         <a href="/readings/<%= evidence._id %>/new">
+           <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="FLAG"/></a>
+    </div>
+</div>
+
+<div class="row ">
+          <div class="col-xs-12">
+              <img src="<%=s3path + evidence.img %>" width="100%">
+          </div>
+</div>
+<hr>
+
+<form role="form" id="evidence_edit" class="form-horizontal" action="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+
+<div class="row" style="border:1px solid black;">
+	<div class="col-xs-4">
+ 		<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	     <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    	<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	     <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	</div>
+ 	<div class="col-xs-4">
+ 		<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    	<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	</div>
+ 	<div class="col-xs-4">
+ 		<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	     		<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	     		<div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	    <div class="row">
+ 			<div class="col-xs-9">
+	    		ssssssssssssssss
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+<div class="row" style="border:1px solid black;">
+	<div class="col-xs-6">
+			<div class="row">
+			<div class="col-xs-12">
+	    		<h4>Siyasi Parti Adaylari</h4>
+	    		
+	    	</div>
+	    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	    		Aday Ismi Label
+	    	</div>
+ 			<div class="col-xs-5">
+	    		Parti Ismi Label
+	    	</div>
+	    	<div class="col-xs-3">
+	    		Oy SAYISI
+	    	</div>
+	    </div>
+	    	<div class="row">
+			<div class="col-xs-12">
+	    		<hr>
+	    	</div>
+	    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	    		Aday Ismi
+	    	</div>
+ 			<div class="col-xs-5">
+	    		Parti Ismi
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	</div>
+	<div class="col-xs-6">
+			<div class="row">
+			<div class="col-xs-12">
+	    		<h4>Bagimsiz  Adaylari</h4>
+	    	</div>
+	    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	    		Aday Ismi Label
+	    	</div>
+ 			<div class="col-xs-5">
+	    		Parti Ismi Label
+	    	</div>
+	    	<div class="col-xs-3">
+	    		Oy SAYISI
+	    	</div>
+	    </div>
+	    	<div class="row">
+			<div class="col-xs-12">
+	    		<hr>
+	    	</div>
+	    </div>
+		<div class="row">
+			<div class="col-xs-4">
+	    		Aday Ismi
+	    	</div>
+ 			<div class="col-xs-5">
+	    		Parti Ismi
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+</form>
