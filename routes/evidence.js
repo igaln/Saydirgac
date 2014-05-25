@@ -30,14 +30,11 @@ router.get('/', function(req, res) {
       evidences: evidences
     });
   });
-
 });
-
 
 // show
 // GET /evidences/1
 router.get('/:id/evidence', function(req, res) {
-
   Evidence.findById(req.params.id, function(err, evidence) {
     res.render('evidence_show', {
       title: 'Tutanak ' + req.params.id,
@@ -111,7 +108,6 @@ router.get('/:id/:edit', function(req, res) {
 
 router.get('/:city/:district/:boxno', function(req, res) {
 
- // var config =  req.app.get('config');
 
   Evidence.find({city:req.params.city,district:req.params.district,no:req.params.boxno},function(err, evidences){
     res.render('evidence_index', {
@@ -140,7 +136,7 @@ router.get('/:city/:district/:boxno/:type', function(req, res) {
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
 
-  // if there is an image file in the post, create
+  // if there is an image file in the post, create initial Evidence to be edited
   if(req.files) {
 
     var started_at = Date.now();

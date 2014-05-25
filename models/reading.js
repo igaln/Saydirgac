@@ -5,27 +5,48 @@ var mongoose = require('mongoose')
 
 var Reading = new Schema({
   evidence:                   { type : Schema.ObjectId, ref : 'Evidence' },
+  type:                                Number,
   
-  kayitli_secmen:               Number,
-  oy_kullanan_secmen:           Number,
-  kanunen_oy_kullanan_secmen:   Number,
-  toplam_oy_kullanan_secmen:    Number,
-  sandiktan_cikan_zarf_sayisi:  Number,
-  gecerli_zarf_sayisi:          Number,
-  itirazsiz_gecerli_oy:         Number,
-  itirazli_gecerli_oy:          Number,
-  gecerli_oy:                   Number,
-  gecersiz_oy:                  Number,
-  toplam_gecerli_oy:            Number,
+  baskan_kayitli_secmen:               Number,
+  baskan_oy_kullanan_secmen:           Number,
+  baskan_kanunen_oy_kullanan_secmen:   Number,
+  baskan_toplam_oy_kullanan_secmen:    Number,
+  baskan_sandiktan_cikan_zarf_sayisi:  Number,
+  baskan_gecerli_zarf_sayisi:          Number,
+  baskan_itirazsiz_gecerli_oy:         Number,
+  baskan_itirazli_gecerli_oy:          Number,
+  baskan_gecerli_oy:                   Number,
+  baskan_gecersiz_oy:                  Number,
+  baskan_toplam_gecerli_oy:            Number,
+
+  meclis_kayitli_secmen:               Number,
+  meclis_oy_kullanan_secmen:           Number,
+  meclis_kanunen_oy_kullanan_secmen:   Number,
+  meclis_toplam_oy_kullanan_secmen:    Number,
+  meclis_sandiktan_cikan_zarf_sayisi:  Number,
+  meclis_gecerli_zarf_sayisi:          Number,
+  meclis_itirazsiz_gecerli_oy:         Number,
+  meclis_itirazli_gecerli_oy:          Number,
+  meclis_gecerli_oy:                   Number,
+  meclis_gecersiz_oy:                  Number,
+  meclis_toplam_gecerli_oy:            Number,
  
 
-  results:                    [{
-                                id: ObjectId,       // Candidate.id
-                                party: String,
-                                person: String,
-                                type: String,       // sandık türü
-                                votes: Number
-                              }],
+  baskan_results:                    [{
+                                      id: ObjectId,       // Candidate.id
+                                      party: String,
+                                      person: String,
+                                      type: String,       // sandık türü
+                                      votes: Number
+                                    }],
+
+  meclis_results:                    [{
+                                      id: ObjectId,       // Candidate.id
+                                      party: String,
+                                      person: String,
+                                      type: String,       // sandık türü
+                                      votes: Number
+                                    }],
                               
   flag:                       {type: Number, default: 0},
   resolved:                   {type: Boolean, default: false},

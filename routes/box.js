@@ -72,7 +72,6 @@ router.get('/:id/box', function(req, res) {
 
 });
 
-
 // update
 // PUT /evidences/1
 router.put('/', function(req, res) {
