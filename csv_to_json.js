@@ -6,12 +6,14 @@ var mongoose  = require('mongoose');
 var Candidate = mongoose.model('Candidate');
 var Event = mongoose.model('Event');
 
-docid = "14KZYVcS5jwQFKvqTIjsyRZSCYJRYmEb9ZOY5yJ6oha8";  // spreadsheet id
+docid = "14KZYVcS5jwQFKvqTIjsyRZSCYJRYmEb9ZOY5yJ6oha8";  // doc id
 gid = "0";                                               // sheet id
 gid2 = "1223011841";                                     // sheet id
 url_in = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid+"&format=csv"
 url_in2 = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid2+"&format=csv"
 file_out = __dirname + "/config/candidates.json";
+
+var boxes =  require('../config/boxes.json');
 
 events = Event.find(function(err, events){
   if (err) return handleError(err);

@@ -35,7 +35,7 @@ router.get('/:evidence_id/new', function(req, res) {
   var config =  req.app.get('config');
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
-      
+
     // find all candidates related to the ballot on the evidence and send to template
     Candidate.find({city:evidence.city,district:evidence.district}, function(err, candidates) {
         res.render('reading_new_ilce_belediye', {
@@ -63,20 +63,20 @@ router.get('/:id/reading', function(req, res) {
 // POST /readings
 router.post('/', multipartMiddleware,function(req, res) {
 
-  var types =  require('../config/types.json');
+  var types =  require('../config/cities_districts.json');
 
   Evidence.findById(req.body.evidence_id, function (err, evidence) {
      if (err) return handleError(err);
 
       var reading_object = {};
 
-    if(evidence.type == types.evidence['İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı']) { 
+    if(evidence.type == types.evidence['İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı']) {
 
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:1},{type:2}]}, function(err, candidates) {
-        
+
           // Basic Totals from Ballot
           reading_object.evidence                            =   evidence._id
-          reading_object.type                                =   evidence.type    
+          reading_object.type                                =   evidence.type
           reading_object.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
           reading_object.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
           reading_object.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
@@ -117,7 +117,7 @@ router.post('/', multipartMiddleware,function(req, res) {
             reading_object.meclis_results = [];
 
             for(var k =0; k < candidates.length; k++) {
-              
+
               evidence_reading.meclis_results.push(
                                       {_id    :   candidates[k]._id,
                                         party  :   candidates[k].party,
@@ -126,10 +126,10 @@ router.post('/', multipartMiddleware,function(req, res) {
                                         votes  :   req.body.adaylar[0][k]
                                       })
             } // end for adding candidates
-          
+
 
             var evidence_reading = new Reading(reading_object);
-          
+
             //save reading
             evidence_reading.save(function(err,reading) {
 
@@ -141,18 +141,18 @@ router.post('/', multipartMiddleware,function(req, res) {
                           //show city results
                           res.redirect('/results/city/' + evidence.city);
                    })
-                   
+
 
             });
 
       }); //Candidate Query
     } else if (evidence.type == types.evidence['İl Belediye Başkanlığı Sonuç Tutanağı']) {
-   
+
       Candidate.find({city:evidence.city,district:evidence.district,type:0}, function(err, candidates) {
-        
+
           // Basic Totals from Ballot
           reading_object.evidence                            =   evidence._id
-          reading_object.type                                =   evidence.type    
+          reading_object.type                                =   evidence.type
           reading_object.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
           reading_object.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
           reading_object.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
@@ -177,7 +177,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                                     })
           } // end for adding candidates
             var evidence_reading = new Reading(reading_object);
-          
+
             //save reading
             evidence_reading.save(function(err,reading) {
 
@@ -189,11 +189,11 @@ router.post('/', multipartMiddleware,function(req, res) {
                           //show city results
                           res.redirect('/results/city/' + evidence.city);
                    })
-                   
+
 
             });
       }); //Candidate Query
-    } // if/else end for evidence type 
+    } // if/else end for evidence type
   }); //Evidence Query
 });
 
