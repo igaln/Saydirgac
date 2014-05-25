@@ -73,7 +73,8 @@ request(url_in, function (error, response, body) {
                 city: row[0],
                 district: row[1],
                 party: row[2],
-                person: row[3]
+                type: row[3],
+                person: row[4]
               };
               new Candidate(obj).save(function(err, candidate, count) {
                 if (err) return handleError(err);
