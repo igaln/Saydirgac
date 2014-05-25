@@ -1,9 +1,9 @@
 var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
-   ,ObjectId = Schema.ObjectId;
-
+   ,ObjectId = Schema.Types.ObjectId;
 
 var Reading = new Schema({
+
   evidence:                   { type : Schema.ObjectId, ref : 'Evidence' },
   type:                                Number,
   
@@ -53,6 +53,7 @@ var Reading = new Schema({
   user:                       {type: String, default: 'Anon'},
   created_at:                 {type: Date, default: Date.now},
   updated_at:                 {type: Date, default: Date.now}
+
 });
 
 module.exports = mongoose.model('Reading', Reading);

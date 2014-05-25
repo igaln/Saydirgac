@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
-   ,ObjectId = Schema.ObjectId;
+   ,ObjectId = Schema.Types.ObjectId;
 
 var provider = new Schema({
   name:                {type: String, default: "", index: true}, // YSK

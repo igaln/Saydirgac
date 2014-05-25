@@ -1,17 +1,14 @@
 var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
-   ,ObjectId = Schema.ObjectId;
+   ,ObjectId = Schema.Types.ObjectId;
 
 // var Candidate = require('./candidate');
-var Event = require('./event');
+// var Event = require('./event');
 // var Reading = require('./reading');
 
 var Evidence = new Schema({
-  box:                  {id: ObjectId, no: String},
-  event:             { type : Schema.ObjectId, ref : 'Event' },
+  event:                {type: ObjectId, ref: 'Event'},
   img:                  {type: String, default: ''},
-  // event:                {id: ObjectId, name: {type:String, required: true}},
-  // candidates:           [{id: ObjectId, party: String, person: String}],
   city:                 {type: String, default: '', index: true},
   district:             {type: String, default: '', index: true},
   no:                   {type: String, default: '', index: true},
