@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
-   ,ObjectId = Schema.ObjectId;
+   ,ObjectId = Schema.Types.ObjectId;
 
 // var Event = require('./event');
 
@@ -33,7 +33,7 @@ var Box = new Schema({
 module.exports = mongoose.model('Box', Box);
 
 Box.post('validate', function (box) {
-  
+
     if(box.city != null && box.district != null && box.no != null && box.type != null){
       box.il_ilce_sandikno_tur = box.city + "_" + box.district + "_" + box.no + "_" + box.type;
     }
