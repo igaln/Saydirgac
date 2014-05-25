@@ -75,44 +75,44 @@ router.post('/', multipartMiddleware,function(req, res) {
     Candidate.find({city:evidence.city,district:evidence.district}, function(err, candidates) {
       
         // Basic Totals from Ballot
-
-        // reading_object.evidence = evidence._id;
-        // reading_object.kayitli_secmen:               req.body.kayitli_secmen,
-        // reading_object.oy_kullanan_secmen:           req.body.kayitli_secmen,
-        // reading_object.kanunen_oy_kullanan_secmen:   req.body.kayitli_secmen,
-        // reading_object.toplam_oy_kullanan_secmen:    req.body.kayitli_secmen,
-        // reading_object.sandiktan_cikan_zarf_sayisi:  req.body.kayitli_secmen,
-        // reading_object.gecerli_zarf_sayisi:          req.body.kayitli_secmen,
-        // reading_object.itirazsiz_gecerli_oy:         req.body.kayitli_secmen,
-        // reading_object.itirazli_gecerli_oy:          req.body.kayitli_secmen,
-        // reading_object.gecerli_oy:                   req.body.kayitli_secmen,
-        // reading_object.gecersiz_oy:                  req.body.kayitli_secmen,
-        // reading_object.toplam_gecerli_oy:            req.body.kayitli_secmen,
-
-        // candidate object for reading
-        // {
-        //   id: ObjectId,       // Candidate.id
-        //   party: String,
-        //   person: String,
-        //   type: String,       // sandık türü
-        //   votes: Number
-        // }
+        reading_object.evidence                     =   evidence._id;
+        reading_object.kayitli_secmen               =   req.body.kayitli_secmen
+        reading_object.oy_kullanan_secmen           =   req.body.oy_kullanan_secmen
+        reading_object.kanunen_oy_kullanan_secmen   =   req.body.kanunen_oy_kullanan_secmen
+        reading_object.toplam_oy_kullanan_secmen    =   req.body.toplam_oy_kullanan_secmen
+        reading_object.sandiktan_cikan_zarf_sayisi  =   req.body.sandiktan_cikan_zarf_sayisi
+        reading_object.gecerli_zarf_sayisi          =   req.body.gecerli_zarf_sayisi
+        reading_object.itirazsiz_gecerli_oy         =   req.body.itirazsiz_gecerli_oy
+        reading_object.itirazli_gecerli_oy          =   req.body.itirazli_gecerli_oy
+        reading_object.gecerli_oy                   =   req.body.gecerli_oy
+        reading_object.gecersiz_oy                  =   req.body.gecersiz_oy
+        reading_object.toplam_gecerli_oy            =   req.body.toplam_gecerli_oy
 
         // Add Candidates
         var evidence_reading = new Reading(reading_object);
         for(var k =0; k < candidates.length; k++) {
-          evidence_reading.results.push({_id    :   candidates[k]._id,
+          evidence_reading.results.push(
+                                  {_id    :   candidates[k]._id,
                                     party  :   candidates[k].party,
                                     person :   candidates[k].person,
                                     type   :   candidates[k].type,
                                     votes  :   req.body.adaylar[0][k]
                                   })
-        } //for 
+        } // end for adding candidates
 
+          //save reading
           evidence_reading.save(function(err,reading) {
 
                  console.log("reading:" + reading);
-                 res.send("aha");
+
+                 //push reading into evidence array
+                 evidence.readings.push({id: reading.id, flag: 0, resolved: true});
+                 //save updated evidence
+                 evidence.save(function(err, evidence){
+                        //show city results
+                        res.redirect('/results/city/' + evidence.city);
+                 })
+                 
 
           }); 
     });

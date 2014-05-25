@@ -1,0 +1,59 @@
+<!-- Results Activity Feed/ -->
+
+<div class="row ">
+  <div class="col-xs-11">
+    <h1>
+      <%= title %>
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<!-- Results Cities -->
+<% for(var k=0; k< veri.cities.length; k++) {%>
+  <div class="row">
+      <div class="col-xs-1">
+          <h2><%= veri.cities[k].name %></h2>
+      </div>
+       <div class="col-xs-10 col-xs-offset-1">
+          <h2>Sehir Sonuc</h2>
+      </div>
+  </div>
+  <!-- Results Districts -->
+  <div class="row result-city">
+      <div class="col-xs-11 col-xs-offset-1">
+        <% for(var j=0; j< veri.cities[k].districts.length; j++) {%>
+            <div class="row">
+              <div class="col-xs-1">
+                  <h4><%= veri.cities[k].districts[j].name %></h4>
+              </div>
+               <div class="col-xs-10 col-xs-offset-1">
+                  <h4>Ilce Sonuc</h4>
+              </div>
+            </div>
+
+              <!-- Results Ballots -->
+              <div class="row">
+                  <div class="col-xs-11 col-xs-offset-1">
+                    <% for(var z=0; z< veri.cities[k].districts[j].boxes.length; z++) {%>
+                        <div class="row result-row">
+                          <div class="col-xs-1">
+                              <%= veri.cities[k].districts[j].boxes[z] %>
+                          </div>
+                           <div class="col-xs-10 col-xs-offset-1">
+                             Box Sonuc
+                          </div>
+                        </div>
+                        
+                    <% } %>
+                  </div>
+              </div>
+
+        <% } %>
+      </div>
+  </div>
+<% } %>
+
+
+

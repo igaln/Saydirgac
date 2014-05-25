@@ -15,13 +15,13 @@ require('./models/candidate');
 require('./models/evidence');
 require('./models/reading');
 
-
 //INIT ROUTES
 var routes              = require('./routes/index');
 var users               = require('./routes/users');
 var evidence_router     = require('./routes/evidence')
 var box_router          = require('./routes/box')
 var reading_router      = require('./routes/reading')
+var results_router      = require('./routes/results')
 
 // INIT EXPRESS ENGINE & PROPERTIES
 var app = express();
@@ -48,12 +48,13 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// SETUP PATHS
+// SETUP URL PATHS
 app.use('/', routes);
 app.use('/users', users);
 app.use('/evidences', evidence_router);
 app.use('/boxes', box_router);
 app.use('/readings',reading_router);
+app.use('/results',results_router);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

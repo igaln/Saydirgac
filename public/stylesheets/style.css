@@ -32,7 +32,6 @@ a {
   cursor: inherit;
   display: block;
 }
-<<<<<<< HEAD
 .tutanak-form {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -40,5 +39,11 @@ a {
 .tutanak-label {
   font-size: 12px;
 }
-=======
->>>>>>> 833312ceb7b4c179a17f4932afbff643c6c48f9a
+.result-row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.result-city {
+  border: gray 2px solid;
+  background-color: #EEEEEE;
+}
