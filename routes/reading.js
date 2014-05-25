@@ -10,6 +10,10 @@ var mongoose  = require('mongoose');
 var Box       = mongoose.model('Box');
 var Evidence  = mongoose.model('Evidence');
 var Reading   = mongoose.model('Reading')
+var Candidate = mongoose.model('Candidate')
+
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 
 // index
@@ -25,23 +29,26 @@ router.get('/', function(req, res) {
 
 });
 
-
 // new reading
 // GET /readings/new
 router.get('/:evidence_id/new', function(req, res) {
 
-var config =  req.app.get('config');
+  var config =  req.app.get('config');
 
+  // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
-    res.render('reading_buyuksehir_new', {
-      title: 'Tutanak Oku',
-      evidence:evidence,
-      s3path: config.s3URL + config.s3Path
+      
+    // find all candidates related to the ballot on the evidence and send to template
+    Candidate.find({city:evidence.city,district:evidence.district}, function(err, candidates) {
+        res.render('reading_buyuksehir_new', {
+          title: 'Tutanak Oku',
+          evidence:evidence,
+          candidates:candidates,
+          s3path: config.s3URL + config.s3Path
+        });
     });
   });
-
 });
-
 
 // show
 // GET /readings/1/reading
@@ -54,6 +61,62 @@ router.get('/:id/reading', function(req, res) {
     });
   });
 
+});
+
+// POST /readings
+router.post('/', multipartMiddleware,function(req, res) {
+
+  console.log(req.body);
+  Evidence.findById(req.body.evidence_id, function (err, evidence) {
+     if (err) return handleError(err);
+
+      var reading_object = {};
+
+    Candidate.find({city:evidence.city,district:evidence.district}, function(err, candidates) {
+      
+        // Basic Totals from Ballot
+        reading_object.evidence                     =   evidence._id;
+        reading_object.kayitli_secmen               =   req.body.kayitli_secmen
+        reading_object.oy_kullanan_secmen           =   req.body.oy_kullanan_secmen
+        reading_object.kanunen_oy_kullanan_secmen   =   req.body.kanunen_oy_kullanan_secmen
+        reading_object.toplam_oy_kullanan_secmen    =   req.body.toplam_oy_kullanan_secmen
+        reading_object.sandiktan_cikan_zarf_sayisi  =   req.body.sandiktan_cikan_zarf_sayisi
+        reading_object.gecerli_zarf_sayisi          =   req.body.gecerli_zarf_sayisi
+        reading_object.itirazsiz_gecerli_oy         =   req.body.itirazsiz_gecerli_oy
+        reading_object.itirazli_gecerli_oy          =   req.body.itirazli_gecerli_oy
+        reading_object.gecerli_oy                   =   req.body.gecerli_oy
+        reading_object.gecersiz_oy                  =   req.body.gecersiz_oy
+        reading_object.toplam_gecerli_oy            =   req.body.toplam_gecerli_oy
+
+        // Add Candidates
+        var evidence_reading = new Reading(reading_object);
+        for(var k =0; k < candidates.length; k++) {
+          evidence_reading.results.push(
+                                  {_id    :   candidates[k]._id,
+                                    party  :   candidates[k].party,
+                                    person :   candidates[k].person,
+                                    type   :   candidates[k].type,
+                                    votes  :   req.body.adaylar[0][k]
+                                  })
+        } // end for adding candidates
+
+          //save reading
+          evidence_reading.save(function(err,reading) {
+
+                 console.log("reading:" + reading);
+
+                 //push reading into evidence array
+                 evidence.readings.push({id: reading.id, flag: 0, resolved: true});
+                 //save updated evidence
+                 evidence.save(function(err, evidence){
+                        //show city results
+                        res.redirect('/results/city/' + evidence.city);
+                 })
+                 
+
+          }); 
+    });
+  })
 });
 
 // update

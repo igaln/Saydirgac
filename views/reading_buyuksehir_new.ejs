@@ -33,7 +33,7 @@
    </div>
     <div class="col-xs-5">
          <a href="/readings/<%= evidence._id %>/new">
-           <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="FLAG"/></a>
+           <input type="submit" class="btn btn-default btn-danger btn-lg btn-block" value="FLAG (show da olmali)"/></a>
     </div>
 </div>
 
@@ -44,271 +44,148 @@
 </div>
 <hr>
 
-<form role="form" id="evidence_edit" class="form-horizontal" action="" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<form role="form" id="evidence_edit" class="form-horizontal" action="/readings" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
-<div class="row" style="border:1px solid black;">
-	<div class="col-xs-4">
+ <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
+
+<div class="row" >
+	<div class="col-xs-6">
  		<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+			<div class="col-xs-12">
+	    		<h4>Veriler</h4>
 	    	</div>
 	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	   	<div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label ">
+	    		Kayıtlı Seçmen:
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="kayitli_secmen" val=0>
 	    	</div>
 	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(1) Oy Kullanan Kayıtlı Seçmen:
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="oy_kullanan_secmen" val=0>
 	    	</div>
 	    </div>
-	     <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(2) Kanun Gereği Oy Kullanan:
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="kanunen_oy_kullanan_secmen" val=0>
 	    	</div>
 	    </div>
-	    	<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	     <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(3) Kullanılan Toplam Oy:
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="toplam_oy_kullanan_secmen" val=0>
 	    	</div>
 	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(4) Sandiktan Cikan Zarf Sayisi
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="sandiktan_cikan_zarf_sayisi" val=0>
 	    	</div>
 	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(6) Gecerli Zarf Sayisi:
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="gecerli_zarf_sayisi" val=0>
 	    	</div>
 	    </div>
-	     <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	     <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(7) İtirazsız Geçerli Oy:
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		<input type="number" class="form-control input-sm" name="itirazsiz_gecerli_oy" val=0>
+	    	</div>
+	    </div>
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(8) İtirazlı Geçerli Oy:
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" name="itirazli_gecerli_oy" val=0>
+	    	</div>
+	    </div>
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(9) Geçerli Oy:
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" name="gecerli_oy" val=0>
+	    	</div>
+	    </div>
+	    <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(15) Geçersiz Oy:
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" name="gecersiz_oy" val=0>
+	    	</div>
+	    </div>
+	     <div class="row tutanak-form">
+ 			<div class="col-xs-9 tutanak-label">
+	    		(15) Toplam Geçerli Oy:
+	    	</div>
+	    	<div class="col-xs-3">
+	    		<input type="number" class="form-control input-sm" name="toplam_gecerli_oy" val=0>
 	    	</div>
 	    </div>
 	</div>
- 	<div class="col-xs-4">
- 		<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+ 	<div class="col-xs-6">
+		<div class="row">
+			<div class="col-xs-12">
+	    		<h4>Adaylar</h4>	
 	    	</div>
 	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+		<div class="row">
+			<div class="col-xs-4">
+	    		Partiiii 
+	    	</div>
+ 			<div class="col-xs-5">
+	    		Aday Isim
 	    	</div>
 	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    		Oy SAYISI
 	    	</div>
 	    </div>
 	    	<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+			<div class="col-xs-12">
+	    		<hr>
 	    	</div>
 	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
+	     <% for(var k=0; k< candidates.length; k++) {%>
+		<div class="row">
+			<div class="col-xs-4 tutanak-label">
+	    		<%= candidates[k].party %>
 	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+ 			<div class="col-xs-5 tutanak-label">
+	    		<%= candidates[k].person %>
 	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
+	    	<div class="col-xs-3 tutanak-form">
+	    		<input type="number" class="form-control input-sm" name="adaylar[]" value=0>
 	    	</div>
 	    </div>
-	</div>
- 	<div class="col-xs-4">
- 		<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	     		<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	     		<div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	    <div class="row">
- 			<div class="col-xs-9">
-	    		ssssssssssssssss
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
+	     <% } %>
 	</div>
 </div>
-
-<div class="row" style="border:1px solid black;">
-	<div class="col-xs-6">
-			<div class="row">
-			<div class="col-xs-12">
-	    		<h4>Siyasi Parti Adaylari</h4>
-	    		
-	    	</div>
-	    </div>
-		<div class="row">
-			<div class="col-xs-4">
-	    		Aday Ismi Label
-	    	</div>
- 			<div class="col-xs-5">
-	    		Parti Ismi Label
-	    	</div>
-	    	<div class="col-xs-3">
-	    		Oy SAYISI
-	    	</div>
-	    </div>
-	    	<div class="row">
-			<div class="col-xs-12">
-	    		<hr>
-	    	</div>
-	    </div>
-		<div class="row">
-			<div class="col-xs-4">
-	    		Aday Ismi
-	    	</div>
- 			<div class="col-xs-5">
-	    		Parti Ismi
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	</div>
-	<div class="col-xs-6">
-			<div class="row">
-			<div class="col-xs-12">
-	    		<h4>Bagimsiz  Adaylari</h4>
-	    	</div>
-	    </div>
-		<div class="row">
-			<div class="col-xs-4">
-	    		Aday Ismi Label
-	    	</div>
- 			<div class="col-xs-5">
-	    		Parti Ismi Label
-	    	</div>
-	    	<div class="col-xs-3">
-	    		Oy SAYISI
-	    	</div>
-	    </div>
-	    	<div class="row">
-			<div class="col-xs-12">
-	    		<hr>
-	    	</div>
-	    </div>
-		<div class="row">
-			<div class="col-xs-4">
-	    		Aday Ismi
-	    	</div>
- 			<div class="col-xs-5">
-	    		Parti Ismi
-	    	</div>
-	    	<div class="col-xs-3">
-	    		<input type="number" class="form-control input-sm" id="in001" placeholder=0>
-	    	</div>
-	    </div>
-	</div>
+<div class="row">
+  <div class="col-xs-12">
+        
+           <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="EKLE"/>
+    </div>
 </div>
 
 </form>

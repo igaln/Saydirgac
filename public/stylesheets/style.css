@@ -32,3 +32,18 @@ a {
   cursor: inherit;
   display: block;
 }
+.tutanak-form {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.tutanak-label {
+  font-size: 12px;
+}
+.result-row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.result-city {
+  border: gray 2px solid;
+  background-color: #EEEEEE;
+}
