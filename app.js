@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
-
 //LOAD MODELS
 require('./models/event');
 require('./models/box');
@@ -19,6 +18,7 @@ require('./models/reading');
 var routes              = require('./routes/index');
 var users               = require('./routes/users');
 var evidence_router     = require('./routes/evidence')
+var candidate_router    = require('./routes/candidate')
 var box_router          = require('./routes/box')
 var reading_router      = require('./routes/reading')
 var results_router      = require('./routes/results')
@@ -52,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/evidences', evidence_router);
+app.use('/candidates', candidate_router);
 app.use('/boxes', box_router);
 app.use('/readings',reading_router);
 app.use('/results',results_router);

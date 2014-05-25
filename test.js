@@ -11,18 +11,6 @@ var handleError = function(err){
 }
 var date = Date.now();
 
-var candidate_obj = { party: "Barış ve Demokrasi Partisi",
-                      person: "Murat rohat ÖZBAY",
-                      city: "Ağrı",
-                      district: "Doğubayazıt",
-                      type: "İL VE İLÇE BELEDİYE BAŞKANLIĞI"
-                    };
-
-new Candidate(candidate_obj).save(function(err, candidate, count) {
-  if (err) return handleError(err);
-  console.log("candidate %s created", candidate.id);
-});
-
 var event_obj = { name: "Türkiye 2014 Yerel Seçim Tekrarı, 1 Haziran 2014",
                   country: "Türkiye",
                   type: "Yerel Seçim Tekrarı",
@@ -32,6 +20,18 @@ var event_obj = { name: "Türkiye 2014 Yerel Seçim Tekrarı, 1 Haziran 2014",
 new Event(event_obj).save(function(err, event, count) {
   if (err) return handleError(err);
   console.log("event %s created", event.id);
+
+  // var candidate_obj = { party: "Barış ve Demokrasi Partisi",
+  //                       person: "Murat rohat ÖZBAY",
+  //                       city: "Ağrı",
+  //                       district: "Doğubayazıt",
+  //                       type: "İL VE İLÇE BELEDİYE BAŞKANLIĞI"
+  //                     };
+
+  // new Candidate(candidate_obj).save(function(err, candidate, count) {
+  //   if (err) return handleError(err);
+  //   console.log("candidate %s created", candidate.id);
+  // });
 
   var box_obj = { event: {id: event.id, name: event.name},
                   city: "Ağrı",

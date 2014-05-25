@@ -1,4 +1,3 @@
-
 {
   "development": {
     "mongoURI":"mongodb://newyork:newyork@oceanic.mongohq.com:10019/app25115492",

@@ -1,5 +1,5 @@
 /*
-    @igaln: Evidences REST Controller for basic evidence operations on the
+    Evidences REST Controller
     Model: models/evidence.js
     View: views/evidence_*.ejs
 */
@@ -14,10 +14,6 @@ var Box = mongoose.model('Box');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
-
-
-// @arikan: controller yapisi CRUD ve RESTFUL olacak şekilde duzenlendi (rails'ten de bilinen)
-// path /evidence yerine /evidences olabilir mi?
 
 // index
 // GET /evidences
@@ -177,7 +173,7 @@ router.post('/', multipartMiddleware, function(req, res) {
         } else {
 
           console.log("S3 uploaded, saving...");
-        
+
           Event.findById(req.body.event_id, function(err, event_result) {
             if (err) return handleError(err);
 
@@ -209,13 +205,13 @@ router.post('/', multipartMiddleware, function(req, res) {
               doc.district = req.body.district
               doc.no = req.body.no
               doc.type =req.body.type
-            
+
               doc.save(function(err, doc) {
                   if (err) return handleError(err);
-                  res.send(doc); 
+                  res.send(doc);
               });
         })
-    } //if 
+    } //if
 });
 
 // update

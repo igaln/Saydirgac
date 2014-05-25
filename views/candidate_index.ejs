@@ -1,0 +1,27 @@
+<!-- candidates/ -->
+<h1>
+  <%= title %>
+</h1>
+
+<table class="table">
+  <tr>
+    <th>İl</th>
+    <th>İlçe</th>
+    <th>Parti</th>
+    <th>Türü</th>
+    <th>Aday</th>
+    <th>Sivil Oy Sonucu</th>
+    <th>Resmi Oyu Sonucu</th>
+  </tr>
+  <% candidates.forEach( function(candidate){ %>
+  <tr>
+    <td><%= candidate.city %></td>
+    <td><%= candidate.district %></td>
+    <td><%= candidate.party %></td>
+    <td><%= candidate.type %></td>
+    <td><%= candidate.person %></td>
+    <td><%= candidate.vote ? candidate.vote : "" %></td>
+    <td><%= candidate.official_vote ? candidate.official_vote : "" %></td>
+  </tr>
+  <% }); %>
+</table>
