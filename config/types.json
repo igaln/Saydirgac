@@ -1,11 +1,10 @@
-{ 
-	"evidence": { 
+{
+	"evidence": {
 				"il_belediye_baskanligi" : "İl Belediye Başkanlığı Sonuç Tutanağı",
 				"ilce_belediye_baskanligi_belediye_meclis_uyeligi" : "İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı"
-				}
-
-	"candidate" {
-				"il_belediye_baskanligi" : "İl Belediye Başkanlığı",				
+				},
+	"candidate": {
+				"il_belediye_baskanligi" : "İl Belediye Başkanlığı",
 				"ilce_belediye_baskanligi" : "İlçe Belediye Başkanlığı",
 				"belediye_meclis_uyeligi" : "Belediye Meclis Üyeliği"
 	}
