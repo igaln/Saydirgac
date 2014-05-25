@@ -14,10 +14,15 @@ var Candidate = mongoose.model('Candidate');
 // GET /candidates
 router.get('/', function(req, res) {
 
+  var types =  require('../config/types.json');
+
+  console.log(types);
+
   Candidate.find(function(err, candidates){
     res.render('candidate_index', {
       title: 'Adaylar',
-      candidates: candidates
+      candidates: candidates,
+      candidate_types: types.candidate
     });
   });
 
