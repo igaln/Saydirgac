@@ -18,8 +18,18 @@
     <td><%= progress.type %></td>
     <td><%= progress.name %></td>
     <td><%= progress.box_count %></td>
-    <td><%= progress.evidence_count %> (<%= progress.evidence_count / progress.box_count %>)</td>
-    <td><%= progress.reading_count %> (<%= progress.reading_count / progress.box_count %>)</td>
+    <td>
+      <%= progress.evidence_count %>
+      <% if (progress.type != "Box"){ %>
+        (<%= progress.evidence_count / progress.box_count %>)
+      <% } %>
+    </td>
+    <td>
+      <%= progress.reading_count %>
+      <% if (progress.type != "Box"){ %>
+        (<%= progress.reading_count / progress.box_count %>)
+      <% } %>
+    </td>
     <td><%= progress.updated_at %></td>
   </tr>
   <% }); %>
