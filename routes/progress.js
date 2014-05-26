@@ -12,13 +12,19 @@ var Progress = mongoose.model('Progress');
 
 // index
 // GET /progress
-router.get('/', function(req, res) {
+router.get('/:format?', function(req, res) {
+
+  console.log(req.params);
 
   Progress.find(function(err, progresses){
-    res.render('progress_index', {
-      title: 'Durum',
-      progresses: progresses
-    });
+    if (req.params.format) {
+      res.json(progresses);
+    }else{
+      res.render('progress_index', {
+        title: 'Durum',
+        progresses: progresses
+      });
+    }
   });
 
 });
