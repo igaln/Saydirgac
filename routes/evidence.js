@@ -212,7 +212,7 @@ router.post('/', multipartMiddleware, function(req, res) {
               doc.no = req.body.no;
               doc.type =req.body.type;
 
-              Progress.find({$or:[{type:"City",id:doc.event +'_'+ doc.city},{type:"District",id:doc.city + '_' + doc.district},{type:"Event",name:doc.event},{type:"Box",name:doc.district + '_' + doc.no}]},function(err,progress_results){
+              Progress.find({$or:[{type:"City",id:doc.event +'_'+ doc.city},{type:"District",id:doc.city + '_' + doc.district},{type:"Event",id:doc.event},{type:"Box",id:doc.district + '_' + doc.no}]},function(err,progress_results){
 
                     progress_results.forEach(function(progress){
                         progress.evidence_count++;
