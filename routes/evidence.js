@@ -17,14 +17,17 @@ var multipartMiddleware = multipart();
 
 // index
 // GET /evidences
-router.get('/', function(req, res) {
+router.get('/:format?', function(req, res) {
 
-  console.log("Evidence Listesi")
   Evidence.find(function(err, evidences){
-    res.render('evidence_index', {
-      title: 'Tutanaklar',
-      evidences: evidences
-    });
+    if (req.params.format) {
+      res.json(evidences);
+    }else{
+      res.render('evidence_index', {
+        title: 'Tutanaklar',
+        evidences: evidences
+      });
+    }
   });
 });
 
