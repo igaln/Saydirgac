@@ -9,15 +9,18 @@ var mongoose = require('mongoose');
 
 //LOAD MODELS
 require('./models/event');
+require('./models/progress');
 require('./models/box');
 require('./models/candidate');
 require('./models/evidence');
 require('./models/reading');
 
+
 //INIT ROUTES
 var routes              = require('./routes/index');
 var users               = require('./routes/users');
 var evidence_router     = require('./routes/evidence')
+var progress_router     = require('./routes/progress')
 var candidate_router    = require('./routes/candidate')
 var box_router          = require('./routes/box')
 var reading_router      = require('./routes/reading')
@@ -53,6 +56,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/evidences', evidence_router);
 app.use('/candidates', candidate_router);
+app.use('/progress', progress_router);
 app.use('/boxes', box_router);
 app.use('/readings',reading_router);
 app.use('/results',results_router);

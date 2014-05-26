@@ -144,12 +144,12 @@ router.post('/', multipartMiddleware,function(req, res) {
   Evidence.findById(req.body.evidence_id, function (err, evidence) {
     if (err) return handleError(err);
 
-    if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') { 
+    if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
 
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
 
           var evidence_reading = new Reading({});
-    
+
           // Reading type and evidence
           evidence_reading.evidence                            =   evidence._id
           evidence_reading.type                                =   evidence.type   
@@ -167,7 +167,7 @@ router.post('/', multipartMiddleware,function(req, res) {
           evidence_reading.baskan_gecersiz_oy                  =   req.body.baskan_gecersiz_oy
           evidence_reading.baskan_toplam_gecerli_oy            =   req.body.baskan_toplam_gecerli_oy
           // Add Candidates
-          
+
            var input_counter = 0;
            candidates.forEach(function(candidate) {
 
@@ -199,7 +199,7 @@ router.post('/', multipartMiddleware,function(req, res) {
             evidence_reading.meclis_gecersiz_oy                  =   req.body.meclis_gecersiz_oy
             evidence_reading.meclis_toplam_gecerli_oy            =   req.body.meclis_toplam_gecerli_oy
 
-          
+
             var input_counter = 0;
             candidates.forEach(function(candidate) {
 
@@ -219,10 +219,10 @@ router.post('/', multipartMiddleware,function(req, res) {
                 input_counter++;
               }
            });  // end for adding candidates
-        
+
             //save reading
             evidence_reading.save(function(err,reading) {
-                  if (err) return handleError(err); 
+                  if (err) return handleError(err);
                    //push reading into evidence array
                    evidence.readings.push({id: reading.id, flag: 0, resolved: true});
                    //save updated evidence
@@ -236,9 +236,9 @@ router.post('/', multipartMiddleware,function(req, res) {
       }); //Candidate Query
 
     } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
-   
+
       Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
-          
+
           var evidence_reading = new Reading({});
 
            // Reading type and evidence
