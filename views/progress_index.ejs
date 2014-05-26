@@ -1,0 +1,26 @@
+<!-- progress/ -->
+
+<h1>
+  <%= title %>
+</h1>
+
+<table class="table">
+  <tr>
+    <th>Type</th>
+    <th>Name</th>
+    <th>Sandık Sayısı</th>
+    <th>Tutanak Sayısı (%)</th>
+    <th>Okuma Sayısı (%)</th>
+    <th>Güncelleme</th>
+  </tr>
+  <% progresses.forEach( function(progress){ %>
+  <tr>
+    <td><%= progress.type %></td>
+    <td><%= progress.name %></td>
+    <td><%= progress.box_count %></td>
+    <td><%= progress.evidence_count %> (<%= progress.evidence_count / progress.box_count %>)</td>
+    <td><%= progress.distinct_reading_count %> (<%= progress.distinct_reading_count / progress.box_count %>)</td>
+    <td><%= progress.updated_at %></td>
+  </tr>
+  <% }); %>
+</table>
