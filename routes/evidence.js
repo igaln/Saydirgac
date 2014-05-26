@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 var Evidence = mongoose.model('Evidence');
 var Event = mongoose.model('Event');
 var Box = mongoose.model('Box');
+var Progress = mongoose.model('Progress');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -51,9 +52,7 @@ router.get('/:id/evidence', function(req, res) {
 // GET /evidences/new
 router.get('/new', function(req, res) {
 
-  // @igaln: using the latest Event to pass to evidences
-  // this might not be the best practice moving forward,
-  // TODO: best to have a interface to match events with evidences.
+ var types =  require('../config/types.json');
 
   var options = {
     limit: 1,
@@ -70,7 +69,8 @@ router.get('/new', function(req, res) {
     if (events.length > 0)
       res.render('evidence_new', {
         title: 'Yeni tutanak kanıtı gir',
-        current_event: events[0]
+        current_event: events[0],
+        types:types
       });
     else
       res.send("Sorry, nothing is happening in the world.")
@@ -84,6 +84,7 @@ router.get('/:id/:edit', function(req, res) {
 
   var config =  req.app.get('config');
   var yskveri =  require('../config/event_data.json');
+  var types =  require('../config/types.json');
 
   if(req.params.edit === "edit") {
 
@@ -102,7 +103,8 @@ router.get('/:id/:edit', function(req, res) {
       res.render('evidence_show', {
         title: 'TUTANAK DETAYLARI',
         evidence: evidence,
-        s3path: config.s3URL + config.s3Path
+        s3path: config.s3URL + config.s3Path,
+        types:types
       });
     });
   }
@@ -186,6 +188,13 @@ router.post('/', multipartMiddleware, function(req, res) {
                    event_result.evidences.push(evidence._id);
                    event_result.save(function(err, result) {
                       if (err) return handleError(err);
+
+                      Progress.findOne({type:"event",name:event_result.name},function(err,progress){
+                            
+                            progress.evidence_count++;
+                            progress.save();
+                      });
+
                       res.redirect('/evidences/' + evidence.id + '/edit');
                    });
               });
@@ -208,6 +217,17 @@ router.post('/', multipartMiddleware, function(req, res) {
               doc.district = req.body.district
               doc.no = req.body.no
               doc.type =req.body.type
+
+
+              Progress.find({$or:[{type:"city",name:doc.city},{type:"district",name:doc.district}]},function(err,progress_results){
+
+                    progress_results.forEach(function(progress){
+
+                        progress.evidence_count++;
+                        progress.save();
+                    })
+
+              });
 
               doc.save(function(err, doc) {
                   if (err) return handleError(err);
