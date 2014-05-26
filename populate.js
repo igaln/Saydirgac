@@ -57,13 +57,15 @@ Event.remove({}, function(err) {
 var pop_progress = function(data, event){
 
   var objEvent = {type: "Event",
-                  name: event.id,
+                  id: event.id,
+                  name: event.name,
                   box_count: 0
                   };
 
   var cities = data.cities;
   for (var i = 0; i < cities.length; i++) {
     var objCity = { type: "City",
+                    id: event.id + "_" + cities[i].name,
                     name: cities[i].name,
                     box_count: 0
                   };
@@ -71,6 +73,7 @@ var pop_progress = function(data, event){
     var districts = cities[i].districts;
     for (var j = 0; j < districts.length; j++) {
       var objDistrict = { type: "District",
+                          id: cities[i].name + "_" + districts[j].name,
                           name: districts[j].name,
                           box_count: 0
                         };
@@ -89,6 +92,7 @@ var pop_progress = function(data, event){
 
       for (var no = boxes.from; no < boxes.to+1; no++) {
         var objBox ={ type: "Box",
+                      id: districts[j].name + "_" + no.toString(),
                       name: no.toString(),
                       box_count: 0
                     };
