@@ -32,21 +32,13 @@ var Reading = new Schema({
   meclis_toplam_gecerli_oy:            Number,
  
 
-  baskan_results:                    [{
-                                      id: ObjectId,       // Candidate.id
-                                      party: String,
-                                      person: String,
-                                      type: String,       // sandık türü
-                                      votes: Number
-                                    }],
+  baskan_results:                   { type : Array , "default" : [] },
 
-  meclis_results:                    [{
-                                      id: ObjectId,       // Candidate.id
-                                      party: String,
-                                      person: String,
-                                      type: String,       // sandık türü
-                                      votes: Number
-                                    }],
+
+
+  meclis_results:                    { type : Array , "default" : [] },
+
+
                               
   flag:                       {type: Number, default: 0},
   resolved:                   {type: Boolean, default: false},

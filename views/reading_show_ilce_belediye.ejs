@@ -1,0 +1,328 @@
+
+<div class="row">
+ <div class="col-xs-12">
+  <h4>
+    <%= title %>
+  </h4>
+</div>
+</div>
+<div class="row ">
+      <div class="col-xs-6">
+<table class="table table-condensed">
+    <tr>
+        <th scope="row">Sehir</th>
+        <td><%= evidence.city %></td>
+    </tr>
+    <tr>
+        <th scope="row">Ilce</th>
+        <td><%= evidence.district %></td>
+    </tr>
+     <tr>
+        <th scope="row">Sandik Numarasi</th>
+        <td><%= evidence.no %></td>
+    </tr>
+      <tr>
+        <th scope="row">Sandik Turu</th>
+        <td><%= evidence.type %></td>
+    </tr>
+      <tr>
+        <th scope="row"></th>
+        <td></td>
+    </tr>
+</table>
+   </div>
+    <div class="col-xs-5">
+         <a href="/readings/<%= evidence._id %>/new">
+           <input type="submit" class="btn btn-default btn-danger btn-lg btn-block" value="FLAG (show da olmali)"/></a>
+    </div>
+</div>
+
+<div class="row ">
+          <div class="col-xs-12">
+              <img src="<%=s3path + evidence.img %>" width="100%">
+          </div>
+</div>
+<hr>
+		
+<!-- ILCE -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#ilce" data-toggle="tab">İlçe Belediye Başkanlığı</a></li>
+  <li><a href="#belediye" data-toggle="tab">Belediye Meclis Üyeliği Sonuç Tutanağı</a></li>
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="ilce">
+		<!-- ILCE -->
+		<div class="row" >
+			<div class="col-xs-6">
+		 		<div class="row">
+					<div class="col-xs-12">
+			    		<h4>Veriler</h4>
+			    	</div>
+			    </div>
+			   	<div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label ">
+			    		Kayıtlı Seçmen:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_kayitli_secmen" value=<%= reading.baskan_kayitli_secmen %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(1) Oy Kullanan Kayıtlı Seçmen:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_oy_kullanan_secmen" value=<%= reading.baskan_oy_kullanan_secmen %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(2) Kanun Gereği Oy Kullanan:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_kanunen_oy_kullanan_secmen" value=<%= reading.baskan_kanunen_oy_kullanan_secmen %>>
+			    	</div>
+			    </div>
+			     <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(3) Kullanılan Toplam Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_toplam_oy_kullanan_secmen" value=<%= reading.baskan_toplam_oy_kullanan_secmen %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(4) Sandiktan Cikan Zarf Sayisi
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_sandiktan_cikan_zarf_sayisi" value=<%= reading.baskan_sandiktan_cikan_zarf_sayisi %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(6) Gecerli Zarf Sayisi:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_gecerli_zarf_sayisi" value=<%= reading.baskan_gecerli_zarf_sayisi %>>
+			    	</div>
+			    </div>
+			     <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(7) İtirazsız Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_itirazsiz_gecerli_oy" value=<%= reading.baskan_itirazsiz_gecerli_oy %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(8) İtirazlı Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_itirazli_gecerli_oy" value=<%= reading.baskan_itirazli_gecerli_oy %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(9) Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_gecerli_oy" value=<%= reading.baskan_gecerli_oy %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(15) Geçersiz Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_gecersiz_oy" value=<%= reading.baskan_gecersiz_oy %>>
+			    	</div>
+			    </div>
+			     <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(15) Toplam Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_toplam_gecerli_oy" value=<%= reading.baskan_toplam_gecerli_oy %>>
+			    	</div>
+			    </div>
+			</div>
+		 	<div class="col-xs-6">
+				<div class="row">
+					<div class="col-xs-12">
+			    		<h4>Adaylar</h4>	
+			    	</div>
+			    </div>
+				<div class="row">
+					<div class="col-xs-4">
+			    		Partiiii 
+			    	</div>
+		 			<div class="col-xs-5">
+			    		Aday Isim
+			    	</div>
+			    	<div class="col-xs-3">
+			    		Oy SAYISI
+			    	</div>
+			    </div>
+			    	<div class="row">
+					<div class="col-xs-12">
+			    		<hr>
+			    	</div>
+			    </div>
+			     <% for(var k=0; k< baskan_results.length; k++) {%>
+				<div class="row">
+					<div class="col-xs-4 tutanak-label">
+			    		<%= baskan_results[k].party %>
+			    	</div>
+		 			<div class="col-xs-5 tutanak-label">
+			    		<%= baskan_results[k].person %>
+			    	</div>
+			    	<div class="col-xs-3 tutanak-form">
+			    		<input type="number" class="form-control input-sm" disabled name="baskan_adaylar[]" value=<%= baskan_results[k].votes %>>
+			    	</div>
+			    </div>
+			     <% } %>
+			</div>
+		</div>
+		</div> <!-- ILCE -->
+	<div class="tab-pane active" id="belediye" style='background-color:#EEEEEE;'>
+
+		<!-- BElEDIYE MECLIS -->
+
+		<div class="row" >
+			<div class="col-xs-6">
+		 		<div class="row">
+					<div class="col-xs-12">
+			    		<h4>Veriler</h4>
+			    	</div>
+			    </div>
+			   	<div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label ">
+			    		Kayıtlı Seçmen:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_kayitli_secmen" value=<%= reading.meclis_kayitli_secmen %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(1) Oy Kullanan Kayıtlı Seçmen:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_oy_kullanan_secmen" value=<%= reading.meclis_oy_kullanan_secmen %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(2) Kanun Gereği Oy Kullanan:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_kanunen_oy_kullanan_secmen" value=<%= reading.meclis_kanunen_oy_kullanan_secmen %>>
+			    	</div>
+			    </div>
+			     <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(3) Kullanılan Toplam Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_toplam_oy_kullanan_secmen" value=<%= reading.meclis_toplam_oy_kullanan_secmen %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(4) Sandiktan Cikan Zarf Sayisi
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_sandiktan_cikan_zarf_sayisi" value=<%= reading.meclis_sandiktan_cikan_zarf_sayisi %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(6) Gecerli Zarf Sayisi:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_gecerli_zarf_sayisi" value=<%= reading.meclis_gecerli_zarf_sayisi %>>
+			    	</div>
+			    </div>
+			     <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(7) İtirazsız Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_itirazsiz_gecerli_oy" value=<%= reading.meclis_itirazsiz_gecerli_oy %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(8) İtirazlı Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_itirazli_gecerli_oy" value=<%= reading.meclis_itirazli_gecerli_oy %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(9) Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_gecerli_oy" value=<%= reading.meclis_gecerli_oy %>>
+			    	</div>
+			    </div>
+			    <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(15) Geçersiz Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_gecersiz_oy" value=<%= reading.meclis_gecersiz_oy %>>
+			    	</div>
+			    </div>
+			     <div class="row tutanak-form">
+		 			<div class="col-xs-9 tutanak-label">
+			    		(15) Toplam Geçerli Oy:
+			    	</div>
+			    	<div class="col-xs-3">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_toplam_gecerli_oy" value=<%= reading.meclis_toplam_gecerli_oy %>>
+			    	</div>
+			    </div>
+			</div>
+		 	<div class="col-xs-6">
+				<div class="row">
+					<div class="col-xs-12">
+			    		<h4>Adaylar</h4>	
+			    	</div>
+			    </div>
+				<div class="row">
+					<div class="col-xs-4">
+			    		Partiiii 
+			    	</div>
+		 			<div class="col-xs-5">
+			    		Aday Isim
+			    	</div>
+			    	<div class="col-xs-3">
+			    		Oy SAYISI
+			    	</div>
+			    </div>
+			    	<div class="row">
+					<div class="col-xs-12">
+			    		<hr>
+			    	</div>
+			    </div>
+			     <% for(var k=0; k< meclis_results.length; k++) {%>
+				<div class="row">
+					<div class="col-xs-4 tutanak-label">
+			    		<%= meclis_results[k].party %>
+			    	</div>
+		 			<div class="col-xs-5 tutanak-label">
+			    		<%= meclis_results[k].person %>
+			    	</div>
+			    	<div class="col-xs-3 tutanak-form">
+			    		<input type="number" class="form-control input-sm" disabled name="meclis_adaylar[]" value=<%= meclis_results[k].votes %>>
+			    	</div>
+			    </div>
+			     <% } %>
+			</div>
+		</div>
+	</div> <!-- BELEDIYE -->
+

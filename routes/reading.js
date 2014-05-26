@@ -38,32 +38,34 @@ router.get('/:evidence_id/new', function(req, res) {
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-  if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
+    if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
 
-    // find all candidates related to the ballot on the evidence and send to template
-    Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
-        console.log(candidates);
+      // find all candidates related to the ballot on the evidence and send to template
+      Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
+          console.log(candidates);
 
-        res.render('reading_new_ilce_belediye', {
-          title: 'Tutanak Oku',
-          evidence:evidence,
-          candidates:candidates,
-          s3path: config.s3URL + config.s3Path
-        });
-    }); // Candidate Query
+          res.render('reading_new_ilce_belediye', {
+            title: 'Tutanak Oku',
+            evidence:evidence,
+            candidates:candidates,
+            s3path: config.s3URL + config.s3Path
+          });
+      }); // Candidate Query
 
-  } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
-     // find all candidates related to the ballot on the evidence and send to template
-    Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
-        res.render('reading_new_buyuksehir', {
-          title: 'Tutanak Oku',
-          evidence:evidence,
-          candidates:candidates,
-          s3path: config.s3URL + config.s3Path
-        });
-    }); // Candidate Query
-  }
+    } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
+
+       // find all candidates related to the ballot on the evidence and send to template
+      Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
+          res.render('reading_new_buyuksehir', {
+            title: 'Tutanak Oku',
+            evidence:evidence,
+            candidates:candidates,
+            s3path: config.s3URL + config.s3Path
+          });
+      }); // Candidate Query
+    }
   });
+
 });
 
 // show
@@ -74,6 +76,62 @@ router.get('/:id/reading', function(req, res) {
       title: 'Okunan no ' + req.params.id,
       reading: reading
     });
+  });
+});
+
+
+// show
+// GET /readings/1/reading
+router.get('/:city/:district/:no/:type', function(req, res) {
+  
+  var config =  req.app.get('config');
+  var types =  require('../config/types.json');
+
+  //find Reading
+  Evidence.findOne({city:req.params.city,district:req.params.district,no:req.params.no,type:req.params.type},function(err, evidence) {
+
+
+    if(!evidence) {
+        // NO EVIDENCE ASK FOR ONE
+    }
+
+    if(evidence.readings.length > 0) {
+
+      Reading.findById(evidence.readings[0].id,function(err,reading){
+
+            if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
+
+              res.render('reading_show_ilce_belediye', {
+                title: 'Tutanak Oku',
+                evidence:evidence,
+                reading:reading,
+                baskan_results:reading.baskan_results,
+                meclis_results:reading.meclis_results,
+                s3path: config.s3URL + config.s3Path
+              });
+               
+            } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
+              
+              //console.log(reading.baskan_results);
+
+              reading.baskan_results.forEach(function(res) {
+                  console.log(res.person);
+              })
+
+              res.render('reading_show_buyuksehir', {
+                title: 'Tutanak Goster',
+                evidence:evidence,
+                reading:reading,
+                baskan_results:reading.baskan_results,
+                s3path: config.s3URL + config.s3Path
+              });
+            }
+      });
+    } else {
+
+        //NO READING, ASK TO READ
+
+    }
   });
 });
 
@@ -92,9 +150,11 @@ router.post('/', multipartMiddleware,function(req, res) {
 
           var evidence_reading = new Reading({});
     
-          // Basic Totals from Ballot
+          // Reading type and evidence
           evidence_reading.evidence                            =   evidence._id
-          evidence_reading.type                                =   evidence.type    
+          evidence_reading.type                                =   evidence.type   
+
+          // Totals Begin 
           evidence_reading.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
           evidence_reading.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
           evidence_reading.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
@@ -116,7 +176,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                 candidate.vote = req.body.baskan_adaylar[0][input_counter];
                 candidate.save();
                 evidence_reading.baskan_results.push(
-                                         {_id    :   candidate._id,
+                                         {id    :   candidate._id,
                                           party  :   candidate.party,
                                           person :   candidate.person,
                                           type   :   candidate.type,
@@ -150,7 +210,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                 console.log(req.body.meclis_adaylar[0][input_counter]);
                 candidate.save();
                 evidence_reading.baskan_results.push(
-                                         {_id    :   candidate._id,
+                                         {id    :   candidate._id,
                                           party  :   candidate.party,
                                           person :   candidate.person,
                                           type   :   candidate.type,
@@ -168,7 +228,8 @@ router.post('/', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
                           //show city results
-                          res.redirect('/results/city/' + evidence.city);
+                          res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
+                         
                    });
             });
 
@@ -180,9 +241,11 @@ router.post('/', multipartMiddleware,function(req, res) {
           
           var evidence_reading = new Reading({});
 
-          // Basic Totals from Ballot
+           // Reading type and evidence
           evidence_reading.evidence                            =   evidence._id
           evidence_reading.type                                =   evidence.type    
+
+          // Total Begin
           evidence_reading.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
           evidence_reading.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
           evidence_reading.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
@@ -203,7 +266,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                 candidate.vote = req.body.baskan_adaylar[0][input_counter];
                 candidate.save();
                 evidence_reading.baskan_results.push(
-                                         {_id    :   candidate._id,
+                                         {id    :   candidate._id,
                                           party  :   candidate.party,
                                           person :   candidate.person,
                                           type   :   candidate.type,
@@ -223,7 +286,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
                           //show city results
-                          res.redirect('/results/city/' + evidence.city);
+                          res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    })
             });
       }); //Candidate Query

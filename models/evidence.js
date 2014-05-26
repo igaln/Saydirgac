@@ -7,6 +7,7 @@ var mongoose = require('mongoose')
 // var Reading = require('./reading');
 
 var Evidence = new Schema({
+
   event:                {type: ObjectId, ref: 'Event'},
   img:                  {type: String, default: ''},
   city:                 {type: String, default: '', index: true},
@@ -19,6 +20,7 @@ var Evidence = new Schema({
   readings:             [{id: ObjectId, flag: Number, resolved: Boolean}],
   created_at:           {type: Date, default: Date.now},
   updated_at:           {type: Date, default: Date.now}
+  
 });
 
 module.exports = mongoose.model('Evidence', Evidence);
