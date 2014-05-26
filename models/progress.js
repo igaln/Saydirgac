@@ -4,7 +4,8 @@ var mongoose = require('mongoose')
 
 var Progress = new Schema({
   type:                     {type: String, required: true, index: true}, // event, city, district, no
-  name:                     {type: String, required: true, index: true},
+  id:                       {type: String, required: true, index: true},        // event_city, city_district, district_no
+  name:                     {type: String},
   box_count:                {type: Number, required: true},
   evidence_count:           {type: Number, default: 0},
   distinct_reading_count:   {type: Number, default: 0},                 // has to be distinct reading
