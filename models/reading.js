@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 var Reading = new Schema({
 
   evidence:                   { type : Schema.ObjectId, ref : 'Evidence' },
-  type:                                Number,
+  type:                                String,
   
   baskan_kayitli_secmen:               Number,
   baskan_oy_kullanan_secmen:           Number,
