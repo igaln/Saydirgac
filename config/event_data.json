@@ -1,4 +1,7 @@
-{
+{ "event": {"name":"Türkiye 2014 Yerel Seçim Tekrarı, 1 Haziran 2014",
+						"country":"Türkiye",
+						"type":"Yerel Seçim Tekrarı",
+						"startdate":""},
 	"cities": [
 		{
 			"name": "Ağrı",

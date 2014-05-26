@@ -76,7 +76,7 @@ router.get('/new', function(req, res) {
 router.get('/:id/:edit', function(req, res) {
 
   var config =  req.app.get('config');
-  var yskveri =  require('../config/cities_districts.json');
+  var yskveri =  require('../config/event_data.json');
 
   if(req.params.edit === "edit") {
 

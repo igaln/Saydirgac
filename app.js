@@ -9,10 +9,12 @@ var mongoose = require('mongoose');
 
 //LOAD MODELS
 require('./models/event');
+require('./models/progress');
 require('./models/box');
 require('./models/candidate');
 require('./models/evidence');
 require('./models/reading');
+
 
 //INIT ROUTES
 var routes              = require('./routes/index');

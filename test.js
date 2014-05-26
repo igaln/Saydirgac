@@ -1,4 +1,4 @@
-require("./app")
+require("./app");
 var mongoose  = require('mongoose');
 var Event     = mongoose.model('Event');
 var Box       = mongoose.model('Box');
@@ -9,15 +9,8 @@ var Candidate = mongoose.model('Candidate');
 var handleError = function(err){
   console.log(err);
 }
-var date = Date.now();
 
-var event_obj = { name: "Türkiye 2014 Yerel Seçim Tekrarı, 1 Haziran 2014",
-                  country: "Türkiye",
-                  type: "Yerel Seçim Tekrarı",
-                  start_date: date
-                };
-
-new Event(event_obj).save(function(err, event, count) {
+Event.find(function(err, events){
   if (err) return handleError(err);
   console.log("event %s created", event.id);
 

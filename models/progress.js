@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.Types.ObjectId;
 
-var progress = new Schema({
+var Progress = new Schema({
   type:                     {type: String, required: true, index: true}, // event, city, district, no, type
   name:                     {type: String, required: true, index: true},
   box_count:                {type: Number, required: true},
@@ -12,4 +12,4 @@ var progress = new Schema({
   updated_at:               {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Progress', progress);
+module.exports = mongoose.model('Progress', Progress);

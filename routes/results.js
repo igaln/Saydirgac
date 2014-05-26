@@ -1,5 +1,5 @@
 /*
-    @igal 
+    @igal
     Displaying results at different data points.
     Model: models/results.js
     View: views/boxes_*.ejs
@@ -21,7 +21,7 @@ var multipartMiddleware = multipart();
 // GET /boxes
 router.get('/', function(req, res) {
 
-  var yskveri =  require('../config/cities_districts.json');
+  var yskveri =  require('../config/event_data.json');
 
     res.render('results_index', {
       title: 'SONUCLAR',
@@ -49,7 +49,7 @@ router.get('/reduced', function(req, res) {
   if(err) throw err;
 
       var config =  req.app.get('config');
-      var yskveri =  require('../config/cities_districts.json');
+      var yskveri =  require('../config/event_data.json');
       var boxes = [];
 
       for(var k=0; k< yskveri.cities.length; k++) {
@@ -106,17 +106,17 @@ router.get('/reduced', function(req, res) {
 // GET /city/Ağrı
 router.get('/city/:name', function(req, res) {
 
- Evidence.aggregate(  
-    { $match: {city: req.params.name} }, 
+ Evidence.aggregate(
+    { $match: {city: req.params.name} },
     function (err, evidence) {
         if(err){
-            return res.send(500, { error: err }); 
+            return res.send(500, { error: err });
         }
 
         if(evidence) {
             return res.send(evidence);
         } else {
-            res.send(500, { error: 'couldnt find evidence' }); 
+            res.send(500, { error: 'couldnt find evidence' });
         }
     }
 );
@@ -127,17 +127,17 @@ router.get('/city/:name', function(req, res) {
 // GET /district/Diyadin
 router.get('/district/:name', function(req, res) {
 
- Evidence.aggregate(  
-    { $match: {district: req.params.name} }, 
+ Evidence.aggregate(
+    { $match: {district: req.params.name} },
     function (err, evidence) {
         if(err){
-            return res.send(500, { error: err }); 
+            return res.send(500, { error: err });
         }
 
         if(evidence) {
             return res.send(evidence);
         } else {
-            res.send(500, { error: 'couldnt find evidence' }); 
+            res.send(500, { error: 'couldnt find evidence' });
         }
     }
 );
@@ -148,17 +148,17 @@ router.get('/district/:name', function(req, res) {
 // GET /Ağrı/Diyadin/2
 router.get('/:city/:district/:no', function(req, res) {
 
- Evidence.aggregate(  
-    { $match: {district:req.params.district,city:req.params.city,no:req.params.no} }, 
+ Evidence.aggregate(
+    { $match: {district:req.params.district,city:req.params.city,no:req.params.no} },
     function (err, evidence) {
         if(err){
-            return res.send(500, { error: err }); 
+            return res.send(500, { error: err });
         }
 
         if(evidence) {
             return res.send(evidence);
         } else {
-            res.send(500, { error: 'couldnt find expenses' }); 
+            res.send(500, { error: 'couldnt find expenses' });
         }
     }
 );

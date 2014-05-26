@@ -63,7 +63,7 @@ router.get('/:id/reading', function(req, res) {
 // POST /readings
 router.post('/', multipartMiddleware,function(req, res) {
 
-  var types =  require('../config/cities_districts.json');
+  var types =  require('../config/event_data.json');
 
   Evidence.findById(req.body.evidence_id, function (err, evidence) {
      if (err) return handleError(err);
