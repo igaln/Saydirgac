@@ -34,10 +34,14 @@ router.get('/:format?', function(req, res) {
 // show
 // GET /evidences/1
 router.get('/:id/evidence', function(req, res) {
+
+  var types =  require('../config/types.json');
+
   Evidence.findById(req.params.id, function(err, evidence) {
     res.render('evidence_show', {
       title: 'Tutanak ' + req.params.id,
-      evidence: evidence
+      evidence: evidence,
+      types:types
     });
   });
 

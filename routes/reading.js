@@ -48,7 +48,8 @@ router.get('/:evidence_id/new', function(req, res) {
             title: 'Tutanak Oku',
             evidence:evidence,
             candidates:candidates,
-            s3path: config.s3URL + config.s3Path
+            s3path: config.s3URL + config.s3Path,
+             types:types
           });
       }); // Candidate Query
 
@@ -60,7 +61,8 @@ router.get('/:evidence_id/new', function(req, res) {
             title: 'Tutanak Oku',
             evidence:evidence,
             candidates:candidates,
-            s3path: config.s3URL + config.s3Path
+            s3path: config.s3URL + config.s3Path,
+            types:types
           });
       }); // Candidate Query
     }
@@ -107,7 +109,8 @@ router.get('/:city/:district/:no/:type', function(req, res) {
                 reading:reading,
                 baskan_results:reading.baskan_results,
                 meclis_results:reading.meclis_results,
-                s3path: config.s3URL + config.s3Path
+                s3path: config.s3URL + config.s3Path,
+                types:types
               });
                
             } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
@@ -123,7 +126,8 @@ router.get('/:city/:district/:no/:type', function(req, res) {
                 evidence:evidence,
                 reading:reading,
                 baskan_results:reading.baskan_results,
-                s3path: config.s3URL + config.s3Path
+                s3path: config.s3URL + config.s3Path,
+                 types:types
               });
             }
       });
