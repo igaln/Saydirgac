@@ -9,8 +9,9 @@ var mongoose  = require('mongoose');
 
 var Box       = mongoose.model('Box');
 var Evidence  = mongoose.model('Evidence');
-var Reading   = mongoose.model('Reading')
-var Candidate = mongoose.model('Candidate')
+var Reading   = mongoose.model('Reading');
+var Candidate = mongoose.model('Candidate');
+var Progress  = mongoose.model('Progress');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -132,9 +133,7 @@ router.get('/:city/:district/:no/:type', function(req, res) {
             }
       });
     } else {
-
         //NO READING, ASK TO READ
-
     }
   });
 });
@@ -190,18 +189,18 @@ router.post('/', multipartMiddleware,function(req, res) {
               }
            });  // end for adding candidates
 
-            // Belediye Meclis Uyeleri
-            evidence_reading.meclis_kayitli_secmen               =   req.body.meclis_kayitli_secmen
-            evidence_reading.meclis_oy_kullanan_secmen           =   req.body.meclis_oy_kullanan_secmen
-            evidence_reading.meclis_kanunen_oy_kullanan_secmen   =   req.body.meclis_kanunen_oy_kullanan_secmen
-            evidence_reading.meclis_toplam_oy_kullanan_secmen    =   req.body.meclis_toplam_oy_kullanan_secmen
-            evidence_reading.meclis_sandiktan_cikan_zarf_sayisi  =   req.body.meclis_sandiktan_cikan_zarf_sayisi
-            evidence_reading.meclis_gecerli_zarf_sayisi          =   req.body.meclis_gecerli_zarf_sayisi
-            evidence_reading.meclis_itirazsiz_gecerli_oy         =   req.body.meclis_itirazsiz_gecerli_oy
-            evidence_reading.meclis_itirazli_gecerli_oy          =   req.body.meclis_itirazli_gecerli_oy
-            evidence_reading.meclis_gecerli_oy                   =   req.body.meclis_gecerli_oy
-            evidence_reading.meclis_gecersiz_oy                  =   req.body.meclis_gecersiz_oy
-            evidence_reading.meclis_toplam_gecerli_oy            =   req.body.meclis_toplam_gecerli_oy
+          // Belediye Meclis Uyeleri
+          evidence_reading.meclis_kayitli_secmen               =   req.body.meclis_kayitli_secmen
+          evidence_reading.meclis_oy_kullanan_secmen           =   req.body.meclis_oy_kullanan_secmen
+          evidence_reading.meclis_kanunen_oy_kullanan_secmen   =   req.body.meclis_kanunen_oy_kullanan_secmen
+          evidence_reading.meclis_toplam_oy_kullanan_secmen    =   req.body.meclis_toplam_oy_kullanan_secmen
+          evidence_reading.meclis_sandiktan_cikan_zarf_sayisi  =   req.body.meclis_sandiktan_cikan_zarf_sayisi
+          evidence_reading.meclis_gecerli_zarf_sayisi          =   req.body.meclis_gecerli_zarf_sayisi
+          evidence_reading.meclis_itirazsiz_gecerli_oy         =   req.body.meclis_itirazsiz_gecerli_oy
+          evidence_reading.meclis_itirazli_gecerli_oy          =   req.body.meclis_itirazli_gecerli_oy
+          evidence_reading.meclis_gecerli_oy                   =   req.body.meclis_gecerli_oy
+          evidence_reading.meclis_gecersiz_oy                  =   req.body.meclis_gecersiz_oy
+          evidence_reading.meclis_toplam_gecerli_oy            =   req.body.meclis_toplam_gecerli_oy
 
 
             var input_counter = 0;
@@ -210,8 +209,6 @@ router.post('/', multipartMiddleware,function(req, res) {
               if(candidate.type == "belediye_meclis_uyeligi") {
 
                 candidate.vote = req.body.meclis_adaylar[0][input_counter];
-                console.log("candidate " + candidate);
-                console.log(req.body.meclis_adaylar[0][input_counter]);
                 candidate.save();
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
@@ -231,7 +228,16 @@ router.post('/', multipartMiddleware,function(req, res) {
                    evidence.readings.push({id: reading.id, flag: 0, resolved: true});
                    //save updated evidence
                    evidence.save(function(err, evidence){
-                          //show city results
+                          
+
+                          Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
+
+                                progress_results.forEach(function(progress){
+                                    progress.reading_count++;
+                                    progress.save();
+                                })
+                          });
+
                           res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                          
                    });
@@ -289,7 +295,14 @@ router.post('/', multipartMiddleware,function(req, res) {
                    evidence.readings.push({id: reading.id, flag: 0, resolved: true});
                    //save updated evidence
                    evidence.save(function(err, evidence){
-                          //show city results
+                          
+                          Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
+
+                                progress_results.forEach(function(progress){
+                                    progress.reading_count++;
+                                    progress.save();
+                                })
+                          });
                           res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    })
             });
