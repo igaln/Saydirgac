@@ -189,11 +189,6 @@ router.post('/', multipartMiddleware, function(req, res) {
                    event_result.save(function(err, result) {
                       if (err) return handleError(err);
 
-                      Progress.findOne({type:"Event",name:event_result.id},function(err,progress){
-                            progress.evidence_count++;
-                            progress.save();
-                      });
-
                       res.redirect('/evidences/' + evidence.id + '/edit');
                    });
               });
@@ -212,19 +207,17 @@ router.post('/', multipartMiddleware, function(req, res) {
         Evidence.findOne({_id:req.body.event_id}, function (err, doc) {
            if (err) return handleError(err);
 
-              doc.city = req.body.city
-              doc.district = req.body.district
-              doc.no = req.body.no
-              doc.type =req.body.type
+              doc.city = req.body.city;
+              doc.district = req.body.district;
+              doc.no = req.body.no;
+              doc.type =req.body.type;
 
-
-              Progress.find({$or:[{type:"City",name:doc.city},{type:"District",name:doc.district}]},function(err,progress_results){
+              Progress.find({$or:[{type:"City",id:doc.event +'_'+ doc.city},{type:"District",id:doc.city + '_' + doc.district},{type:"Event",name:doc.event},{type:"Box",name:doc.district + '_' + doc.no}]},function(err,progress_results){
 
                     progress_results.forEach(function(progress){
                         progress.evidence_count++;
                         progress.save();
                     })
-
               });
 
               doc.save(function(err, doc) {
