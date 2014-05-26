@@ -32,25 +32,3 @@ Evidence.post('validate', function (doc) {
     }
     // console.log(doc);
 });
-
-
-// @arikan: adding an evidence to a box on save, this should be tested
-
-// var Box = mongoose.model('Box');
-
-// Evidence.post('save', function (evidence) {
-
-//     Box.find({id: evidence.box.id}, function(err, boxes) {
-//       if (err) return handleError(err);
-//       var box = boxes[0];
-//       box.evidences.push(evidence);
-
-//       box.save(function(err, result) {
-//         if (err) return handleError(err);
-//         console.log("evidence %s saved", evidence.id);
-//       });
-//     });
-
-//     console.log('%s has been saved', evidence._id);
-// });
-

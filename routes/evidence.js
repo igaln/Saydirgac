@@ -222,6 +222,8 @@ router.post('/', multipartMiddleware, function(req, res) {
 
               doc.save(function(err, doc) {
                   if (err) return handleError(err);
+
+                  console.log("saved evidence");
                   res.send(doc);
               });
         })

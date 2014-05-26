@@ -43,7 +43,7 @@ router.get('/:evidence_id/new', function(req, res) {
 
       // find all candidates related to the ballot on the evidence and send to template
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
-          console.log(candidates);
+         
 
           res.render('reading_new_ilce_belediye', {
             title: 'Tutanak Oku',
@@ -90,9 +90,11 @@ router.get('/:city/:district/:no/:type', function(req, res) {
   var config =  req.app.get('config');
   var types =  require('../config/types.json');
 
+  console.log("omg");
   //find Reading
   Evidence.findOne({city:req.params.city,district:req.params.district,no:req.params.no,type:req.params.type},function(err, evidence) {
 
+    console.log(evidence);
 
     if(!evidence) {
         // NO EVIDENCE ASK FOR ONE
@@ -152,7 +154,6 @@ router.post('/', multipartMiddleware,function(req, res) {
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
 
           var evidence_reading = new Reading({});
-
           // Reading type and evidence
           evidence_reading.evidence                            =   evidence._id
           evidence_reading.type                                =   evidence.type   
@@ -202,7 +203,6 @@ router.post('/', multipartMiddleware,function(req, res) {
           evidence_reading.meclis_gecersiz_oy                  =   req.body.meclis_gecersiz_oy
           evidence_reading.meclis_toplam_gecerli_oy            =   req.body.meclis_toplam_gecerli_oy
 
-
             var input_counter = 0;
             candidates.forEach(function(candidate) {
 
@@ -237,12 +237,9 @@ router.post('/', multipartMiddleware,function(req, res) {
                                     progress.save();
                                 })
                           });
-
-                          res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
-                         
+                          res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);          
                    });
             });
-
       }); //Candidate Query
 
     } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
@@ -296,6 +293,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
                           
+
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
@@ -303,6 +301,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                                     progress.save();
                                 })
                           });
+
                           res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    })
             });
