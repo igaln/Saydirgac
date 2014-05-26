@@ -9,6 +9,7 @@ var Progress = new Schema({
   box_count:                {type: Number, required: true},
   evidence_count:           {type: Number, default: 0},
   reading_count:            {type: Number, default: 0},                 // has to be distinct reading
+  flag_count:               {type: Number, default: 0},
   created_at:               {type: Date, default: Date.now},
   updated_at:               {type: Date, default: Date.now}
 });
