@@ -38,9 +38,8 @@ router.get('/:evidence_id/new', function(req, res) {
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-  console.log(types.evidence[evidence.type]);
-
   if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
+
     // find all candidates related to the ballot on the evidence and send to template
     Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
         console.log(candidates);
@@ -82,7 +81,7 @@ router.get('/:id/reading', function(req, res) {
 // POST /readings
 router.post('/', multipartMiddleware,function(req, res) {
 
-  var types =  require('../config/types.json');
+  var types =  require('../config/cities_districts.json');
 
   Evidence.findById(req.body.evidence_id, function (err, evidence) {
     if (err) return handleError(err);
@@ -91,7 +90,6 @@ router.post('/', multipartMiddleware,function(req, res) {
 
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
 
-  
           var evidence_reading = new Reading({});
         
           // Basic Totals from Ballot
@@ -178,11 +176,12 @@ router.post('/', multipartMiddleware,function(req, res) {
                           //show city results
                           res.redirect('/results/city/' + evidence.city);
                    })
-                   
+
 
             });
 
       }); //Candidate Query
+
     } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
    
       Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
@@ -223,7 +222,6 @@ router.post('/', multipartMiddleware,function(req, res) {
             });  // end for adding candidates
 
             var evidence_reading = new Reading(evidence_reading);
-          
             //save reading
             evidence_reading.save(function(err,reading) {
                    if (err) return handleError(err);
@@ -237,7 +235,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    })
             });
       }); //Candidate Query
-    } // if/else end for evidence type 
+    } // if/else end for evidence type
   }); //Evidence Query
 });
 

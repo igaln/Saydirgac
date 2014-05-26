@@ -73,32 +73,46 @@
          // Parse cities
          var cities = election_data.cities
          $.each(election_data.cities, function(key, value){
-                  $("#city").append('<option value="'+key+'">'+value.name+'</option>');
+              $("#city").append('<option value="'+key+'">'+value.name+'</option>');
          });
 
          $( "#city" ).change(function() {
 
-               // clear other values
-              $("#district" ).empty();
-              $("#no" ).empty();
-               // parse districts for the selected value
+              // clear other values
+              $("#district").empty();
+              $("#no").empty();
 
+              // parse districts for the selected value
               if(cities[$("#city").val()]) {
-                var districts = cities[$("#city").val()].districts
+                var districts = cities[$("#city").val()].districts;
                 $.each(districts, function(key, value){
                      $("#district").append('<option value="'+key+'">'+value.name+'</option>');
                 });
               }
+
+              $("#no").append('<option>Sandık seç</option>');
+              var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes;
+              for (var i = boxes.from; i < boxes.to+1; i++) {
+                $("#no").append('<option value="'+i+'">'+i+'</option>');
+              };
+
          });
 
          $( "#district" ).change(function() {
-                console.log($("#district").val());
-                $("#no" ).empty();
-                 // parse districts for the selected value
-               var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes
-               $.each(boxes, function(key, value){
-                     $("#no").append('<option value="'+key+'">'+value+'</option>');
-               });
+              // console.log($("#district").val());
+              $("#no" ).empty();
+
+              $("#no").append('<option value="">Sandık seçiniz</option>');
+              var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes;
+              for (var i = boxes.from; i < boxes.to+1; i++) {
+                $("#no").append('<option value="'+i+'">'+i+'</option>');
+              };
+
+              // parse districts for the selected value
+              // var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes
+              // $.each(boxes, function(key, value){
+              //     $("#no").append('<option value="'+key+'">'+value+'</option>');
+              // });
          });
 
     $('#evidence_edit').bootstrapValidator({
