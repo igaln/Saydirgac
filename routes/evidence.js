@@ -189,8 +189,7 @@ router.post('/', multipartMiddleware, function(req, res) {
                    event_result.save(function(err, result) {
                       if (err) return handleError(err);
 
-                      Progress.findOne({type:"event",name:event_result.name},function(err,progress){
-                            
+                      Progress.findOne({type:"Event",name:event_result.id},function(err,progress){
                             progress.evidence_count++;
                             progress.save();
                       });
@@ -219,10 +218,9 @@ router.post('/', multipartMiddleware, function(req, res) {
               doc.type =req.body.type
 
 
-              Progress.find({$or:[{type:"city",name:doc.city},{type:"district",name:doc.district}]},function(err,progress_results){
+              Progress.find({$or:[{type:"City",name:doc.city},{type:"District",name:doc.district}]},function(err,progress_results){
 
                     progress_results.forEach(function(progress){
-
                         progress.evidence_count++;
                         progress.save();
                     })

@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
    ,ObjectId = Schema.Types.ObjectId;
 
 var Progress = new Schema({
-  type:                     {type: String, required: true, index: true}, // event, city, district, no, type
+  type:                     {type: String, required: true, index: true}, // event, city, district, no
   name:                     {type: String, required: true, index: true},
   box_count:                {type: Number, required: true},
   evidence_count:           {type: Number, default: 0},

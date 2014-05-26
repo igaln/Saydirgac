@@ -23,10 +23,10 @@ var data = require("./config/event_data.json");
 var date = Date.now();
 
 var obj = { name: data.event.name,
-                  country: data.event.country,
-                  type: data.event.type,
-                  start_date: date
-                };
+            country: data.event.country,
+            type: data.event.type,
+            start_date: date
+          };
 
 Event.remove({}, function(err) {
   if (err) return handleError(err);
@@ -47,30 +47,30 @@ Event.remove({}, function(err) {
     Progress.remove({}, function(err) {
       if (err) return handleError(err);
       console.log("Progress collection removed");
-      pop_progress(data);
+      pop_progress(data, event);
     });
 
   });
 });
 
 
-var pop_progress = function(data){
+var pop_progress = function(data, event){
 
-  var objEvent = {type: "event",
-                  name: data.event.name,
+  var objEvent = {type: "Event",
+                  name: event.id,
                   box_count: 0
                   };
 
   var cities = data.cities;
   for (var i = 0; i < cities.length; i++) {
-    var objCity = { type: "city",
+    var objCity = { type: "City",
                     name: cities[i].name,
                     box_count: 0
                   };
 
     var districts = cities[i].districts;
     for (var j = 0; j < districts.length; j++) {
-      var objDistrict = { type: "district",
+      var objDistrict = { type: "District",
                           name: districts[j].name,
                           box_count: 0
                         };
@@ -86,13 +86,17 @@ var pop_progress = function(data){
           console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name + " " + progress.box_count + " boxes");
         });
       }
-      // we don't count at the box level:
-      // for (var no = boxes.from; no < boxes.to+1; no++) {
-      //   var objBox ={ type: "box",
-      //                 name: no.toString(),
-      //                 box_count: 0
-      //               };
-      // }
+
+      for (var no = boxes.from; no < boxes.to+1; no++) {
+        var objBox ={ type: "Box",
+                      name: no.toString(),
+                      box_count: 0
+                    };
+        new Progress(objBox).save(function(err, progress) {
+          if (err) return handleError(err);
+          console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name);
+        });
+      }
     }
 
     new Progress(objCity).save(function(err, progress) {
