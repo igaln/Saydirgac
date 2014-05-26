@@ -81,7 +81,7 @@ router.get('/:id/reading', function(req, res) {
 // POST /readings
 router.post('/', multipartMiddleware,function(req, res) {
 
-  var types =  require('../config/cities_districts.json');
+  var types =  require('../config/types.json');
 
   Evidence.findById(req.body.evidence_id, function (err, evidence) {
     if (err) return handleError(err);
@@ -91,7 +91,7 @@ router.post('/', multipartMiddleware,function(req, res) {
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
 
           var evidence_reading = new Reading({});
-        
+    
           // Basic Totals from Ballot
           evidence_reading.evidence                            =   evidence._id
           evidence_reading.type                                =   evidence.type    
@@ -122,10 +122,8 @@ router.post('/', multipartMiddleware,function(req, res) {
                                           type   :   candidate.type,
                                           votes  :   req.body.baskan_adaylar[0][input_counter]
                                         });
-
                 input_counter++;
               }
-
            });  // end for adding candidates
 
             // Belediye Meclis Uyeleri
@@ -141,14 +139,11 @@ router.post('/', multipartMiddleware,function(req, res) {
             evidence_reading.meclis_gecersiz_oy                  =   req.body.meclis_gecersiz_oy
             evidence_reading.meclis_toplam_gecerli_oy            =   req.body.meclis_toplam_gecerli_oy
 
-            
-
+          
             var input_counter = 0;
-
             candidates.forEach(function(candidate) {
 
               if(candidate.type == "belediye_meclis_uyeligi") {
-
 
                 candidate.vote = req.body.meclis_adaylar[0][input_counter];
                 console.log("candidate " + candidate);
@@ -161,7 +156,6 @@ router.post('/', multipartMiddleware,function(req, res) {
                                           type   :   candidate.type,
                                           votes  :   req.body.meclis_adaylar[0][input_counter]
                                         });
-
                 input_counter++;
               }
            });  // end for adding candidates
@@ -175,9 +169,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    evidence.save(function(err, evidence){
                           //show city results
                           res.redirect('/results/city/' + evidence.city);
-                   })
-
-
+                   });
             });
 
       }); //Candidate Query
