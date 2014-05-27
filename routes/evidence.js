@@ -68,7 +68,7 @@ router.get('/new', function(req, res) {
     // we have to have at least 1 event to add evidences to
     if (events.length > 0)
       res.render('evidence_new', {
-        title: 'Yeni tutanak kanıtı gir',
+        title: 'Tutanak kanıtı gir',
         current_event: events[0],
         types:types
       });

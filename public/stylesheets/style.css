@@ -129,6 +129,7 @@ a {
 .btn-file {
   position: relative;
   overflow: hidden;
+  margin: 20px 0 40px 0;
 }
 .btn-file input[type=file] {
   position: absolute;
@@ -145,12 +146,18 @@ a {
   cursor: inherit;
   display: block;
 }
+.btn-block {
+  margin: 20px 0 40px 0;
+}
 .tutanak-form {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 .tutanak-label {
   font-size: 12px;
+}
+img.tutanak {
+  margin-bottom: 20px;
 }
 .result-row {
   margin-top: 5px;
