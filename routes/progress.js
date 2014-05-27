@@ -14,8 +14,6 @@ var Progress = mongoose.model('Progress');
 // GET /progress
 router.get('/:format?', function(req, res) {
 
-  console.log(req.params);
-
   Progress.find(function(err, progresses){
     if (req.params.format) {
       res.json(progresses);
