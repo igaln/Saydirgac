@@ -13,9 +13,15 @@ body {
   margin-right: auto;
   width: 300px;
 }
-.credit {
+.credit, .license {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
+}
+.license {
+  margin: 0px 0 20px 0;
+}
+.license img {
+  width:20px;
 }
 .steps {
   margin-top: 20px;
@@ -29,7 +35,7 @@ header {
 }
 header .container {
   padding-top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
 header img {
   display: block;
@@ -75,7 +81,7 @@ footer h3 {
   margin-bottom: 30px;
 }
 footer .footer-above {
-  padding-top: 70px;
+  padding-top: 20px;
 }
 footer .footer-below {
   padding: 25px 0;
