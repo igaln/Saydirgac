@@ -90,7 +90,7 @@ router.get('/:id/:edit', function(req, res) {
 
     Evidence.findById(req.params.id, function(err, evidence) {
       res.render('evidence_edit', {
-        title: 'TUTANAK DETAYLARINI GIR',
+        title: 'Tutanak Detaylarını Gir',
         evidence: evidence,
         s3path: config.s3URL + config.s3Path,
         yskveri: JSON.stringify(yskveri)
