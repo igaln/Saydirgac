@@ -140,9 +140,34 @@ router.get('/:city/:district/:no/:type', function(req, res) {
   });
 });
 
+// POST /flag
+router.post('/flag',function(req,res){
+
+    Reading.findById(req.body.reading_id,function(err,reading) {
+
+          reading.flag++;
+
+          res.send(reading.flag);
+
+    })
+
+});
+
+
+router.get('/flagged',function(req,res){
+
+    Reading.findById(req.body.reading_id,function(err,flagged_readings) {
+
+    })
+
+});
+
 
 // POST /readings
 router.post('/', multipartMiddleware,function(req, res) {
+
+
+  req.body.evidence_id
 
   var types =  require('../config/types.json');
 
