@@ -43,7 +43,7 @@ router.get('/:evidence_id/new', function(req, res) {
 
       // find all candidates related to the ballot on the evidence and send to template
       Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
-         
+
 
           res.render('reading_new_ilce_belediye', {
             title: 'Tutanak Oku',
@@ -86,7 +86,7 @@ router.get('/:id/reading', function(req, res) {
 // show
 // GET /readings/1/reading
 router.get('/:city/:district/:no/:type', function(req, res) {
-  
+
   var config =  req.app.get('config');
   var types =  require('../config/types.json');
 
@@ -115,9 +115,9 @@ router.get('/:city/:district/:no/:type', function(req, res) {
                 s3path: config.s3URL + config.s3Path,
                 types:types
               });
-               
+
             } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
-              
+
               //console.log(reading.baskan_results);
 
               reading.baskan_results.forEach(function(res) {
@@ -181,9 +181,9 @@ router.post('/', multipartMiddleware,function(req, res) {
           var evidence_reading = new Reading({});
           // Reading type and evidence
           evidence_reading.evidence                            =   evidence._id
-          evidence_reading.type                                =   evidence.type   
+          evidence_reading.type                                =   evidence.type
 
-          // Totals Begin 
+          // Totals Begin
           evidence_reading.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
           evidence_reading.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
           evidence_reading.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
@@ -253,7 +253,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    evidence.readings.push({id: reading.id, flag: 0, resolved: true});
                    //save updated evidence
                    evidence.save(function(err, evidence){
-                          
+
 
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
@@ -262,7 +262,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                                     progress.save();
                                 })
                           });
-                          res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);          
+                          res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    });
             });
       }); //Candidate Query
@@ -275,7 +275,7 @@ router.post('/', multipartMiddleware,function(req, res) {
 
            // Reading type and evidence
           evidence_reading.evidence                            =   evidence._id
-          evidence_reading.type                                =   evidence.type    
+          evidence_reading.type                                =   evidence.type
 
           // Total Begin
           evidence_reading.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
@@ -317,7 +317,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    evidence.readings.push({id: reading.id, flag: 0, resolved: true});
                    //save updated evidence
                    evidence.save(function(err, evidence){
-                          
+
 
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 

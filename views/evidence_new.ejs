@@ -1,27 +1,25 @@
-<!-- evidences/new -->
-
-<div class="row">
+<div class="row text-center">
    <div class="col-sm-12">
-      <h3>
-       <%= current_event.name %>
+      <h3 class="title">
+        <%= current_event.name %>
       </h3>
   </div>
 </div>
-<div class="row">
+
+<!-- <div class="row text-center">
    <div class="col-xs-12">
       <h4>
         <%= title %>
       </h4>
   </div>
 </div>
-
+ -->
 <form id="tutanak" role="form" action="/evidences" method="post" accept-charset="utf-8" enctype="multipart/form-data">
   <input type="hidden" id="event_id" name="event_id" value="<%= current_event._id %>"/>
-  <span class="file-input btn btn-block btn-primary btn-file">
-         Tutanak fotoğrafı <input type="file" id="files" name="image">
+  <span class="file-input btn btn-lg btn-block btn-primary btn-file">
+    Tutanak fotoğrafı yükle<input type="file" id="files" name="image">
   </span>
 </form>
-
 
  <script type="text/javascript">
     $(document).ready(function(){
@@ -31,5 +29,4 @@
       });
 
     });
-
 </script>

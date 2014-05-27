@@ -1,8 +1,7 @@
 <!-- progress/ -->
-
-<h1>
+<h3 class="title">
   <%= title %>
-</h1>
+</h3>
 
 <table class="table">
   <tr>
@@ -15,7 +14,7 @@
   </tr>
   <% progresses.forEach( function(progress){ %>
   <tr>
-    <td><%= progress.type %></td>
+    <td lang="en"><%= progress.type %></td>
     <td><%= progress.name %></td>
     <td><%= progress.box_count %></td>
     <td>
@@ -30,7 +29,11 @@
         (<%= progress.reading_count / progress.box_count %>)
       <% } %>
     </td>
-    <td><%= progress.updated_at %></td>
+    <td>
+      <% var date = new Date(progress.updated_at); %>
+      <%= date.getHours() %>:<%= date.getMinutes() %>
+      <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
+    </td>
   </tr>
   <% }); %>
 </table>

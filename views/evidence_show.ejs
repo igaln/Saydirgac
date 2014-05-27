@@ -1,66 +1,70 @@
-<!-- evidences/show -->
 <div class="row ">
-          <div class="col-xs-11">
-<h1>
-  <%= title %>
-</h1>
-       </div>
+  <div class="col-xs-11">
+    <h3 class="title">
+      <%= title %>
+    </h3>
   </div>
-
-
-<div class="row ">
-      <div class="col-xs-6">
-<table class="table table-condensed">
-    <tr>
-        <th scope="row">Sehir</th>
-        <td><%= evidence.city %></td>
-    </tr>
-    <tr>
-        <th scope="row">Ilce</th>
-        <td><%= evidence.district %></td>
-    </tr>
-     <tr>
-        <th scope="row">Sandik Numarasi</th>
-        <td><%= evidence.no %></td>
-    </tr>
-      <tr>
-        <th scope="row">Sandik Turu</th>
-        <td><%= types.evidence[evidence.type]  %></td>
-    </tr>
-      <tr>
-        <th scope="row"></th>
-        <td><%= evidence.created_at %></td>
-    </tr>
-</table>
-
-   </div>
-    <div class="col-xs-5">
-         <a href="/readings/<%= evidence._id %>/new">
-           <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="TUTANAK OKU"/></a>
-    </div>
 </div>
 
-<div class="row ">
-          <div class="col-xs-11">
-              <img src="<%=s3path + evidence.img %>" width="100%">
-          </div>
+<div class="row">
+  <div class="col-xs-6">
+    <table class="table table-condensed">
+      <tr>
+        <th scope="row">İl</th>
+        <td><%= evidence.city %></td>
+      </tr>
+      <tr>
+        <th scope="row">İlçe</th>
+        <td><%= evidence.district %></td>
+      </tr>
+      <tr>
+        <th scope="row">Sandık No</th>
+        <td><%= evidence.no %></td>
+      </tr>
+      <tr>
+        <th scope="row">Tutanak Türü</th>
+        <td><%= types.evidence[evidence.type]  %></td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td>
+          <% var date = new Date(evidence.created_at); %>
+          <em>
+          <%= date.getHours() %>:<%= date.getMinutes() %>
+          <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
+          tarihinde eklenmiştir
+          </em>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-xs-5">
+   <a href="/readings/<%= evidence._id %>/new">
+     <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="TUTANAK OKU"/></a>
+   </div>
+ </div>
+
+ <div class="row ">
+  <div class="col-xs-11">
+    <img src="<%=s3path + evidence.img %>" width="100%">
+  </div>
 </div>
 <br>
 
 <div class="row ">
-          <div class="col-xs-4">
-          		 <%- link_to("Twitter", "twitter.com") %>
-          </div>
-           <div class="col-xs-4">
-           		 <%- link_to("Facebook", "facebook.com") %>
-          </div>
-           <div class="col-xs-4">
-           		 <%- link_to("email", "mailto:") %>
-          </div>
+  <div class="col-xs-12">
+    <!-- Paylaş:-->
+    <!-- <%- link_to("Twitter", "twitter.com") %> -->
+    <!-- <%- link_to("Facebook", "facebook.com") %> -->
+    <!-- <%- link_to("email", "mailto:") %>-->
+  </div>
 </div>
-<hr>
-<div class="row ">
-	<div class="col-xs-4 col-xs-offset-8">
-  <%- link_to("Tutanaklar", "/evidences") %>
-</div>
+
+<!-- <hr> -->
+
+<div class="row">
+	<div class="col-xs-12">
+    <%- link_to("Tüm Tutanaklar", "/evidences") %>
+  </div>
 </div>

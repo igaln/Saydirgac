@@ -68,7 +68,7 @@ router.get('/new', function(req, res) {
     // we have to have at least 1 event to add evidences to
     if (events.length > 0)
       res.render('evidence_new', {
-        title: 'Yeni tutanak kanıtı gir',
+        title: 'Tutanak kanıtı gir',
         current_event: events[0],
         types:types
       });
@@ -90,7 +90,7 @@ router.get('/:id/:edit', function(req, res) {
 
     Evidence.findById(req.params.id, function(err, evidence) {
       res.render('evidence_edit', {
-        title: 'TUTANAK DETAYLARINI GIR',
+        title: 'Tutanak Detaylarını Gir',
         evidence: evidence,
         s3path: config.s3URL + config.s3Path,
         yskveri: JSON.stringify(yskveri)
