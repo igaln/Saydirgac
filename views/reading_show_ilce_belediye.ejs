@@ -32,8 +32,9 @@
 </table>
    </div>
     <div class="col-xs-5">
-         <a href="/readings/<%= evidence._id %>/new">
-           <input type="submit" class="btn btn-default btn-danger btn-lg btn-block" value="FLAG (show da olmali)"/></a>
+ 		<form role="form" id="flag" class="form-horizontal" action="/flag" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+           <input type="submit" class="btn btn-default btn-danger btn-lg btn-block" value="FLAG"/></a>
+        </form>
     </div>
 </div>
 

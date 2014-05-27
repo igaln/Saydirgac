@@ -129,11 +129,11 @@ router.get('/:city/:district/:boxno/:type', function(req, res) {
   var config =  req.app.get('config');
 
   Evidence.findOne(evidence_key, function(err, evidence) {
-   res.render('evidence_show', {
-        title: 'TUTANAK DETAYLARI',
-        evidence: evidence,
-        s3path: config.s3URL + config.s3Path
-  });
+         res.render('evidence_show', {
+              title: 'TUTANAK DETAYLARI',
+              evidence: evidence,
+              s3path: config.s3URL + config.s3Path
+        });
   });
 
 });
