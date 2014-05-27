@@ -22,7 +22,8 @@
     "ejs": "~0.8.5",
     "less-middleware": "0.1.15",
     "mongoose" : "3.6.13",
-    "aws-sdk": "*"
+    "aws-sdk": "*",
+    "mailchimp": "1.1.0"
   }
 }
 
