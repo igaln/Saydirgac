@@ -52,6 +52,9 @@ header .intro-text .skills {
     padding-bottom: 0px;
   }
 }
+h3.title {
+  text-transform: uppercase;
+}
 .btn-outline {
   margin-top: 15px;
   border: solid 2px #fff;
@@ -166,4 +169,10 @@ img.tutanak {
 .result-city {
   border: gray 2px solid;
   background-color: #EEEEEE;
+}
+.license {
+  margin-bottom: 20px;
+}
+.license img {
+  width: 24px;
 }
