@@ -39,10 +39,17 @@ https://devcenter.heroku.com/articles/git
 
 #### Heroku Setup Intructions
 <ul>
-<li>1) Install Heroku CLI https://devcenter.heroku.com/articles/heroku-command</li>
-<li>2) Autheticate with Heroku, >heroku login</li>
-<li>3) Add git remotes to your repository:
-for ex:  git remote add herokudev git@heroku.com:saydirac-dev.git </li>
+<li>Install Heroku CLI https://devcenter.heroku.com/articles/heroku-command</li>
+<li>Autheticate with Heroku, 
+```
+	> heroku login
+```</li>
+<li>Add git remotes to your repository:
+```
+> git remote add herokudev git@heroku.com:saydirac-dev.git
+> git push herokudev master
+```
+ </li>
 </ul>
 
 #### Dev: 			
