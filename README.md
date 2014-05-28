@@ -53,13 +53,13 @@ https://devcenter.heroku.com/articles/git
 
 
 #### Dev: 			
-URL: http://saydirac-dev.herokuapp.com/
-Git Remote: git@heroku.com:saydirac.git
+URL: 			http://saydirac-dev.herokuapp.com/ <br>
+Git Remote: 	git@heroku.com:saydirac.git
 
 #### Production: 
 
-URL: http://saydirac.herokuapp.com
-Git Remote: git@heroku.com:saydirac-dev.git
+URL: 			http://saydirac.herokuapp.com <br>
+Git Remote: 	git@heroku.com:saydirac-dev.git
 
 
 #### Console
