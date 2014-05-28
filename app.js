@@ -32,7 +32,8 @@ require('express-helpers')(app);
 var expressLayouts = require('express-ejs-layouts')
 
 // Application configiration according to environment
-var config = require('./config/environment.json')[app.get('env')];
+console.log("LOG: environment ", process.env.env);
+var config = require('./config/environment.json')[process.env.env];
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
