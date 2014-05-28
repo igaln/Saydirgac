@@ -27,6 +27,32 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 > node bin/www
 ```
 
+#### Setup Environment 
+(add to shell or use local)
+>export env=development
+
+### Deployment
+
+Heroku Account and permissions are required for deployment.
+For more details on heroku git deployment:
+https://devcenter.heroku.com/articles/git
+
+#### Heroku Setup Intructions
+1) Install Heroku CLI https://devcenter.heroku.com/articles/heroku-command
+2) Autheticate with Heroku, >heroku login
+3) Add git remotes to your repository: 
+for ex:  git remote add herokudev git@heroku.com:saydirac-dev.git
+
+#### Dev: 			
+URL: http://saydirac-dev.herokuapp.com/
+Git Remote: git@heroku.com:saydirac.git
+
+#### Production: 
+
+URL: http://saydirac.herokuapp.com
+Git Remote: git@heroku.com:saydirac-dev.git
+
+
 #### Console
 
 ```
