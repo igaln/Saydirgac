@@ -1,6 +1,6 @@
 {
   "production": {
-    "mongoURI":"mongoURI":"mongodb://localhost/app25757454",
+    "mongoURI":"mongoURI":"mongodb://newyork:newyork@candidate.21.mongolayer.com:10179/app25115492",
     "s3URL": "https://s3.amazonaws.com",
     "s3Path": "/journosweb/sayman/images/",
     "errorHandlerOptions": {"dumpExceptions": true, "showStack": true}
