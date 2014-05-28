@@ -1,12 +1,12 @@
 {
   "production": {
-    "mongoURI":"mongoURI":"mongodb://newyork:newyork@candidate.21.mongolayer.com:10179/app25115492",
+    "mongoURI":"mongodb://newyork:newyork@candidate.21.mongolayer.com:10179/app25115492",
     "s3URL": "https://s3.amazonaws.com",
     "s3Path": "/journosweb/sayman/images/",
     "errorHandlerOptions": {"dumpExceptions": true, "showStack": true}
   },
   "development": {
-    "mongoURI":"mongoURI":"mongodb://localhost/app25757454",
+    "mongoURI":"mongodb://localhost/app25757454",
     "s3URL": "https://s3.amazonaws.com",
     "s3Path": "/journosweb/sayman/images/",
     "errorHandlerOptions": {"dumpExceptions": false, "showStack": false}
