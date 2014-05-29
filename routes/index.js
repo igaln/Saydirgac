@@ -3,8 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  console.log("lang " + req.session.lang);
+
   res.render('index', { title: 'Saydıraç' });
 });
+
+
 
 
 router.post('/subscribe_email',function(req,res) {

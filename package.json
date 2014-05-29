@@ -12,6 +12,7 @@
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
     "cookie-parser": "~1.0.1",
+    "cookie-session": "*",
     "body-parser": "~1.0.0",
     "method-override": "~1.0.0",
     "multiparty":"*",
@@ -25,6 +26,7 @@
     "mongoose" : "3.6.13",
     "aws-sdk": "*",
     "mailchimp": "1.1.0",
-    "connect": "*"
+    "connect": "*",
+    "polyglot": "*"
   }
 }

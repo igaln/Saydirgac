@@ -3,9 +3,13 @@ var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
+var ejs = require('ejs');
+
+var Polyglot = require('node-polyglot');
 
 // var polyglot = require('polyglot'); // var polyglot = new Polyglot();
 
@@ -33,9 +37,19 @@ var app = express();
 require('express-helpers')(app);
 var expressLayouts = require('express-ejs-layouts')
 
+// add translation filter to EJS
+ejs.filters.translate = translate;
+
 // Application configiration according to environment
-console.log("LOG: environment ", process.env.env);
+console.log("LOG: CURRENT ENVIRONMENT ", process.env.env);
 var config = require('./config/environment.json')[process.env.env];
+
+// language initialization
+var lang = {};
+lang.currentLanguage = "tr";  // start with Turkish
+
+var lnphrases = require('./lang/' + lang.currentLanguage + '.json');
+var polyglot = new Polyglot({phrases : lnphrases});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,6 +64,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(methodOverride());
 app.use(cookieParser());
+app.use(cookieSession({ secret: 'saydirmadansaydiracolmaz' }));
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -64,6 +79,25 @@ app.use('/boxes', box_router);
 app.use('/readings',reading_router);
 app.use('/results',results_router);
 
+// Set language route
+// This is in root for simplicity of accesing functions
+// TODO: move to / route, and merge with a proper middleware
+app.get('/lang/:lang', function (req, res) {
+
+  //setting both session and local storage for access to current language
+  req.session.lang = req.params.lang;
+  lang.currentLanguage = req.params.lang;
+
+  //according to language change, reload dictionary
+  var lnphrases = require('./lang/' + lang.currentLanguage + '.json');
+
+  //pass the current dictionary to Polyglot
+  polyglot = new Polyglot({phrases : lnphrases});
+
+  //return back to where you started
+  res.redirect(req.headers.referer || '/')
+})
+
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -76,7 +110,6 @@ app.use(function(req, res, next) {
 mongoose.connect(config.mongoURI);
 
 /// error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -99,6 +132,11 @@ app.use(function(err, req, res, next) {
     });
 });
 
+function translate(phrase) {
+    return polyglot.t(phrase);
+};
+
 // make config available app wide
 app.set('config', config);
+app.set('lang', lang);
 module.exports = app;
