@@ -5,17 +5,14 @@ body {
   background-size: 100%;
   height: 100%;
   background-color: #2c2c36;
-  color: #fff;
+  color: #ddddde;
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
 }
 .email-signup-centered-col {
-  float: none !important;
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
-}
-.credit {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
+  width: 60%;
 }
 .steps {
   margin-top: 20px;
@@ -25,7 +22,6 @@ body {
 }
 header {
   text-align: center;
-  color: #fff;
 }
 header .container {
   padding-top: 50px;
@@ -38,7 +34,6 @@ header img {
 header .intro-text .name {
   display: block;
   text-transform: uppercase;
-  font-family: 'Roboto', sans-serif;
   font-size: 2em;
   font-weight: 700;
 }
@@ -54,22 +49,39 @@ header .intro-text .skills {
 }
 h3.title {
   text-transform: uppercase;
+  font-weight: lighter;
+  padding: 10px 0px 20px 0px;
+  text-align: center;
 }
-.btn-outline {
-  margin-top: 15px;
-  border: solid 2px #fff;
+.btn-outline-orange {
+  color: #f5623b;
   font-size: 20px;
-  color: #fff;
-  background: 0 0;
+  border: solid 1px #f5623b;
+  background: transparent;
+  margin-top: 15px;
   transition: all 0.3s ease-in-out;
 }
-.btn-outline:hover,
-.btn-outline:focus,
-.btn-outline:active,
-.btn-outline.active {
-  border: solid 2px #fff;
-  color: #18bc9c;
-  background: #fff;
+.btn-outline-orange:hover,
+.btn-outline-orange:focus,
+.btn-outline-orange:active,
+.btn-outline-orange.active {
+  color: #fff;
+  background: #7c321e;
+}
+.btn-outline-blue {
+  color: #0cb6e3;
+  font-size: 20px;
+  border: solid 1px #0cb6e3;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+.btn-outline-blue .btn-outline-blue:hover,
+.btn-outline-blue .btn-outline-blue:focus,
+.btn-outline-blue .btn-outline-blue:active,
+.btn-outline-blue .btn-outline-blue.active {
+  color: #fff;
+  background: #07708c;
 }
 footer {
   color: #fff;
@@ -87,7 +99,7 @@ footer .footer-below {
   display: inline-block;
   width: 50px;
   height: 50px;
-  border: 2px solid #fff;
+  border: 2px solid #f5623b;
   border-radius: 100%;
   text-align: center;
   font-size: 20px;
@@ -175,4 +187,90 @@ img.tutanak {
 }
 .license img {
   width: 24px;
+}
+.round-button {
+  display: block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color: #f5f5f5;
+  text-align: center;
+  text-decoration: none;
+  background: #464646;
+  box-shadow: 0 0 3px gray;
+  font-size: 20px;
+  font-weight: bold;
+}
+.round-button:hover {
+  background: #262626;
+}
+.tutanak-oku-btn a:hover {
+  text-decoration: none;
+}
+.yukle-konfirmasyon {
+  visibility: hidden;
+}
+.basari-mesaji {
+  padding: 23px 0;
+}
+/*
+.tutanak-detaylari {
+  background-color: #fff;
+  color: #2c2d35;
+  border-radius: 5px;
+  padding-bottom: 30px;
+  margin-bottom: 15px;
+}
+*/
+.tutanak-detaylari {
+  /* background-color: #A9C9D1; */
+  /* background-color: #fff; */
+  border: 2px dotted #ddddde;
+  border-radius: 5px;
+  padding-bottom: 30px;
+  margin-bottom: 15px;
+  color: #ddddde;
+}
+@media (max-width: 480px) {
+  .basari-mesaji {
+    padding: 14px 0px 14px 14px;
+    width: 100%;
+  }
+  .sosyal {
+    width: 100%;
+    text-align: center;
+  }
+  .yukle-konfirmasyon {
+    visibility: visible;
+    color: #f5623b;
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .tutanak-oku-btn {
+    display: none;
+  }
+}
+#email {
+  border: 1px solid #0cb6e3;
+  background: transparent;
+  height: 50px;
+}
+#kaydol {
+  background-color: #0cb6e3;
+  border: 1px solid #0cb6e3;
+  height: 50px;
+}
+.orange {
+  color: #f5623b;
+  font-weight: bolder;
+}
+.blue {
+  color: #0cb6e3;
+  font-weight: bolder;
+}
+.aciklama {
+  font-size: 17px;
+  /* text-align: left; */
 }
