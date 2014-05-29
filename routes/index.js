@@ -8,9 +8,6 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Saydıraç' });
 });
 
-
-
-
 router.post('/subscribe_email',function(req,res) {
 
 	var MailChimpAPI = require('mailchimp').MailChimpAPI;

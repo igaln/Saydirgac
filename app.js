@@ -81,7 +81,7 @@ app.use('/results',results_router);
 
 // Set language route
 // This is in root for simplicity of accesing functions
-// TODO: move to / route, and merge with a proper middleware
+// TODO: move to / routes, and merge with a custom middleware
 app.get('/lang/:lang', function (req, res) {
 
   //setting both session and local storage for access to current language

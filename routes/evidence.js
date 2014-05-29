@@ -20,7 +20,7 @@ var multipartMiddleware = multipart();
 // GET /evidences
 router.get('/', function(req, res) {
 
-  Evidence.find(function(err, evidences){
+  Evidence.find({}).populate('Reading').exec(function(err, evidences){
     // if (req.params.format) {
     //   res.json(evidences);
     // }else{
@@ -37,10 +37,7 @@ router.get('/', function(req, res) {
 // GET /evidences/say
 router.get('/say', function(req, res) {
 
-  Evidence.find({locked:false},function(err, evidences){
-    // if (req.params.format) {
-    //   res.json(evidences);
-    // }else{
+  Evidence.find({locked:false}).populate('Reading').exec(function(err, evidences){
       res.render('evidence_index', {
         title: 'Okunacak Tutanaklar',
         evidences: evidences
