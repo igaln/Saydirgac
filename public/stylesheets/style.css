@@ -206,18 +206,11 @@ img.tutanak {
 .round-button:hover {
   background: #262626;
 }
-@media (max-width: 480px) {
-  .tutanak-oku-btn {
-    display: none;
-  }
-}
 .tutanak-oku-btn a:hover {
   text-decoration: none;
 }
-.konfirmasyon {
-  color: #f5623b;
-  font-size: 25px;
-  margin-bottom: 20px;
+.yukle-konfirmasyon {
+  visibility: hidden;
 }
 .basari-mesaji {
   padding: 23px 0;
@@ -248,6 +241,15 @@ img.tutanak {
   .sosyal {
     width: 100%;
     text-align: center;
+  }
+  .yukle-konfirmasyon {
+    visibility: visible;
+    color: #f5623b;
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .tutanak-oku-btn {
+    display: none;
   }
 }
 #email {
