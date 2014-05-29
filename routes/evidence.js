@@ -42,7 +42,6 @@ router.get('/say', function(req, res) {
         title: 'Okunacak Tutanaklar',
         evidences: evidences
       });
-    // }
   });
 });
 

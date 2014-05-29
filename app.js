@@ -39,6 +39,7 @@ var expressLayouts = require('express-ejs-layouts')
 
 // add translation filter to EJS
 ejs.filters.translate = translate;
+ejs.filters.currentLang = currentLang;
 
 // Application configiration according to environment
 console.log("LOG: CURRENT ENVIRONMENT ", process.env.env);
@@ -134,6 +135,10 @@ app.use(function(err, req, res, next) {
 
 function translate(phrase) {
     return polyglot.t(phrase);
+};
+
+function currentLang() {
+    return lang.currentLanguage;
 };
 
 // make config available app wide

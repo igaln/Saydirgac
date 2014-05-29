@@ -422,6 +422,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
   Evidence.findById(req.body.evidence_id).populate("reading").exec(function (err, evidence) {
     if (err) return handleError(err);
 
+    console.log("found evidence ", evidence );
 
     if(evidence.reading) {
         console.log("update reading");
