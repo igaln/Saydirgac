@@ -43,8 +43,8 @@ hr.star-primary:after {
     content: "\f005";
     font-family: FontAwesome;
     display: inline-block;
-    position: relative; 
-    top: -0.8em;  
+    position: relative;
+    top: -0.8em;
     font-size: 2em;
     padding: 0 0.25em;
 }
@@ -125,13 +125,13 @@ header {
 	        -webkit-transition: all 0.3s;
 	        -moz-transition: all 0.3s;
 	        transition: all 0.3s;
-	    }        
+	    }
     }
     .navbar-fixed-top.navbar-shrink {
         padding: 10px 0;
 		.navbar-brand {
 	        font-size: 1.5em;
-	    }    
+	    }
 	}
 }
 
@@ -216,8 +216,8 @@ section.success {
                     h4 {
                         margin: 0;
                     }
-                }                
-            }            
+                }
+            }
         }
     }
     * {
@@ -233,10 +233,10 @@ section.success {
     }
 }
 
-.btn-outline {
-	color: white;
+.btn-outline-orange {
+	color: #f5623b;
 	font-size: 20px;
-	border: solid 2px white;
+	border: solid 1px #f5623b;
 	background: transparent;
 	transition: all 0.3s ease-in-out;
 	margin-top: 15px;
@@ -244,9 +244,26 @@ section.success {
 	&:focus,
 	&:active,
 	&.active {
-		color: @brand-success;
-		background: white;
-		border: solid 2px white;
+		color: #fff;
+    background: #7c321e;
+	  border: solid 1px #f5623b;
+	}
+}
+
+
+.btn-outline-blue {
+	color: #0cb6e3;
+	font-size: 20px;
+	border: solid 1px #0cb6e3;
+	background: transparent;
+	transition: all 0.3s ease-in-out;
+	margin-top: 15px;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active {
+		color: #fff;
+    background: #07708c;
 	}
 }
 
@@ -414,7 +431,7 @@ footer {
                 -webkit-transform: rotate(90deg);
                 /* Safari and Chrome */
                 z-index:1052;
-            }            
-        }        
+            }
+        }
     }
 }
