@@ -28,7 +28,11 @@ https://hackpad.com/Seim-Gzetimi-in-Birlii-kOzmQOOluwG
 ```
 
 #### Setup Environment 
-(add to shell or use local)
+
+For node to choose which db environment to use,
+please setup your local environment variables
+
+>export env=development   
 >export env=development
 
 ### Deployment
