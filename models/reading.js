@@ -33,7 +33,6 @@ var Reading = new Schema({
  
 
   baskan_results:                   { type : Array , "default" : [] },
-
   meclis_results:                    { type : Array , "default" : [] },
 
 

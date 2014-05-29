@@ -23,7 +23,7 @@
     "less-middleware": "0.1.15",
     "mongoose" : "3.6.13",
     "aws-sdk": "*",
-    "mailchimp": "1.1.0"
+    "mailchimp": "1.1.0",
+    "connect": "*"
   }
 }
-

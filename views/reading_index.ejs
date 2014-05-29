@@ -1,0 +1,30 @@
+<!-- readings list/ -->
+<h3 class="title">
+  <%= title %>
+</h3>
+
+<table class="table">
+  <tr>
+    <th>Fotoğraf</th>
+    <th>İl</th>
+    <th>İlçe</th>
+    <th>Sandık no</th>
+    <th>Türü</th>
+    <th>Gönderim Tarihi</th>
+  </tr>
+  <% readings.forEach( function(reading){ %>
+  <tr>
+    <td><%- link_to(reading.evidence.img, "/readings/"+reading._id+"/edit") %></td>
+    <td><%= reading.evidence.city %></td>
+    <td><%= reading.evidence.district %></td>
+    <td><%= reading.evidence.no %></td>
+    <td><%= reading.evidence.type %></td>
+    <td>
+      <% var date = new Date(reading.created_at); %>
+      <%= date.getHours() %>:<%= date.getMinutes() %>
+      <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
+    </td>
+  </tr>
+  <% }); %>
+</table>
+

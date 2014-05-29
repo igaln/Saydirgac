@@ -32,6 +32,24 @@ router.get('/', function(req, res) {
   });
 });
 
+
+// index  evidences to be counted
+// GET /evidences/say
+router.get('/say', function(req, res) {
+
+  Evidence.find({locked:false},function(err, evidences){
+    // if (req.params.format) {
+    //   res.json(evidences);
+    // }else{
+      res.render('evidence_index', {
+        title: 'Okunacak Tutanaklar',
+        evidences: evidences
+      });
+    // }
+  });
+});
+
+
 // show
 // GET /evidences/1
 router.get('/:id/evidence', function(req, res) {
@@ -53,7 +71,6 @@ router.get('/:id/evidence', function(req, res) {
 router.get('/new', function(req, res) {
 
  var types =  require('../config/types.json');
-
   var options = {
     limit: 1,
     sort: {
@@ -96,7 +113,6 @@ router.get('/:id/:edit', function(req, res) {
         yskveri: JSON.stringify(yskveri)
       });
     });
-
   } else if(req.params.edit === "show") {
 
       Evidence.findById(req.params.id, function(err, evidence) {
@@ -108,11 +124,9 @@ router.get('/:id/:edit', function(req, res) {
       });
     });
   }
-
 });
 
 router.get('/:city/:district/:boxno', function(req, res) {
-
 
   Evidence.find({city:req.params.city,district:req.params.district,no:req.params.boxno},function(err, evidences){
     res.render('evidence_index', {

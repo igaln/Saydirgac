@@ -17,7 +17,10 @@ var Evidence = new Schema({
   il_ilce_sandikno_tur: {type: String},
   neighbourhood:        {type: String, default: ''},
   user:                 {type: String, default: 'Anon'},
-  readings:             [{id: ObjectId, flag: Number, resolved: Boolean}],
+  // changed to single reading for decreasing complexity for round 1
+  reading:              {type: ObjectId, ref: 'Reading'},
+  locked:                {type: Boolean,default: false},
+  // readings:             [{id: ObjectId, flag: Number, resolved: Boolean}],
   created_at:           {type: Date, default: Date.now},
   updated_at:           {type: Date, default: Date.now}
 
