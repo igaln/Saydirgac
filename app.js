@@ -124,14 +124,14 @@ app.use(function(err, req, res, next) {
 });
 
 function translate(data) {
-    console.log(data);
+  console.log(data);
 
-    //according to language change, reload dictionary
+  //according to language change, reload dictionary
   var lnphrases = require('./lang/' + data['lan'] + '.json');
 
   //pass the current dictionary to Polyglot
-   var polyglot = new Polyglot({phrases : lnphrases});
-    return polyglot.t(data['key']);
+  var polyglot = new Polyglot({phrases : lnphrases});
+  return polyglot.t(data['key']);
 };
 
 function currentLang() {

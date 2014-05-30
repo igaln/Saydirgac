@@ -54,9 +54,9 @@ request(url, function (error, response, body) {
             if (err) throw err;
             console.log(file_en);
           });
-          // fs.writeFileSync(file_tr, 'var mmcore.cateroryRedirectList = ' + JSON.stringify(obj_tr) + ';');
-          // fs.writeFileSync(file_kd, 'var mmcore.cateroryRedirectList = ' + JSON.stringify(obj_kd) + ';');
-          // fs.writeFileSync(file_en, 'var mmcore.cateroryRedirectList = ' + JSON.stringify(obj_en) + ';');
+          // fs.writeFileSync(file_tr, JSON.stringify(obj_tr) );
+          // fs.writeFileSync(file_kd, JSON.stringify(obj_kd) );
+          // fs.writeFileSync(file_en, JSON.stringify(obj_en) );
           // console.log("Number of lines: " + count);
         })
         .on("error", function(error){
