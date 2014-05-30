@@ -8,6 +8,15 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Saydıraç' });
 });
 
+// Set language route
+router.get('/lang/:lang', function (req, res) {
+
+  //setting both session and local storage for access to current language
+  req.session.lang = req.params.lang;
+  //return back to where you started
+  res.redirect(req.header('Referer') || '/')
+})
+
 router.post('/subscribe_email',function(req,res) {
 
 	var MailChimpAPI = require('mailchimp').MailChimpAPI;
