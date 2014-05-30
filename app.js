@@ -67,8 +67,11 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
-  console.log(JSON.stringify(req.session, null, 4));
-  app.set('lang', req.session.lang);
+  if(req.session.lang)
+    app.set('lang', req.session.lang);
+  else 
+    app.set('lang','tr');
+
   next();
 });
 
