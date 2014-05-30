@@ -52,6 +52,9 @@ lang.currentLanguage = "tr";  // start with Turkish
 var lnphrases = require('./lang/' + lang.currentLanguage + '.json');
 var polyglot = new Polyglot({phrases : lnphrases});
 
+// Unfortunate Safari cache workaround for page refreshes on language reset
+app.disable('etag');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
