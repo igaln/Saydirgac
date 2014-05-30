@@ -306,7 +306,7 @@ router.post('/', multipartMiddleware,function(req, res) {
 
                 candidate.vote = req.body.meclis_adaylar[0][input_counter];
                 candidate.save();
-                evidence_reading.baskan_results.push(
+                evidence_reading.meclis_results.push(
                                          {id    :   candidate._id,
                                           party  :   candidate.party,
                                           person :   candidate.person,
@@ -493,7 +493,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
 
                 candidate.vote = req.body.meclis_adaylar[0][input_counter];
                 candidate.save();
-                evidence_reading.baskan_results.push(
+                evidence_reading.meclis_results.push(
                                          {id    :   candidate._id,
                                           party  :   candidate.party,
                                           person :   candidate.person,
