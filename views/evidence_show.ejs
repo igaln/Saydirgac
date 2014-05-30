@@ -11,57 +11,27 @@
     </ul>
   </div>
 </div>
-<div class="row tutanak-detaylari">
-  <div class="col-md-12">
-    <h3 class="title">
-      <%= title %>
+<div class="row">
+  <div class="col-md-8">
+    <h3 class="">
+      <%= evidence.city %> &rarr; <%= evidence.district %> &rarr; Sandık <%= evidence.no %>
     </h3>
+    <h5><%= types.evidence[evidence.type] %></h5>
   </div>
-  <div class="col-md-6">
-    <table class="table table-condensed">
-      <tr>
-        <th scope="row">İl</th>
-        <td><%= evidence.city %></td>
-      </tr>
-      <tr>
-        <th scope="row">İlçe</th>
-        <td><%= evidence.district %></td>
-      </tr>
-      <tr>
-        <th scope="row">Sandık No</th>
-        <td><%= evidence.no %></td>
-      </tr>
-      <tr>
-        <th scope="row">Tutanak Türü</th>
-        <td><%= types.evidence[evidence.type]  %></td>
-      </tr>
-      <tr>
-        <th scope="row"></th>
-        <td>
-          <% var date = new Date(evidence.created_at); %>
-          <em>
-          <%= date.getHours() %>:<%= date.getMinutes() %>
-          <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
-          tarihinde eklenmiştir
-          </em>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="col-md-6 tutanak-resmi">
-    <img  class="img-thumbnail" src="<%=s3path + evidence.img %>">
-  </div>
-</div>
-<div class="row cta">
-  <div class="col-md-6">
-    <a class="btn btn-outline-orange btn-lg btn-block" href="/evidences">Tüm Tutanaklar</a>
-  </div>
-  <div class="col-md-6 tutanak-oku-btn">
+  <div class="col-md-4">
     <a href="/readings/<%= evidence._id %>/new">
       <input type="submit" class="btn btn-outline-orange btn-lg btn-block" value="TUTANAK OKU"/></a>
   </div>
+  <div class="col-md-12">
+    <img class="tutanak" src="<%=s3path + evidence.img %>" width="100%">
+    <% var date = new Date(evidence.created_at); %>
+    <%= date.getHours() %>:<%= date.getMinutes() %>
+    <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %> tarihinde eklenmiştir
+  </div>
+  <div class="col-md-12">
+    <a class="btn btn-outline-orange btn-sm" href="/evidences">Tüm Tutanaklar</a>
+  </div>
 </div>
-
 
 <div class="row share-widgets">
   <div class="col-xs-12">
@@ -71,5 +41,6 @@
     <!-- <%- link_to("email", "mailto:") %>-->
   </div>
 </div>
+
 
 <!-- <hr> -->

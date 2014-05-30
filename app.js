@@ -46,6 +46,9 @@ console.log("LOG: CURRENT ENVIRONMENT ", process.env.env);
 var config = require('./config/environment.json')[process.env.env];
 
 
+// Unfortunate Safari cache workaround for page refreshes on language reset
+app.disable('etag');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
