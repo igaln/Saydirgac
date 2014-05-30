@@ -1,45 +1,16 @@
-<div class="row">
+<div class="row edit-header">
  <div class="col-xs-12">
-    <h3 class="title">
-      <%= title %>
-    </h3>
+    <h3><%= title %></h3>
+    Resimdeki sayıları resmin altındaki forma yazınız.
   </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-6">
-    <table class="table table-condensed">
-      <tr>
-        <th scope="row">İl</th>
-        <td><%= evidence.city %></td>
-      </tr>
-      <tr>
-        <th scope="row">İlçe</th>
-        <td><%= evidence.district %></td>
-      </tr>
-      <tr>
-        <th scope="row">Sandık No</th>
-        <td><%= evidence.no %></td>
-      </tr>
-      <tr>
-        <th scope="row">Tutanak Türü</th>
-        <td><%= types.evidence[evidence.type] %></td>
-      </tr>
-      <tr>
-        <th scope="row"></th>
-        <td>
-          <% var date = new Date(evidence.created_at); %>
-          <em>
-            <%= date.getHours() %>:<%= date.getMinutes() %>
-            <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
-            tarihinde eklenmiştir
-          </em>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="col-xs-5">
-    Aşağıdaki tutanak resmini okuyarak altındaki forma dikkatlice okuduğunuz değerleri doldurunuz.
+  <div class="col-xs-12">
+    <p>
+      <h4><%= evidence.city %> &rarr; <%= evidence.district %> &rarr; Sandık <%= evidence.no %> </h4>
+      <%= types.evidence[evidence.type] %>
+    </p>
   </div>
 </div>
 
@@ -48,6 +19,7 @@
     <img src="<%=s3path + evidence.img %>" width="100%" class="tutanak">
   </div>
 </div>
+
 
 <form role="form" id="evidence_edit" class="form-horizontal" action="/readings" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
