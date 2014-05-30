@@ -11,8 +11,6 @@ var ejs = require('ejs');
 
 var Polyglot = require('node-polyglot');
 
-// var polyglot = require('polyglot'); // var polyglot = new Polyglot();
-
 //LOAD MODELS
 require('./models/event');
 require('./models/progress');
@@ -69,7 +67,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next) {
   if(req.session.lang)
     app.set('lang', req.session.lang);
-  else 
+  else
     app.set('lang','tr');
 
   next();
