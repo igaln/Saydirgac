@@ -99,7 +99,7 @@ app.get('/lang/:lang', function (req, res) {
   polyglot = new Polyglot({phrases : lnphrases});
 
   //return back to where you started
-  res.redirect(req.headers.referer || '/')
+  res.redirect(req.header('Referer') || '/')
 })
 
 /// catch 404 and forwarding to error handler
