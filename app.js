@@ -65,9 +65,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(methodOverride());
 app.use(cookieParser());
-app.use(cookieSession({ secret: 'saydirmadansaydiracolmaz' }));
+app.use(cookieSession({ secret: 'saydirmadansaydiracolmaz'}));
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+  console.log(JSON.stringify(req.session, null, 4));
+  app.set('lang', req.session.lang);
+  next();
+});
+
 
 
 // SETUP URL PATHS
@@ -123,9 +130,11 @@ if (app.get('env') === 'development') {
     });
 }
 
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    req.session.lang = 'en';
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
