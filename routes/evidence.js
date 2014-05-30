@@ -20,7 +20,8 @@ var multipartMiddleware = multipart();
 // GET /evidences
 router.get('/', function(req, res) {
 
-  Evidence.find({}).populate('Reading').exec(function(err, evidences){
+  Evidence.find({}).populate('reading').exec(function(err, evidences){
+    console.log(evidences);
     // if (req.params.format) {
     //   res.json(evidences);
     // }else{
@@ -37,7 +38,7 @@ router.get('/', function(req, res) {
 // GET /evidences/say
 router.get('/say', function(req, res) {
 
-  Evidence.find({locked:false}).populate('Reading').exec(function(err, evidences){
+  Evidence.find({locked:false}).populate('reading').exec(function(err, evidences){
       res.render('evidence_index', {
         title: 'Okunacak Tutanaklar',
         evidences: evidences
@@ -109,6 +110,7 @@ router.get('/:id/:edit', function(req, res) {
         yskveri: JSON.stringify(yskveri)
       });
     });
+    
   } else if(req.params.edit === "show") {
 
       Evidence.findById(req.params.id, function(err, evidence) {

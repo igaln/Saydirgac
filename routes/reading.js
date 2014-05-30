@@ -45,7 +45,7 @@ router.get('/:evidence_id/new', function(req, res) {
 
     if(evidence.locked) {
       console.log("ALREADY READ");
-      res.redirect('/readings/' + evidence.reading.id  + '/reading');
+      res.redirect('/readings/' + evidence.reading  + '/reading');
     }
 
     if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {

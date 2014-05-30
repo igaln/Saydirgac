@@ -11,6 +11,7 @@
     <th>Sandık no</th>
     <th>Türü</th>
     <th>Gönderim Tarihi</th>
+    <th>Sayım</th>
   </tr>
   <% evidences.forEach( function(evidence){ %>
   <tr>
@@ -24,6 +25,9 @@
       <%= date.getHours() %>:<%= date.getMinutes() %>
       <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
     </td>
+    <% if(evidence.reading) { %>
+    <td><%- link_to("Sayım", "/readings/"+evidence.reading.id+"/reading") %></td>
+     <% } %>
   </tr>
   <% }); %>
 </table>
