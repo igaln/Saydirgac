@@ -1,3 +1,143 @@
+.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px; //change this to your desired size
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    margin: 20px 0 40px 0;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.btn-block {
+  margin: 20px 0 40px 0;
+}
+
+.btn-social {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 45px;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+  	margin-top: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.btn:focus,
+.btn:active,
+.btn.active {
+    outline: 0;
+    color: #f5623b;
+}
+
+.btn-outline-orange {
+  	color: #f5623b;
+  	font-size: 20px;
+  	border: solid 1px #f5623b;
+  	background: transparent;
+  	transition: all 0.3s ease-in-out;
+  	margin-top: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.btn-outline-orange:hover,
+.btn-outline-orange:focus,
+.btn-outline-orange:active,
+.btn-outline-orange.active {
+    color: #fff;
+    border: solid 1px #7c321e;
+		background: #7c321e;
+}
+
+.btn-outline-blue {
+	color: #0cb6e3;
+	font-size: 20px;
+	border: solid 1px #0cb6e3;
+	background: transparent;
+	transition: all 0.3s ease-in-out;
+	margin-top: 15px;
+.btn-outline-blue:hover,
+.btn-outline-blue:focus,
+.btn-outline-blue:active,
+.btn-outline-blue.active {
+		color: #fff;
+    background: #07708c;
+    border: solid 1px #07708c;
+	}
+}
+
+.round-button-blue {
+    display:block;
+    width: 200px;
+    height: 200px;
+    line-height: 185px;
+    border-radius: 50%;
+    color:#383a46;
+    text-align:center;
+    text-decoration:none;
+    background: #0cb6e3;
+    font-size:20px;
+    font-weight:bold;
+  	transition: all 0.3s ease-in-out;
+  	margin-top: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.round-button-blue:hover,
+.round-button-blue:focus,
+.round-button-blue.active {
+    color: #fff;
+		background: #07708c;
+}
+
+.round-button-orange {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    line-height: 260px;
+    border-radius: 50%;
+    color:#383a46;
+    text-align:center;
+    text-decoration:none;
+    background: #f5623b;
+    font-size:20px;
+    font-weight:bold;
+  	transition: all 0.3s ease-in-out;
+  	margin-top: 15px;
+    transition: all .3s ease-in-out;
+}
+
+.round-button-orange:hover,
+.round-button-orange:focus,
+.round-button-orange.active {
+		background: #7c321e;
+}
+
 body {
   overflow-x: hidden;
   background-image: url('/images/bg.png');
@@ -30,7 +170,7 @@ header {
 
 header .container {
     padding-top: 50px;
-    padding-bottom: 50px;
+   /*  padding-bottom: 50px; */
 }
 
 header img {
@@ -64,40 +204,6 @@ h3.title {
   text-align: center;
 }
 
-.btn-outline-orange {
-  	color: #f5623b;
-  	font-size: 20px;
-  	border: solid 1px #f5623b;
-  	background: transparent;
-  	transition: all 0.3s ease-in-out;
-  	margin-top: 15px;
-    transition: all .3s ease-in-out;
-}
-
-.btn-outline-orange:hover,
-.btn-outline-orange:focus,
-.btn-outline-orange:active,
-.btn-outline-orange.active {
-    color: #fff;
-		background: #7c321e;
-}
-
-.btn-outline-blue {
-	color: #0cb6e3;
-	font-size: 20px;
-	border: solid 1px #0cb6e3;
-	background: transparent;
-	transition: all 0.3s ease-in-out;
-	margin-top: 15px;
-.btn-outline-blue:hover,
-.btn-outline-blue:focus,
-.btn-outline-blue:active,
-.btn-outline-blue.active {
-		color: #fff;
-    background: #07708c;
-	}
-}
-
 footer {
     color: #fff;
 }
@@ -112,23 +218,6 @@ footer .footer-above {
 
 footer .footer-below {
     padding: 25px 0;
-}
-
-.btn-social {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 2px solid #f5623b;
-    border-radius: 100%;
-    text-align: center;
-    font-size: 20px;
-    line-height: 45px;
-}
-
-.btn:focus,
-.btn:active,
-.btn.active {
-    outline: 0;
 }
 
 .scroll-top {
@@ -155,44 +244,11 @@ footer .footer-below {
     outline: 0;
 }
 
-// from here, initial code
 
 a {
   color: #00B7FF;
 }
 
-.btn-xlarge {
-    padding: 18px 28px;
-    font-size: 22px; //change this to your desired size
-    line-height: normal;
-    -webkit-border-radius: 8px;
-       -moz-border-radius: 8px;
-            border-radius: 8px;
-}
-
-.btn-file {
-    position: relative;
-    overflow: hidden;
-    margin: 20px 0 40px 0;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 999px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
-}
-.btn-block {
-  margin: 20px 0 40px 0;
-}
 .tutanak-form {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -217,24 +273,6 @@ img.tutanak {
 .license img {
   width:24px;
 }
-.round-button {
-    display:block;
-    width:50px;
-    height:50px;
-    line-height:50px;
-    border: 2px solid #f5f5f5;
-    border-radius: 50%;
-    color:#f5f5f5;
-    text-align:center;
-    text-decoration:none;
-    background: #464646;
-    box-shadow: 0 0 3px gray;
-    font-size:20px;
-    font-weight:bold;
-}
-.round-button:hover {
-    background: #262626;
-}
 
 .tutanak-oku-btn {
   a:hover {
@@ -250,19 +288,7 @@ img.tutanak {
   padding: 23px 0;
 }
 
-/*
 .tutanak-detaylari {
-  background-color: #fff;
-  color: #2c2d35;
-  border-radius: 5px;
-  padding-bottom: 30px;
-  margin-bottom: 15px;
-}
-*/
-
-.tutanak-detaylari {
-  /* background-color: #A9C9D1; */
-  /* background-color: #fff; */
   border: 2px dotted #ddddde;;
   border-radius: 5px;
   padding-bottom: 30px;
@@ -342,6 +368,21 @@ img.tutanak {
   color: #ddddde;
   height: 47px;
   margin-bottom: 10px;
+}
+
+.button-icon{
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+}
+.percentage {
+  font-weight: lighter;
+  font-size: 36px;
+ /*  margin-bottom: 40px; */
+}
+
+.gray {
+  color: gray;
 }
 
 
