@@ -1,0 +1,47 @@
+
+<div class="row">
+  
+  <div class="col-md-8">
+    <h3 class="">
+      <%= evidence.city || "(Şehir)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; Sandık <%= evidence.no || "(No)" %>
+    </h3>
+    <h5><%= types.evidence[evidence.type] || "(Tutanak tipi)" %></h5>
+    <h5> TUTANAGINI OKUDUNUZ TESEKKURLER</h5>
+  </div>
+ 
+  <div class="col-md-4">
+    <a href="/readings/<%= evidence._id %>/new">
+      <input type="submit" class="btn btn-outline-orange btn-lg btn-block" value="BASKA TUTANAK OKU"/></a>
+  </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-5 sosyal">
+        PAYLAS
+    <ul class="list-inline">
+      <li><a href="https://www.facebook.com/saydirac?ref=hl" class="btn-social btn-outline-orange"><i class="fa fa-fw fa-facebook"></i></a>
+      </li>
+      <li><a href="#" class="btn-social btn-outline-orange"><i class="fa fa-fw fa-google-plus"></i></a>
+      </li>
+      <li><a href="http://www.twitter.com/saydirac" class="btn-social btn-outline-orange"><i class="fa fa-fw fa-twitter"></i></a>
+      </li>
+    </ul>
+  </div>
+</row>
+
+  <div class="col-md-12">
+    <a class="btn btn-outline-orange btn-sm" href="/evidences">Tüm Tutanaklar</a>
+  </div>
+</div>
+
+<div class="row share-widgets">
+  <div class="col-xs-12">
+    <!-- Paylaş:-->
+    <!-- <%- link_to("Twitter", "twitter.com") %> -->
+    <!-- <%- link_to("Facebook", "facebook.com") %> -->
+    <!-- <%- link_to("email", "mailto:") %>-->
+  </div>
+</div>
+
+

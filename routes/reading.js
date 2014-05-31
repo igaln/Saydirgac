@@ -193,6 +193,27 @@ router.get('/:id/reading', function(req, res) {
 
 // show
 // GET /readings/1/reading
+router.get('/:evidence_id/thankyou', function(req, res) {
+
+  var types =  require('../config/types.json');
+
+    // first pull the evidence TODO: 2 type of templates according to Evidence
+  Evidence.findById(req.params.evidence_id,function(err, evidence) {
+
+    console.log(evidence);
+
+   // if(evidence.locked) {
+          res.render('reading_thankyou', {
+            title: 'Tutanak Oku',
+            evidence:evidence,
+            types:types
+          });
+   // }
+  });
+});
+
+// show
+// GET /readings/1/reading
 router.get('/:city/:district/:no/:type', function(req, res) {
 
   var config =  req.app.get('config');
@@ -204,7 +225,6 @@ router.get('/:city/:district/:no/:type', function(req, res) {
     if(!evidence) {
         // NO EVIDENCE ASK FOR ONE
     }
-
     if(evidence.locked) {
       Reading.findById(evidence.reading.id,function(err,reading){
 
@@ -342,7 +362,8 @@ router.post('/', multipartMiddleware,function(req, res) {
                                     progress.save();
                                 })
                           });
-                          res.redirect('/readings/' + reading.id  + '/reading');
+                          res.redirect('readings/' + evidence._id + '/thankyou');
+
 
                           //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    });
@@ -410,9 +431,8 @@ router.post('/', multipartMiddleware,function(req, res) {
                                 })
                           });
 
-                          res.redirect('/readings/' + reading.id  + '/reading');
-
-                          //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
+                          res.redirect('readings/' + evidence._id + '/thankyou');
+                           
                    })
             });
       }); //Candidate Query
