@@ -20,6 +20,8 @@ var Evidence = new Schema({
   // changed to single reading for decreasing complexity for round 1
   reading:              {type: ObjectId, ref: 'Reading'},
   locked:                {type: Boolean,default: false},
+  flag:                       {type: Number, default: 0},
+  resolved:                   {type: Boolean, default: false},
   // readings:             [{id: ObjectId, flag: Number, resolved: Boolean}],
   created_at:           {type: Date, default: Date.now},
   updated_at:           {type: Date, default: Date.now}

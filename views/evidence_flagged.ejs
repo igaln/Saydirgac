@@ -1,0 +1,34 @@
+<!-- evidences/ -->
+<h3 class="title">
+  <%= title %>
+</h3>
+
+<table class="table">
+  <tr>
+    <th>Fotoğraf</th>
+    <th>İl</th>
+    <th>İlçe</th>
+    <th>Sandık no</th>
+    <th>Türü</th>
+    <th>Gönderim Tarihi</th>
+    <th>Sayım</th>
+  </tr>
+  <% evidences.forEach( function(evidence){ %>
+  <tr>
+    <td><%- link_to(evidence.img, "/evidences/"+evidence.id+"/edit") %></td>
+    <td><%= evidence.city %></td>
+    <td><%= evidence.district %></td>
+    <td><%= evidence.no %></td>
+    <td><%= evidence.type %></td>
+    <td>
+      <% var date = new Date(evidence.created_at); %>
+      <%= date.getHours() %>:<%= date.getMinutes() %>
+      <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
+    </td>
+    <% if(evidence.reading) { %>
+    <td><%- link_to("Sayım", "/readings/"+evidence.reading.id+"/edit") %></td>
+     <% } %>
+  </tr>
+  <% }); %>
+</table>
+

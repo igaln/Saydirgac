@@ -31,10 +31,10 @@
     </tr>
 </table>
    </div>
-    <% if(!reading.resolved) {%>
+    <% if(!evidence.resolved) {%>
 	    <div class="col-xs-5">
 	       <form id="flag">
-	       	   <input type="hidden" id="reading_id" name="reading_id" value="<%= reading._id %>"/>
+	       	   <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
 	           <input type="submit" id="flagbutton" class="btn btn-default btn-danger btn-lg btn-block" value="FLAG"/>
 	       </form>
 	    </div>
@@ -341,8 +341,8 @@ $("#flag").submit(function(event) {
   }
   $.ajax({
     type: "POST",
-    url: "/readings/flag",
-    data: {"reading_id":$("#reading_id").val()},
+    url: "/evidences/flag",
+    data: {"evidence_id":$("#evidence_id").val()},
     success: subscallback,
     dataType: "json"
   });

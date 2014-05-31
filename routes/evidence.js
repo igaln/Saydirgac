@@ -16,6 +16,9 @@ var Progress = mongoose.model('Progress');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+var connect = require('connect');
+var auth = connect.basicAuth('saydirac', 'saydirac');
+
 // index
 // GET /evidences
 router.get('/', function(req, res) {
@@ -149,6 +152,34 @@ router.get('/:city/:district/:boxno/:type', function(req, res) {
   });
 
 });
+
+router.get('/flagged',auth,function(req,res){
+
+    var config =  req.app.get('config');
+    Evidence.find({flag: {$gt:0}}).populate('reading').exec(function(err,flagged_evidences) {
+          res.render('evidence_flagged', {
+                title: 'Flagged Evidences',
+                evidences:flagged_evidences,
+                s3path: config.s3URL + config.s3Path
+              });
+    })
+});
+
+
+// POST /flag
+router.post('/flag',function(req,res){
+
+    Evidence.findById(req.body.evidence_id,function(err,evidence) {
+          if (err) return handleError(err);
+
+          evidence.flag++;
+          evidence.save(function(err,reading) {
+                res.send( JSON.stringify({flagcount:evidence.flag}));
+          });
+    })
+});
+
+
 
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {

@@ -209,32 +209,7 @@ router.get('/:city/:district/:no/:type', function(req, res) {
   });
 });
 
-// POST /flag
-router.post('/flag',function(req,res){
 
-    Reading.findById(req.body.reading_id,function(err,reading) {
-          if (err) return handleError(err);
-
-          reading.flag++;
-          reading.save(function(err,reading) {
-                res.send( JSON.stringify({flagcount:reading.flag}));
-          });
-    })
-});
-
-router.get('/flagged',auth,function(req,res){
-
-
-
-    var config =  req.app.get('config');
-    Reading.find({flag: {$gt:0}}).populate('evidence').exec(function(err,flagged_readings) {
-          res.render('reading_index', {
-                title: 'Flagged Readings',
-                readings:flagged_readings,
-                s3path: config.s3URL + config.s3Path
-              });
-    })
-});
 
 // POST /readings
 router.post('/', multipartMiddleware,function(req, res) {
@@ -424,12 +399,13 @@ router.post('/edit', multipartMiddleware,function(req, res) {
 
     console.log("found evidence ", evidence );
 
-    if(evidence.reading) {
-        console.log("update reading");
-        evidence.reading.flag = 0;
-        evidence.reading.resolved = true;
-        evidence.reading.save();
-    }
+    // do not resolve the old reading, keep it as it is
+    // if(evidence.reading) {
+    //     console.log("update reading");
+    //     evidence.reading.flag = 0;
+    //     evidence.reading.resolved = true;
+    //     evidence.reading.save();
+    // }
 
     if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
 
@@ -510,6 +486,8 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                    //push reading into evidence array
                    evidence.reading = reading._id;
                    evidence.locked = true;
+                   evidence.flag = 0;
+                   evidence.resolved = true;
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
@@ -577,6 +555,8 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                    //push reading into evidence array
                    evidence.reading = reading._id;
                    evidence.locked = true;
+                   evidence.flag = 0;
+                   evidence.resolved = true;
                    //save updated evidence
                    evidence.save(function(err, evidence){
 

@@ -40,9 +40,8 @@ ejs.filters.translate = translate;
 ejs.filters.currentLang = currentLang;
 
 // Application configiration according to environment
-console.log("LOG: CURRENT ENVIRONMENT ", process.env.env);
+console.log("CURRENT ENVIRONMENT ", process.env.env);
 var config = require('./config/environment.json')[process.env.env];
-
 
 // Unfortunate Safari cache workaround for page refreshes on language reset
 app.disable('etag');
@@ -65,15 +64,21 @@ app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
-  if(req.session.lang)
-    app.set('lang', req.session.lang);
-  else
-    app.set('lang','tr');
 
+  if(!req.session.lang) {
+     req.session.lang = 'tr';
+  } 
+  
+  app.set('lang', req.session.lang);
+  var lnphrases = require('./lang/' + req.session.lang + '.json');
+    //pass the current dictionary to Polyglot
+  var polyglot = new Polyglot({phrases : lnphrases});
+  res.locals.t =  function(arg) {
+    return polyglot.t(arg);
+  };
+  
   next();
 });
-
-
 
 // SETUP URL PATHS
 app.use('/', routes);
@@ -84,7 +89,6 @@ app.use('/progress', progress_router);
 app.use('/boxes', box_router);
 app.use('/readings',reading_router);
 app.use('/results',results_router);
-
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -102,7 +106,6 @@ mongoose.connect(config.mongoURI);
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        req.session.lang = 'en';
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -110,12 +113,9 @@ if (app.get('env') === 'development') {
         });
     });
 }
-
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    req.session.lang = 'en';
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
@@ -124,11 +124,8 @@ app.use(function(err, req, res, next) {
 });
 
 function translate(data) {
-  console.log(data);
-
   //according to language change, reload dictionary
   var lnphrases = require('./lang/' + data['lan'] + '.json');
-
   //pass the current dictionary to Polyglot
   var polyglot = new Polyglot({phrases : lnphrases});
   return polyglot.t(data['key']);
