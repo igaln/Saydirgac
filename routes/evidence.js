@@ -264,6 +264,7 @@ router.post('/', multipartMiddleware, function(req, res) {
               doc.district = req.body.district;
               doc.no = req.body.no;
               doc.type =req.body.type;
+              doc.entered = true;
 
               Progress.find({$or:[{type:"City",id:doc.event +'_'+ doc.city},{type:"District",id:doc.city + '_' + doc.district},{type:"Event",id:doc.event},{type:"Box",id:doc.district + '_' + doc.no}]},function(err,progress_results){
 

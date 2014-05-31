@@ -21,6 +21,61 @@ var connect = require('connect');
 var auth = connect.basicAuth('saydirac', 'saydirac');
 
 
+
+router.get('/getrandomreading', function(req,res) {
+
+  var types =  require('../config/types.json');
+  var config =  req.app.get('config');
+
+  Evidence.findOne({read:false,locked:false},function(err,evidence) {
+
+    if (err) return handleError(err);
+
+    console.log(evidence);
+
+    if(evidence === undefined || evidence === null) {
+    
+         res.redirect("/readings/new");
+         return;
+    }
+
+    evidence.locked = true;
+    evidence.updated_at = Date.now();
+
+    evidence.save(function(err,evidence) {
+
+           if (err) return handleError(err);
+
+           if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
+            // find all candidates related to the ballot on the evidence and send to template
+            Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
+
+
+                res.render('reading_new_ilce_belediye', {
+                  title: 'Tutanak Oku',
+                  evidence:evidence,
+                  candidates:candidates,
+                  s3path: config.s3URL + config.s3Path,
+                   types:types
+                });
+            }); // Candidate Query
+
+          } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
+             // find all candidates related to the ballot on the evidence and send to template
+            Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
+                res.render('reading_new_buyuksehir', {
+                  title: 'Tutanak Oku',
+                  evidence:evidence,
+                  candidates:candidates,
+                  s3path: config.s3URL + config.s3Path,
+                  types:types
+                });
+            }); // Candidate Query
+          }
+      });
+  });
+});
+
 // index
 // GET /readings
 router.get('/new', function(req, res) {
@@ -34,25 +89,18 @@ router.get('/new', function(req, res) {
   }
   var filter = {};
 
-  Event.find(filter, 'name', options, function(err, events) {
+    Event.find(filter, 'name', options, function(err, events) {
 
-    //@igaln: removed the Evidence query here, @arikan, not sure why it was being used.
-    // we have to have at least 1 event to add evidences to
-    if (events.length > 0)
-      res.render('reading_landing', {
-        title: 'Tutanak kanıtı say',
-        current_event: events[0],
-        types:types
-      });
-    else
-      res.send("Sorry, nothing is happening in the world.")
-  });
-
-  Reading.find(function(err, readings){
-    res.render('', {
-      title: 'Tutanak Oku'
+      if (events.length > 0)
+        res.render('reading_landing', {
+          title: 'Tutanak kanıtı say',
+          current_event: events[0],
+          types:types
+        });
+      else
+        res.send("Sorry, nothing is happening in the world.")
     });
-  });
+
 });
 
 // index
@@ -66,6 +114,9 @@ router.get('/', function(req, res) {
   });
 });
 
+
+
+
 // new reading
 // GET /readings/new
 router.get('/:evidence_id/new', function(req, res) {
@@ -76,37 +127,52 @@ router.get('/:evidence_id/new', function(req, res) {
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-    if(evidence.locked) {
+    if (err) return handleError(err);
+
+    if(evidence.read) {
       console.log("ALREADY READ");
       res.redirect('/readings/' + evidence.reading  + '/reading');
+    } else {
+
+      evidence.locked = true;
+      evidence.updated_at = Date.now;
+
+      evidence.save(function(err,evidence) {
+
+              if (err) return handleError(err);
+
+
+             if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
+              // find all candidates related to the ballot on the evidence and send to template
+              Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
+
+
+                  res.render('reading_new_ilce_belediye', {
+                    title: 'Tutanak Oku',
+                    evidence:evidence,
+                    candidates:candidates,
+                    s3path: config.s3URL + config.s3Path,
+                     types:types
+                  });
+              }); // Candidate Query
+
+            } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
+               // find all candidates related to the ballot on the evidence and send to template
+              Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
+                  res.render('reading_new_buyuksehir', {
+                    title: 'Tutanak Oku',
+                    evidence:evidence,
+                    candidates:candidates,
+                    s3path: config.s3URL + config.s3Path,
+                    types:types
+                  });
+              }); // Candidate Query
+            }
+
+        });
     }
 
-    if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
-      // find all candidates related to the ballot on the evidence and send to template
-      Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
-
-
-          res.render('reading_new_ilce_belediye', {
-            title: 'Tutanak Oku',
-            evidence:evidence,
-            candidates:candidates,
-            s3path: config.s3URL + config.s3Path,
-             types:types
-          });
-      }); // Candidate Query
-
-    } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
-       // find all candidates related to the ballot on the evidence and send to template
-      Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
-          res.render('reading_new_buyuksehir', {
-            title: 'Tutanak Oku',
-            evidence:evidence,
-            candidates:candidates,
-            s3path: config.s3URL + config.s3Path,
-            types:types
-          });
-      }); // Candidate Query
-    }
+ 
   });
 });
 
@@ -225,7 +291,7 @@ router.get('/:city/:district/:no/:type', function(req, res) {
     if(!evidence) {
         // NO EVIDENCE ASK FOR ONE
     }
-    if(evidence.locked) {
+    if(evidence.read) {
       Reading.findById(evidence.reading.id,function(err,reading){
 
             if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
@@ -350,7 +416,8 @@ router.post('/', multipartMiddleware,function(req, res) {
                   if (err) return handleError(err);
                    //push reading into evidence array
                    evidence.reading = reading._id;
-                   evidence.locked = true;
+                   evidence.read = true;
+                   evidence.locked = false;
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
@@ -418,7 +485,8 @@ router.post('/', multipartMiddleware,function(req, res) {
 
                    //push reading into evidence array
                    evidence.reading = reading._id;
-                   evidence.locked = true;
+                   evidence.read = true;
+                   evidence.locked = false;
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
@@ -538,7 +606,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                   if (err) return handleError(err);
                    //push reading into evidence array
                    evidence.reading = reading._id;
-                   evidence.locked = true;
+                   evidence.read = true;
                    evidence.flag = 0;
                    evidence.resolved = true;
                    //save updated evidence
@@ -607,7 +675,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
 
                    //push reading into evidence array
                    evidence.reading = reading._id;
-                   evidence.locked = true;
+                   evidence.read = true;
                    evidence.flag = 0;
                    evidence.resolved = true;
                    //save updated evidence

@@ -19,9 +19,11 @@ var Evidence = new Schema({
   user:                 {type: String, default: 'Anon'},
   // changed to single reading for decreasing complexity for round 1
   reading:              {type: ObjectId, ref: 'Reading'},
-  locked:                {type: Boolean,default: false},
-  flag:                       {type: Number, default: 0},
-  resolved:                   {type: Boolean, default: false},
+  locked:               {type: Boolean,default: false}, 
+  entered:              {type: Boolean,default: false},  // initial entry for city,district,no,type
+  read:                 {type: Boolean,default: false},  // reading of voting data
+  flag:                 {type: Number, default: 0},
+  resolved:             {type: Boolean, default: false},
   // readings:             [{id: ObjectId, flag: Number, resolved: Boolean}],
   created_at:           {type: Date, default: Date.now},
   updated_at:           {type: Date, default: Date.now}
