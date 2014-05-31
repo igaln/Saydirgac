@@ -1,11 +1,21 @@
 var express = require('express');
 var router = express.Router();
+var browser = require('../lib/browser_utils');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  console.log("lang " + req.session.lang);
+   
 
-  res.render('index', { title: 'Saydıraç' });
+   var ua = browser.browser_type(req.headers['user-agent']);
+
+   console.log(ua.Mobile);
+   if (ua.Mobile) {
+      res.redirect('/evidences/new');
+   } else {
+      res.redirect('/evidences/say');
+   }
+    //langind
+    //res.render('index', { title: 'Saydıraç' });
 });
 
 // Set language route

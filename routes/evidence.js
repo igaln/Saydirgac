@@ -16,11 +16,15 @@ var Progress = mongoose.model('Progress');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+var connect = require('connect');
+var auth = connect.basicAuth('saydirac', 'saydirac');
+
 // index
 // GET /evidences
 router.get('/', function(req, res) {
 
-  Evidence.find(function(err, evidences){
+  Evidence.find({}).populate('reading').exec(function(err, evidences){
+    console.log(evidences);
     // if (req.params.format) {
     //   res.json(evidences);
     // }else{
@@ -31,6 +35,20 @@ router.get('/', function(req, res) {
     // }
   });
 });
+
+
+// index  evidences to be counted
+// GET /evidences/say
+router.get('/say', function(req, res) {
+
+  Evidence.find({locked:false}).populate('reading').exec(function(err, evidences){
+      res.render('evidence_index', {
+        title: 'Okunacak Tutanaklar',
+        evidences: evidences
+      });
+  });
+});
+
 
 // show
 // GET /evidences/1
@@ -53,7 +71,6 @@ router.get('/:id/evidence', function(req, res) {
 router.get('/new', function(req, res) {
 
  var types =  require('../config/types.json');
-
   var options = {
     limit: 1,
     sort: {
@@ -96,7 +113,7 @@ router.get('/:id/:edit', function(req, res) {
         yskveri: JSON.stringify(yskveri)
       });
     });
-
+    
   } else if(req.params.edit === "show") {
 
       Evidence.findById(req.params.id, function(err, evidence) {
@@ -108,11 +125,9 @@ router.get('/:id/:edit', function(req, res) {
       });
     });
   }
-
 });
 
 router.get('/:city/:district/:boxno', function(req, res) {
-
 
   Evidence.find({city:req.params.city,district:req.params.district,no:req.params.boxno},function(err, evidences){
     res.render('evidence_index', {
@@ -137,6 +152,34 @@ router.get('/:city/:district/:boxno/:type', function(req, res) {
   });
 
 });
+
+router.get('/flagged',auth,function(req,res){
+
+    var config =  req.app.get('config');
+    Evidence.find({flag: {$gt:0}}).populate('reading').exec(function(err,flagged_evidences) {
+          res.render('evidence_flagged', {
+                title: 'Flagged Evidences',
+                evidences:flagged_evidences,
+                s3path: config.s3URL + config.s3Path
+              });
+    })
+});
+
+
+// POST /flag
+router.post('/flag',function(req,res){
+
+    Evidence.findById(req.body.evidence_id,function(err,evidence) {
+          if (err) return handleError(err);
+
+          evidence.flag++;
+          evidence.save(function(err,reading) {
+                res.send( JSON.stringify({flagcount:evidence.flag}));
+          });
+    })
+});
+
+
 
 // POST /evidences
 router.post('/', multipartMiddleware, function(req, res) {
