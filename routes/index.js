@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
    if (ua.Mobile) {
       res.redirect('/evidences/new');
    } else {
-      res.redirect('/evidences/say');
+      res.redirect('/readings/new');
    }
     //langind
     //res.render('index', { title: 'Saydıraç' });

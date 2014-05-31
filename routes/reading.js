@@ -12,6 +12,7 @@ var Evidence  = mongoose.model('Evidence');
 var Reading   = mongoose.model('Reading');
 var Candidate = mongoose.model('Candidate');
 var Progress  = mongoose.model('Progress');
+var Event     = mongoose.model('Event');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -22,8 +23,41 @@ var auth = connect.basicAuth('saydirac', 'saydirac');
 
 // index
 // GET /readings
-router.get('/', function(req, res) {
+router.get('/new', function(req, res) {
 
+  var types =  require('../config/types.json');
+  var options = {
+    limit: 1,
+    sort: {
+      date_added: 1 //Sort by Date Added ASC
+    }
+  }
+  var filter = {};
+
+  Event.find(filter, 'name', options, function(err, events) {
+
+    //@igaln: removed the Evidence query here, @arikan, not sure why it was being used.
+    // we have to have at least 1 event to add evidences to
+    if (events.length > 0)
+      res.render('reading_landing', {
+        title: 'Tutanak kanıtı say',
+        current_event: events[0],
+        types:types
+      });
+    else
+      res.send("Sorry, nothing is happening in the world.")
+  });
+
+  Reading.find(function(err, readings){
+    res.render('', {
+      title: 'Tutanak Oku'
+    });
+  });
+});
+
+// index
+// GET /readings
+router.get('/', function(req, res) {
   Reading.find(function(err, readings){
     res.render('reading_index', {
       title: 'Okunanlar',

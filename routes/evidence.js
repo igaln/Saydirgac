@@ -24,15 +24,10 @@ var auth = connect.basicAuth('saydirac', 'saydirac');
 router.get('/', function(req, res) {
 
   Evidence.find({}).populate('reading').exec(function(err, evidences){
-    console.log(evidences);
-    // if (req.params.format) {
-    //   res.json(evidences);
-    // }else{
       res.render('evidence_index', {
         title: 'Tutanaklar',
         evidences: evidences
       });
-    // }
   });
 });
 
