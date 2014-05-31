@@ -9,6 +9,7 @@
     "express": "~4.0.0",
     "express-helpers": "*",
     "express-ejs-layouts": "*",
+    "connect": "2.18.0",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
     "cookie-parser": "~1.0.1",
@@ -26,7 +27,6 @@
     "mongoose" : "3.6.13",
     "aws-sdk": "*",
     "mailchimp": "1.1.0",
-    "connect": "*",
     "polyglot": "*"
   }
 }
