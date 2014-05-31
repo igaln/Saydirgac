@@ -294,3 +294,11 @@ img.tutanak {
   margin-bottom: 20px;
   text-align: center;
 }
+#evidence_edit .tutanak-meta-verileri {
+  background-color: transparent !important;
+  border-color: #7E7E7E;
+  font-size: 16px;
+  color: #ddddde;
+  height: 47px;
+  margin-bottom: 10px;
+}
