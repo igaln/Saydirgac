@@ -128,21 +128,17 @@
                var type = $("#type option:selected").val();
                var event_id =  $("#event_id").val();
 
-
                $.ajax({
                   type: "POST",
                   url: "/evidences",
                   data: {"city":city,"district":district,"no":no,"type":type,"event_id":event_id},
                   success: function (response) {
                      console.log(response._id);
-                     window.location = '/evidences/' + response._id + '/show';
+                     window.location = '/evidences/' + response._id + '/saved';
                   },
                   dataType: "json"
                });
-            // Do your task
-            // ...
-            // Submit the form
-           // validator.defaultSubmit();
+
         }
       });
     });

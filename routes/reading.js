@@ -76,7 +76,6 @@ router.get('/:evidence_id/new', function(req, res) {
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-
     if(evidence.locked) {
       console.log("ALREADY READ");
       res.redirect('/readings/' + evidence.reading  + '/reading');

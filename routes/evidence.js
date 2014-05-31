@@ -101,9 +101,11 @@ router.get('/:id/:edit', function(req, res) {
   if(req.params.edit === "edit") {
 
     Evidence.findById(req.params.id, function(err, evidence) {
+
       res.render('evidence_edit', {
         title: 'Tutanak Detaylarını Gir',
         evidence: evidence,
+        message: false,
         s3path: config.s3URL + config.s3Path,
         yskveri: JSON.stringify(yskveri)
       });
@@ -115,6 +117,18 @@ router.get('/:id/:edit', function(req, res) {
       res.render('evidence_show', {
         title: 'TUTANAK DETAYLARI',
         evidence: evidence,
+        message:false,
+        s3path: config.s3URL + config.s3Path,
+        types:types
+      });
+    });
+  } else if(req.params.edit === "saved") {
+
+      Evidence.findById(req.params.id, function(err, evidence) {
+      res.render('evidence_show', {
+        title: 'TUTANAK DETAYLARI',
+        evidence: evidence,
+        message:"kayittesekkur",
         s3path: config.s3URL + config.s3Path,
         types:types
       });
@@ -123,6 +137,7 @@ router.get('/:id/:edit', function(req, res) {
 });
 
 router.get('/:city/:district/:boxno', function(req, res) {
+
 
   Evidence.find({city:req.params.city,district:req.params.district,no:req.params.boxno},function(err, evidences){
     res.render('evidence_index', {
