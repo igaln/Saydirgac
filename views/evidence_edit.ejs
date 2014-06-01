@@ -75,12 +75,6 @@
               for (var i = boxes.from; i < boxes.to+1; i++) {
                 $("#no").append('<option value="'+i+'">'+i+'</option>');
               };
-
-              // parse districts for the selected value
-              // var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes
-              // $.each(boxes, function(key, value){
-              //     $("#no").append('<option value="'+key+'">'+value+'</option>');
-              // });
          });
 
     $('#evidence_edit').bootstrapValidator({
@@ -133,7 +127,6 @@
                   url: "/evidences",
                   data: {"city":city,"district":district,"no":no,"type":type,"event_id":event_id},
                   success: function (response) {
-                     console.log(response._id);
                      window.location = '/evidences/' + response._id + '/saved';
                   },
                   dataType: "json"
