@@ -29,6 +29,9 @@
 .btn-block {
   margin: 20px 0 40px 0;
 }
+.btn-danger {
+  margin: 20px 0 10px 0;
+}
 .btn-social {
   display: inline-block;
   width: 40px;
@@ -212,6 +215,9 @@ footer .footer-below {
 a {
   color: #00B7FF;
 }
+.label > a {
+  color: #FFFFFF;
+}
 .tutanak-form {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -220,6 +226,7 @@ a {
   font-size: 12px;
 }
 img.tutanak {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 .result-row {

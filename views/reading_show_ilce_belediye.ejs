@@ -19,8 +19,11 @@
   <% if(!evidence.resolved) {%>
   <div class="col-xs-4">
      <form id="flag">
-     	  <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
-        <input type="submit" id="flagbutton" class="btn btn-default btn-danger btn-lg btn-block" value="<%= t('flag') %>"/>
+     		<input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
+      	<input type="submit" id="flagbutton" class="btn btn-default btn-danger btn-lg btn-block" value="<%= t('flag') %>"/>
+				<p class="form-note">
+					<%= t('flagnote') %>
+				</p>
      </form>
   </div>
   <% } %>
