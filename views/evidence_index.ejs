@@ -17,11 +17,11 @@
   <tr>
     <td>
        <% if(evidence.resolved) { %>
-        <a href="/readings/<%= evidence.reading %>/show">
+        <a href="/readings/<%= evidence.reading._id %>/show">
       <% } else if(evidence.flag > 0) { %>
-        <a href="/readings/<%= evidence.reading %>/show">
+        <a href="/readings/<%= evidence.reading._id %>/show">
       <% } else if(evidence.reading) { %>
-        <a href="/readings/<%= evidence.reading %>/show">
+        <a href="/readings/<%= evidence.reading._id %>/show">
       <% } else if(evidence.entered) { %>
         <a href="/readings/<%= evidence.id %>/new">
       <% } else { %>

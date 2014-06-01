@@ -21,6 +21,18 @@ var connect = require('connect');
 var auth = connect.basicAuth('saydirac', 'saydirac');
 
 
+// index
+// GET /readings
+router.get('/', function(req, res) {
+  Reading.find(function(err, readings){
+    res.render('reading_index', {
+      title: 'Okunanlar',
+      readings: readings
+    });
+  });
+});
+
+
 
 router.get('/getrandomreading', function(req,res) {
 
@@ -92,28 +104,19 @@ router.get('/new', function(req, res) {
     Event.find(filter, 'name', options, function(err, events) {
 
       if (events.length > 0)
-        res.render('reading_landing', {
-          title: 'Tutanak kanıtı say',
-          current_event: events[0],
-          types:types
-        });
+          Progress.findOne({type:'Event'},function(err, progress){
+            res.render('reading_landing', {
+              title: 'Tutanak kanıtı say',
+              current_event: events[0],
+              types:types,
+              progress:progress
+            });
+          });
       else
         res.send("Sorry, nothing is happening in the world.")
     });
 
 });
-
-// index
-// GET /readings
-router.get('/', function(req, res) {
-  Reading.find(function(err, readings){
-    res.render('reading_index', {
-      title: 'Okunanlar',
-      readings: readings
-    });
-  });
-});
-
 
 
 
@@ -135,7 +138,7 @@ router.get('/:evidence_id/new', function(req, res) {
     } else {
 
       evidence.locked = true;
-      evidence.updated_at = Date.now;
+      evidence.updated_at = Date.now();
 
       evidence.save(function(err,evidence) {
 
