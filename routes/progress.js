@@ -27,4 +27,22 @@ router.get('/:format?', function(req, res) {
 
 });
 
+// index
+// GET /progress/dashboard/
+router.get('/dashboard/live', function(req, res) {
+
+  Progress.find(function(err, progresses){
+    if (req.params.format) {
+      res.json(progresses);
+    }else{
+      res.render('progress_dashboard', {
+        title: 'Durum',
+        progresses: progresses
+      });
+    }
+  });
+
+});
+
+
 module.exports = router;
