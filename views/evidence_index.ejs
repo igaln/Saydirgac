@@ -17,13 +17,15 @@
   <tr>
     <td>
       <a href="/evidences/<%= evidence.id %>/show">
-        <img class="img-responsive tutanak" src="<%=s3path + evidence.img %>" width="100%">
+        <img class="img-responsive tutanak" src="<%=s3path + evidence.img %>" width="200">
       </a>
     </td>
     <td><%= evidence.city %></td>
     <td><%= evidence.district %></td>
     <td><%= evidence.no %></td>
-    <td><%= evidence.type %></td>
+    <td>
+      <%= types.evidence[evidence.type] || "(Tutanak tipi)" %>
+    </td>
     <td>
       <% var date = new Date(evidence.created_at); %>
       <%= date.getHours() %>:<%= date.getMinutes() %>
