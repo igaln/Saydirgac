@@ -16,7 +16,17 @@
   <% evidences.forEach( function(evidence){ %>
   <tr>
     <td>
-      <a href="/evidences/<%= evidence.id %>/show">
+       <% if(evidence.resolved) { %>
+        <a href="/readings/<%= evidence.reading %>/show">
+      <% } else if(evidence.flag > 0) { %>
+        <a href="/readings/<%= evidence.reading %>/show">
+      <% } else if(evidence.reading) { %>
+        <a href="/readings/<%= evidence.reading %>/show">
+      <% } else if(evidence.entered) { %>
+        <a href="/readings/<%= evidence.id %>/new">
+      <% } else { %>
+        <a href="/evidences/<%= evidence.id %>/edit">
+      <% } %>
         <img class="img-responsive tutanak" src="<%=s3path + evidence.img %>" width="200">
       </a>
     </td>
@@ -32,12 +42,16 @@
       <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
     </td>
     <td>
-      <% if(evidence.flag > 0) { %>
+      <% if(evidence.resolved) { %>
+         <span class="label label-success">Okundu</span>
+      <% } else if(evidence.flag > 0) { %>
         <span class="label label-danger"><%= t('flag') %></span>
       <% } else if(evidence.reading) { %>
         <span class="label label-success"><a href="/readings/<%= evidence.reading.id %>/show"><%= t('sayim') %></a></span>
       <% } else if(evidence.entered) { %>
-      <span class="label label-default">Sadece resim</span>
+      <span class="label label-default">Sadece tutanak</span>
+      <% } else { %>
+        <span class="label label-default">Sadece resim</span>
       <% } %>
     </td>
   </tr>
