@@ -335,3 +335,11 @@ img.tutanak {
 .gray {
   color: gray;
 }
+input[type=submit].next {
+  background: transparent;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  left: 3px;
+  top: 95px;
+}
