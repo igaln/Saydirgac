@@ -100,22 +100,33 @@
                       <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
                     </td>
                     <td>
+
                       <% if(progress_box.reading) { %>
+                       <table class="table-inline">
+                      <tr>
+                        <th>PARTI</th>
+                        <th>ISIM</th>
+                        <th>OY</th>
+                      </tr> 
+                      
                          <!--   <%= progress_box.reading.type %> -->
                         <% if(progress_box.reading.type == "il_belediye_baskanligi") { %>
                             <% progress_box.reading.baskan_results.forEach(function(result) { %>
-                                  <%= result.party %> : <%= result.votes %><br>
+                                <tr><td class="col-xs-5"> <%= result.party %>  </td><td class="col-xs-5"> <%= result.person %> </td><td class="col-xs-2"><%= result.votes %></td></tr> 
                             <% }); %>
                           
                         <% } else { %>
                             <% progress_box.reading.baskan_results.forEach(function(result) { %>
-                                  <%= result.party %> : <%= result.votes %><br>
+                                   <tr><td class="col-xs-5"> <%= result.party %>  </td><td class="col-xs-5"> <%= result.person %> </td><td class="col-xs-2"><%= result.votes %></td></tr> 
                             <% }); %>
+                          
                              <% progress_box.reading.meclis_results.forEach(function(result) { %>
-                                  <%= result.party %> : <%= result.votes %><br>
+                                   <tr><td class="col-xs-5"> <%= result.party %>  </td><td class="col-xs-5"> <%= result.person %> </td><td class="col-xs-2"><%= result.votes %></td></tr> 
                             <% }); %>
                             <% } %>
+                          </table>
                         <% } %>
+                        
                     </td>
                   </tr>
                 <% } %>
