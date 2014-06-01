@@ -1,0 +1,31 @@
+{ "event": {"name":"Türkiye 2014 Yerel Seçim Tekrarı, 1 Haziran 2014",
+						"country":"Türkiye",
+						"type":"Yerel Seçim Tekrarı",
+						"startdate":""},
+	"cities": [
+		{
+			"name": "Ağrı",
+		  	 "districts":	[
+		  	 				{ "name": "Ağrı Merkez", "boxes": {"from":1001, "to":1196} },
+								{ "name": "Diyadin" , "boxes": {}},
+								{ "name": "Doğubayazıt" , "boxes": {}},
+								{ "name": "Eleşkirt" , "boxes": {}},
+								{ "name": "Hamur" , "boxes": {}},
+								{ "name": "Patnos" , "boxes": {}},
+								{ "name": "Taşlıçay" , "boxes": {}},
+								{ "name": "Tutak" , "boxes": {}}
+							]
+		},
+		{
+			"name":  "Yalova",
+			"districts":	[
+								{ "name": "Yalova Merkez", "boxes": {"from":1001, "to":1244}},
+								{ "name": "Altınova", "boxes": {}},
+								{ "name": "Armutlu", "boxes": {}},
+								{ "name": "Çınarcık", "boxes": {}},
+								{ "name": "Çiftlikköy", "boxes": {}},
+								{ "name": "Termal", "boxes": {}}
+							]
+		}
+	]
+}

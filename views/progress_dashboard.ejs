@@ -13,7 +13,7 @@
       GUNCELLEME:
     </div>
      <div class="col-xs-2">
-      ADAYLAR:
+    <!--   ADAYLAR: -->
     </div>
     
   </div>
@@ -41,7 +41,7 @@
           <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
         </div>
          <div class="col-xs-2">
-         ADAYLAR
+        <!--  ADAYLAR -->
         </div>  
       </div> 
     </div>
@@ -75,18 +75,19 @@
             <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
           </div>
            <div class="col-xs-2">
-           ADAYLAR
+        <!--    ADAYLAR -->
           </div>  
           </div> 
       
           <div id="<%= progress._id %>" class="panel-collapse collapse">
             <div class="panel-body">
-              <div class="col-xs-8 col-xs-offset-3">
-                <table class="table">
+              <div class="col-xs-10 col-xs-offset-2">
+                <small><table class="table">
                 <tr>
                   <th>SANDIK NO</th>
                   <th>OKUMA SAYISI</th>
                   <th>GUNCELLEME</th>
+                  <th>Adaylar</th>
                 </tr>            
                 <% progresses.forEach( function(progress_box){ %>
                 <% if ( String(progress_box.parent) == String(progress_district._id) ) { %>
@@ -98,10 +99,28 @@
                       <%= date.getHours() %>:<%= date.getMinutes() %>
                       <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
                     </td>
+                    <td>
+                      <% if(progress_box.reading) { %>
+                         <!--   <%= progress_box.reading.type %> -->
+                        <% if(progress_box.reading.type == "il_belediye_baskanligi") { %>
+                            <% progress_box.reading.baskan_results.forEach(function(result) { %>
+                                  <%= result.party %> : <%= result.votes %><br>
+                            <% }); %>
+                          
+                        <% } else { %>
+                            <% progress_box.reading.baskan_results.forEach(function(result) { %>
+                                  <%= result.party %> : <%= result.votes %><br>
+                            <% }); %>
+                             <% progress_box.reading.meclis_results.forEach(function(result) { %>
+                                  <%= result.party %> : <%= result.votes %><br>
+                            <% }); %>
+                            <% } %>
+                        <% } %>
+                    </td>
                   </tr>
                 <% } %>
                 <% });  %>
-              </table>
+              </table></small>
                 <!--   end  district check -->
               </div>
             </div>

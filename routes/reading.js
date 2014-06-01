@@ -428,6 +428,9 @@ router.post('/', multipartMiddleware,function(req, res) {
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
+                                    if(progress.type === "Box") {
+                                      progress.reading = evidence_reading;
+                                    }
                                     progress.reading_count++;
                                     progress.save();
                                 })
@@ -497,6 +500,10 @@ router.post('/', multipartMiddleware,function(req, res) {
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
+                                    if(progress.type === "Box") {
+                                      console.log("bagla");
+                                      progress.reading = evidence_reading;
+                                    }
                                     progress.reading_count++;
                                     progress.save();
                                 })
@@ -619,6 +626,9 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
+                                   if(progress.type === "Box") {
+                                      progress.reading = evidence_reading;
+                                    }
                                     progress.reading_count++;
                                     progress.save();
                                 })
@@ -683,11 +693,12 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                    evidence.resolved = true;
                    //save updated evidence
                    evidence.save(function(err, evidence){
-
-
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
+                                   if(progress.type === "Box") {
+                                      progress.reading = evidence_reading;
+                                    }
                                     progress.reading_count++;
                                     progress.save();
                                 })

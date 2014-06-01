@@ -7,15 +7,14 @@ router.get('/', function(req, res) {
    
 
    var ua = browser.browser_type(req.headers['user-agent']);
-
-   console.log(ua.Mobile);
-   if (ua.Mobile) {
-      res.redirect('/evidences/new');
-   } else {
-      res.redirect('/readings/new');
-   }
+ 
+   // if (ua.Mobile) {
+   //    res.redirect('/evidences/new');
+   // } else {
+   //    res.redirect('/readings/new');
+   // }
     //langind
-    //res.render('index', { title: 'Saydıraç' });
+    res.render('index', { title: 'Saydıraç' });
 });
 
 // Set language route
