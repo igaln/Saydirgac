@@ -13,9 +13,11 @@ var handleError = function(err){
 
 docid = "14KZYVcS5jwQFKvqTIjsyRZSCYJRYmEb9ZOY5yJ6oha8";  // doc id
 gid = "0";                                               // sheet id
-gid2 = "1223011841";                                     // sheet id
+gid2 = "1223011841";
+gid3 = '2116057599';                                     // sheet id
 url_in = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid+"&format=csv";
 url_in2 = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid2+"&format=csv";
+url_in3 = "https://docs.google.com/spreadsheets/d/"+docid+"/export?gid="+gid3+"&format=csv";
 file_out = __dirname + "/config/candidates.json";
 
 
@@ -42,6 +44,7 @@ Event.remove({}, function(err) {
       console.log("Candidate collection removed");
       pop_candidate(event, url_in);
       pop_candidate(event, url_in2);
+      pop_candidate(event, url_in3);
     });
 
     Progress.remove({}, function(err) {

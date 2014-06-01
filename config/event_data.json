@@ -14,6 +14,12 @@
 			"districts":	[
 								{ "name": "Yalova Merkez", "boxes": {"from":1001, "to":1244}}
 							]
+		},
+		{
+			"name":  "Eskişehir",
+			"districts":	[
+								{ "name": "Mahmudiye", "boxes": {"from":1001, "to":1030}}
+							]
 		}
 	]
 }

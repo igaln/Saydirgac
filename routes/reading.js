@@ -83,7 +83,20 @@ router.get('/getrandomreading', function(req,res) {
                   types:types
                 });
             }); // Candidate Query
-          }
+          } else if(types.evidence[reading.evidence.type] == 'İl Genel Meclis Tutanağı') {
+
+               // find all candidates related to the ballot on the evidence and send to template
+              Candidate.find({city:reading.evidence.city,district:reading.evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+                  res.render('reading_new_buyuksehir', {
+                    title: 'Tutanak Oku',
+                    evidence:reading.evidence,
+                    reading:reading,
+                    candidates:candidates,
+                    s3path: config.s3URL + config.s3Path,
+                    types:types
+                  });
+              }); // Candidate Query
+          }  
       });
   });
 });
@@ -170,7 +183,20 @@ router.get('/:evidence_id/new', function(req, res) {
                     types:types
                   });
               }); // Candidate Query
-            }
+            } else if(types.evidence[reading.evidence.type] == 'İl Genel Meclis Tutanağı') {
+
+               // find all candidates related to the ballot on the evidence and send to template
+              Candidate.find({city:reading.evidence.city,district:reading.evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+                  res.render('reading_new_buyuksehir', {
+                    title: 'Tutanak Oku',
+                    evidence:reading.evidence,
+                    reading:reading,
+                    candidates:candidates,
+                    s3path: config.s3URL + config.s3Path,
+                    types:types
+                  });
+              }); // Candidate Query
+            }  
 
         });
     }
@@ -208,6 +234,19 @@ router.get('/:reading_id/edit', auth, function(req, res) {
 
        // find all candidates related to the ballot on the evidence and send to template
       Candidate.find({city:reading.evidence.city,district:reading.evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
+          res.render('reading_edit_buyuksehir', {
+            title: 'Tutanak Oku',
+            evidence:reading.evidence,
+            reading:reading,
+            candidates:candidates,
+            s3path: config.s3URL + config.s3Path,
+            types:types
+          });
+      }); // Candidate Query
+    } else if(types.evidence[reading.evidence.type] == 'İl Genel Meclis Tutanağı') {
+
+       // find all candidates related to the ballot on the evidence and send to template
+      Candidate.find({city:reading.evidence.city,district:reading.evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
           res.render('reading_edit_buyuksehir', {
             title: 'Tutanak Oku',
             evidence:reading.evidence,
@@ -514,6 +553,77 @@ router.post('/', multipartMiddleware,function(req, res) {
                    })
             });
       }); //Candidate Query
+    }  else if(types.evidence[evidence.type] == 'İl Genel Meclis Tutanağı') {
+
+      Candidate.find({city:evidence.city,district:evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+
+          var evidence_reading = new Reading({});
+
+           // Reading type and evidence
+          evidence_reading.evidence                            =   evidence._id
+          evidence_reading.type                                =   evidence.type
+
+          // Total Begin
+          evidence_reading.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
+          evidence_reading.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
+          evidence_reading.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
+          evidence_reading.baskan_toplam_oy_kullanan_secmen    =   req.body.baskan_toplam_oy_kullanan_secmen
+          evidence_reading.baskan_sandiktan_cikan_zarf_sayisi  =   req.body.baskan_sandiktan_cikan_zarf_sayisi
+          evidence_reading.baskan_gecerli_zarf_sayisi          =   req.body.baskan_gecerli_zarf_sayisi
+          evidence_reading.baskan_itirazsiz_gecerli_oy         =   req.body.baskan_itirazsiz_gecerli_oy
+          evidence_reading.baskan_itirazli_gecerli_oy          =   req.body.baskan_itirazli_gecerli_oy
+          evidence_reading.baskan_gecerli_oy                   =   req.body.baskan_gecerli_oy
+          evidence_reading.baskan_gecersiz_oy                  =   req.body.baskan_gecersiz_oy
+          evidence_reading.baskan_toplam_gecerli_oy            =   req.body.baskan_toplam_gecerli_oy
+          // Add Candidates
+          evidence_reading.baskan_results = [];
+
+           var input_counter = 0;
+           candidates.forEach(function(candidate) {
+
+                candidate.vote = req.body.baskan_adaylar[0][input_counter];
+                candidate.save();
+                evidence_reading.baskan_results.push(
+                                         {id    :   candidate._id,
+                                          party  :   candidate.party,
+                                          person :   candidate.person,
+                                          type   :   candidate.type,
+                                          votes  :   req.body.baskan_adaylar[0][input_counter]
+                                        });
+
+                input_counter++;
+            });  // end for adding candidates
+
+            var evidence_reading = new Reading(evidence_reading);
+            //save reading
+            evidence_reading.save(function(err,reading) {
+                   if (err) return handleError(err);
+
+                   //push reading into evidence array
+                   evidence.reading = reading._id;
+                   evidence.read = true;
+                   evidence.locked = false;
+                   //save updated evidence
+                   evidence.save(function(err, evidence){
+
+
+                          Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
+
+                                progress_results.forEach(function(progress){
+                                    if(progress.type === "Box") {
+                                      console.log("bagla");
+                                      progress.reading = evidence_reading;
+                                    }
+                                    progress.reading_count++;
+                                    progress.save();
+                                })
+                          });
+
+                          res.redirect('readings/' + evidence._id + '/thankyou');
+
+                   })
+            });
+      }); //Candidate Query
     } // if/else end for evidence type
   }); //Evidence Query
 });
@@ -707,6 +817,77 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                           res.redirect('/readings/' + reading.id  + '/show');
 
                           //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
+                   })
+            });
+      }); //Candidate Query
+    }  else if(types.evidence[evidence.type] == 'İl Genel Meclis Tutanağı') {
+
+      Candidate.find({city:evidence.city,district:evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+
+          var evidence_reading = new Reading({});
+
+           // Reading type and evidence
+          evidence_reading.evidence                            =   evidence._id
+          evidence_reading.type                                =   evidence.type
+
+          // Total Begin
+          evidence_reading.baskan_kayitli_secmen               =   req.body.baskan_kayitli_secmen
+          evidence_reading.baskan_oy_kullanan_secmen           =   req.body.baskan_oy_kullanan_secmen
+          evidence_reading.baskan_kanunen_oy_kullanan_secmen   =   req.body.baskan_kanunen_oy_kullanan_secmen
+          evidence_reading.baskan_toplam_oy_kullanan_secmen    =   req.body.baskan_toplam_oy_kullanan_secmen
+          evidence_reading.baskan_sandiktan_cikan_zarf_sayisi  =   req.body.baskan_sandiktan_cikan_zarf_sayisi
+          evidence_reading.baskan_gecerli_zarf_sayisi          =   req.body.baskan_gecerli_zarf_sayisi
+          evidence_reading.baskan_itirazsiz_gecerli_oy         =   req.body.baskan_itirazsiz_gecerli_oy
+          evidence_reading.baskan_itirazli_gecerli_oy          =   req.body.baskan_itirazli_gecerli_oy
+          evidence_reading.baskan_gecerli_oy                   =   req.body.baskan_gecerli_oy
+          evidence_reading.baskan_gecersiz_oy                  =   req.body.baskan_gecersiz_oy
+          evidence_reading.baskan_toplam_gecerli_oy            =   req.body.baskan_toplam_gecerli_oy
+          // Add Candidates
+          evidence_reading.baskan_results = [];
+
+           var input_counter = 0;
+           candidates.forEach(function(candidate) {
+
+                candidate.vote = req.body.baskan_adaylar[0][input_counter];
+                candidate.save();
+                evidence_reading.baskan_results.push(
+                                         {id    :   candidate._id,
+                                          party  :   candidate.party,
+                                          person :   candidate.person,
+                                          type   :   candidate.type,
+                                          votes  :   req.body.baskan_adaylar[0][input_counter]
+                                        });
+
+                input_counter++;
+            });  // end for adding candidates
+
+            var evidence_reading = new Reading(evidence_reading);
+            //save reading
+            evidence_reading.save(function(err,reading) {
+                   if (err) return handleError(err);
+
+                   //push reading into evidence array
+                   evidence.reading = reading._id;
+                   evidence.read = true;
+                   evidence.locked = false;
+                   //save updated evidence
+                   evidence.save(function(err, evidence){
+
+
+                          Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
+
+                                progress_results.forEach(function(progress){
+                                    if(progress.type === "Box") {
+                                      
+                                      progress.reading = evidence_reading;
+                                    }
+                                    progress.reading_count++;
+                                    progress.save();
+                                })
+                          });
+
+                          res.redirect('readings/' + evidence._id + '/thankyou');
+
                    })
             });
       }); //Candidate Query
