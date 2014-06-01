@@ -25,10 +25,10 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <h5 class="percentage text-center">
-      % 0
-    </h5>
+   <div class="col-md-12">
+      <h5 class="percentage text-center">
+       <%= progress.evidence_count %> tutanak / <%= progress.box_count %> sandık (%<%= round((progress.evidence_count / progress.box_count) * 100) %>)
+      </h5>
   </div>
 </div>
 
