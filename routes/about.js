@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 // index
 // GET /kunye
-router.get('/about', function(req, res) {
+router.get('/', function(req, res) {
 
   res.render('about', {
     title: 'Saydıraç Hakkında'
