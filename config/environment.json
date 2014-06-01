@@ -1,6 +1,6 @@
 {
   "production": {
-    "mongoURI":"mongodb://newyork:newyork@candidate.21.mongolayer.com:10179/app25115492",
+    "mongoURI":"mongodb://bk:bk@candidate.21.mongolayer.com:10179/app25115492",
     "s3URL": "https://s3.amazonaws.com",
     "s3Path": "/journosweb/saydirachaziranbir/images/",
     "errorHandlerOptions": {"dumpExceptions": true, "showStack": true}
@@ -12,7 +12,7 @@
     "errorHandlerOptions": {"dumpExceptions": false, "showStack": false}
   },
   "local": {
-    "mongoURI":"mongodb://aa:aa@oceanic.mongohq.com:10008/app25757454",
+    "mongoURI":"mongodb://bk:bk@oceanic.mongohq.com:10008/app25757454",
     "s3URL": "https://s3.amazonaws.com",
     "s3Path": "/journosweb/saydirachaziranbir/images/",
     "errorHandlerOptions": {"dumpExceptions": false, "showStack": false}

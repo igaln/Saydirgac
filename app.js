@@ -104,7 +104,7 @@ app.use(function(req, res, next) {
 
 
 // add this to run POPULATE SCRIPTS at different env  || process.env.env === "development"  || process.env.env === "production"
-if(process.env.env === "local")
+if(process.env.env === "local" || process.env.env === "production")
   mongoose.connect(config.mongoURI);
 else
   mongoose.connect(process.env.MONGOHQ_URL);
@@ -147,4 +147,46 @@ function currentLang() {
 app.set('config', config);
 module.exports = app;
 
+var Evidence  = mongoose.model('Evidence');
 
+setInterval(function(){
+
+  // first pull the evidence TODO: 2 type of templates according to Evidence
+  Evidence.find({locked:true,read:false,resolved:false},function(err, evidences) {
+    if (err) return handleError(err);
+  
+    console.log('----------------');
+    console.log(evidences.length + " tutanak kiltli"); 
+    console.log('----------------');
+    evidences.forEach(function(evidence) {
+            var startTime = new Date(evidence.updated_at);
+
+           
+            // later record end time
+            var endTime = new Date();
+
+            // time difference in ms
+            var timeDiff = endTime - startTime;
+
+            // strip the miliseconds
+            var timeDiff =  timeDiff/1000;
+
+            // get seconds (Original had 'round' which incorrectly counts 0:28, 0:29, 1:30 ... 1:59, 1:0)
+            var seconds = Math.round(timeDiff % 60);
+
+            // remove seconds from the date
+            timeDiff = Math.floor(timeDiff / 60);
+
+            // get minutes
+            var minutes = Math.round(timeDiff % 60);
+
+             console.log(minutes);
+
+             if(minutes > 5) {
+                evidence.locked = false;
+                evidence.save();
+             }
+
+    });
+  });
+}, 5000);
