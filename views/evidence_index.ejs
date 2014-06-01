@@ -1,21 +1,25 @@
 <!-- evidences/ -->
 <h3 class="title">
-  <%= title %>
+  <%= t('tumtutanaklar') %>
 </h3>
 
 <table class="table">
   <tr>
-    <th>Fotoğraf</th>
-    <th>İl</th>
-    <th>İlçe</th>
-    <th>Sandık no</th>
-    <th>Türü</th>
-    <th>Gönderim Tarihi</th>
-    <th>Sayım</th>
+    <th><%= t('fotograf') %></th>
+    <th><%= t('il') %></th>
+    <th><%= t('ilce') %></th>
+    <th><%= t('sandikno') %></th>
+    <th><%= t('tutanakturu') %></th>
+    <th><%= t('gonderimtarihi') %></th>
+    <th><%= t('durum') %></th>
   </tr>
   <% evidences.forEach( function(evidence){ %>
   <tr>
-    <td><%- link_to(evidence.img, "/evidences/"+evidence.id+"/show") %></td>
+    <td>
+      <a href="/evidences/<%= evidence.id %>/show">
+        <img class="img-responsive tutanak" src="<%=s3path + evidence.img %>" width="100%">
+      </a>
+    </td>
     <td><%= evidence.city %></td>
     <td><%= evidence.district %></td>
     <td><%= evidence.no %></td>
