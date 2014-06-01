@@ -46,7 +46,7 @@
 .btn:active,
 .btn.active {
   outline: 0;
-  color: #f5623b;
+  color: #2c2b36;
 }
 .btn-outline-orange {
   color: #f5623b;
@@ -69,8 +69,8 @@
   font-size: 20px;
   border: solid 1px #0cb6e3;
   background: transparent;
-  transition: all 0.3s ease-in-out;
   margin-top: 15px;
+  transition: all 0.3s ease-in-out;
 }
 .btn-outline-blue .btn-outline-blue:hover,
 .btn-outline-blue .btn-outline-blue:focus,
@@ -342,4 +342,9 @@ input[type=submit].next {
   position: absolute;
   left: 3px;
   top: 95px;
+}
+.yukle-ikon {
+  background-image: url('/images/yukle.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: 60px 50px !important;
 }
