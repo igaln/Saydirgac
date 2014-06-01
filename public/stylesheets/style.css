@@ -93,10 +93,11 @@
   text-align: center;
   text-decoration: none;
   background: #0cb6e3;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   margin-top: 15px;
   transition: all 0.3s ease-in-out;
+  text-wrap: normal;
 }
 .round-button-blue:hover,
 .round-button-blue:focus,
@@ -113,7 +114,7 @@
   text-align: center;
   text-decoration: none;
   background: #f5623b;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   margin-top: 15px;
   transition: all 0.3s ease-in-out;
