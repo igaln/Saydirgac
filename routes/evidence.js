@@ -69,7 +69,12 @@ router.get('/:id/evidence', function(req, res) {
 // GET /evidences/new
 router.get('/new', function(req, res) {
 
- var types =  require('../config/types.json');
+  var progress;
+  // Progress.find({type:'event'},function(err, progresses){
+  //   progress = progresses[0];
+  // });
+
+  var types =  require('../config/types.json');
   var options = {
     limit: 1,
     sort: {
@@ -79,17 +84,18 @@ router.get('/new', function(req, res) {
   var filter = {};
 
   Event.find(filter, 'name', options, function(err, events) {
-
-    //@igaln: removed the Evidence query here, @arikan, not sure why it was being used.
-    // we have to have at least 1 event to add evidences to
-    if (events.length > 0)
-      res.render('evidence_new', {
+    if (events.length > 0){
+      Progress.findOne({type:'Event'},function(err, progress){
+        res.render('evidence_new', {
         title: 'Tutanak kanıtı gir',
         current_event: events[0],
-        types:types
+        types: types,
+        progress: progress
       });
-    else
+    });
+    }else{
       res.send("Sorry, nothing is happening in the world.")
+    }
   });
 
 });
@@ -141,7 +147,6 @@ router.get('/:id/:edit', function(req, res) {
 });
 
 router.get('/:city/:district/:boxno', function(req, res) {
-
 
   Evidence.find({city:req.params.city,district:req.params.district,no:req.params.boxno},function(err, evidences){
     res.render('evidence_index', {
