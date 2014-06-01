@@ -35,12 +35,27 @@ router.get('/dashboard/live', function(req, res) {
 
   Progress.find(function(err, progresses){
    
-      prop
+      // progresses.forEach(function(progress){
 
-   
+      //       if(progress.type = "Event") {
+      //           data.child = {"Event", progress}; 
+      //       }
+      // });
+
+      // data.child.children = [];
+
+      // progresses.forEach(function(progress){
+
+      //       if(progress.type = "City") {
+      //           data.child.children.push = {"City" :progress};
+      //       }
+
+      // });
+
       res.render('progress_dashboard', {
         title: 'Durum',
-        progresses: progresses
+        // data: data,
+        progresses:progresses
       });
     
   });

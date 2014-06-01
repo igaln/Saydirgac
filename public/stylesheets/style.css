@@ -351,3 +351,11 @@ input[type=submit].next {
 .top-logo {
   margin-bottom: 0px;
 }
+.logo-subtitle {
+  margin-bottom: 30px;
+}
+.panel-state {
+  background-image: url('/images/arrow.png');
+  background-repeat: no-repeat !important;
+  background-size: 20px 10px;
+}

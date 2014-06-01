@@ -68,13 +68,17 @@ app.use(function(req, res, next) {
   if(!req.session.lang) {
      req.session.lang = 'tr';
   } 
-  
+
   app.set('lang', req.session.lang);
   var lnphrases = require('./lang/' + req.session.lang + '.json');
     //pass the current dictionary to Polyglot
   var polyglot = new Polyglot({phrases : lnphrases});
   res.locals.t =  function(arg) {
     return polyglot.t(arg);
+  };
+
+  res.locals.round =  function(val) {
+    return Math.floor(val*100) / 100;
   };
   
   next();
