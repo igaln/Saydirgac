@@ -19,17 +19,18 @@
 </div>
 
 <div class="row">
-   <div class="col-md-12">
-      <h4 class="percentage-label text-center">
+   <div class="col-md-12 text-center">
+      <h4 class="percentage-label">
         <%= t('tutuanaklariyuklenensandiklar') %>
       </h4>
   </div>
 </div>
 <div class="row">
-   <div class="col-md-12">
-      <h5 class="percentage text-center">
-       <%= progress.evidence_count %> tutanak / <%= progress.box_count %> sandık (%<%= round((progress.evidence_count / progress.box_count) * 100) %>)
-      </h5>
+   <div class="col-md-12 text-center">
+      <h1 class="percentage">
+        %<%= round((progress.evidence_count / progress.box_count) * 100) %>
+      </h1>
+      <%= progress.evidence_count %> <%= t('tutanakfotosu') %> / <%= progress.box_count %> <%= t('sandik') %>
   </div>
 </div>
 

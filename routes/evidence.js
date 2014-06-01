@@ -69,11 +69,6 @@ router.get('/:id/evidence', function(req, res) {
 // GET /evidences/new
 router.get('/new', function(req, res) {
 
-  var progress;
-  // Progress.find({type:'event'},function(err, progresses){
-  //   progress = progresses[0];
-  // });
-
   var types =  require('../config/types.json');
   var options = {
     limit: 1,
