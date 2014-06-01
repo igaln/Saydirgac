@@ -22,10 +22,12 @@ var auth = connect.basicAuth('saydirac', 'saydirac');
 // index
 // GET /evidences
 router.get('/', function(req, res) {
+  var config =  req.app.get('config');
 
   Evidence.find({}).populate('reading').exec(function(err, evidences){
       res.render('evidence_index', {
         title: 'Tutanaklar',
+        s3path: config.s3URL + config.s3Path,
         evidences: evidences
       });
   });
@@ -110,7 +112,7 @@ router.get('/:id/:edit', function(req, res) {
         yskveri: JSON.stringify(yskveri)
       });
     });
-    
+
   } else if(req.params.edit === "show") {
 
       Evidence.findById(req.params.id, function(err, evidence) {
