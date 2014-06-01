@@ -35,7 +35,7 @@
       <% if(evidence.flag > 0) { %>
         <%= t('flag') %>
       <% } else if(evidence.reading) { %>
-        <a href="readings/<%= evidence.reading %>/show"><%= t('sayim') %></a>
+        <a href="readings/<%= evidence.reading.id %>/show"><%= t('sayim') %></a>
       <% } else if(evidence.entered) { %>
         Sadece resim
       <% } %>
