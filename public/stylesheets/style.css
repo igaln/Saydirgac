@@ -31,13 +31,13 @@
 }
 .btn-social {
   display: inline-block;
-  width: 50px;
-  height: 50px;
-  border: 2px solid #fff;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #fff;
   border-radius: 100%;
   text-align: center;
   font-size: 20px;
-  line-height: 45px;
+  line-height: 40px;
   color: #fff;
   margin-top: 15px;
   transition: all 0.3s ease-in-out;
