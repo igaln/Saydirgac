@@ -5,7 +5,16 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAYDIRAÇ * Seçim Sonuç Kontrol Uygulaması</title>
     <meta name="description" content="">
-    <meta name="author" content="Saydirac">
+    <meta name="author" content="Saydıraç">
+    <meta property="og:title" content="Saydıraç | Seçim Sonuç Denetim Uygulaması"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="/images/fb-profile.png" />
+    <meta property="og:url" content="http://www.saydirac.com"/>
+    <meta property="og:site_name" content="Saydirac"/>
+    <meta property="og:description" content="Seçim Sonuç Denetim Uygulaması"/>
+    <meta property="fb:admins" content="hilal.koyuncu" />
+    <meta property="fb:app_id" content="402503373221670" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- jquery -->
       <script type="text/javascript" src="/javascripts/jquery-1.11.1.min.js"></script>
       <script type="text/javascript" src="/javascripts/jquery.easing.min.js"></script>
@@ -25,6 +34,14 @@
 
 
   <body id="page-top" >
+  <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=402503373221670&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <header>
       <ul class="lang-switch list-inline">
         <li><a href="/lang/tr" class='tr<%= settings.lang %>'>Türkçe</a></li>
