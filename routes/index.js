@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
    
 
    var ua = browser.browser_type(req.headers['user-agent']);
-
+ 
    // if (ua.Mobile) {
    //    res.redirect('/evidences/new');
    // } else {
