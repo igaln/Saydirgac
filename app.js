@@ -19,28 +19,28 @@ require('./models/candidate');
 require('./models/evidence');
 require('./models/reading');
 
-
 //INIT ROUTES
 var routes              = require('./routes/index');
 var users               = require('./routes/users');
-var evidence_router     = require('./routes/evidence')
-var progress_router     = require('./routes/progress')
-var candidate_router    = require('./routes/candidate')
-var box_router          = require('./routes/box')
-var reading_router      = require('./routes/reading')
-var results_router      = require('./routes/results')
+var evidence_router     = require('./routes/evidence');
+var progress_router     = require('./routes/progress');
+var candidate_router    = require('./routes/candidate');
+var box_router          = require('./routes/box');
+var reading_router      = require('./routes/reading');
+var results_router      = require('./routes/results');
+var about_router        = require('./routes/about');
 
 // INIT EXPRESS ENGINE & PROPERTIES
 var app = express();
 require('express-helpers')(app);
-var expressLayouts = require('express-ejs-layouts')
+var expressLayouts = require('express-ejs-layouts');
 
 // add translation filter to EJS
 ejs.filters.translate = translate;
 ejs.filters.currentLang = currentLang;
 
 // Application configiration according to environment
-console.log("CURRENT ENVIRONMENT ", process.env.env);
+console.log('CURRENT ENVIRONMENT ', process.env.env);
 var config = require('./config/environment.json')[process.env.env];
 
 // Unfortunate Safari cache workaround for page refreshes on language reset
@@ -50,7 +50,7 @@ app.disable('etag');
 app.set('views', path.join(__dirname, 'views'));
 
 // app.set('layout', 'myLayout') // defaults to 'layout'
-app.use(expressLayouts)
+app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 app.use(favicon());
@@ -67,7 +67,7 @@ app.use(function(req, res, next) {
 
   if(!req.session.lang) {
      req.session.lang = 'tr';
-  } 
+  }
 
   app.set('lang', req.session.lang);
   var lnphrases = require('./lang/' + req.session.lang + '.json');
@@ -80,7 +80,7 @@ app.use(function(req, res, next) {
   res.locals.round =  function(val) {
     return Math.floor(val*100) / 100;
   };
-  
+
   next();
 });
 
@@ -91,8 +91,9 @@ app.use('/evidences', evidence_router);
 app.use('/candidates', candidate_router);
 app.use('/progress', progress_router);
 app.use('/boxes', box_router);
-app.use('/readings',reading_router);
-app.use('/results',results_router);
+app.use('/readings', reading_router);
+app.use('/results', results_router);
+app.use('/about', about_router);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -104,7 +105,7 @@ app.use(function(req, res, next) {
 
 
 // add this to run POPULATE SCRIPTS at different env  || process.env.env === "development"  || process.env.env === "production"
-if(process.env.env === "local")
+if(process.env.env === 'local')
   mongoose.connect(config.mongoURI);
 else
   mongoose.connect(process.env.MONGOHQ_URL);
@@ -133,15 +134,15 @@ app.use(function(err, req, res, next) {
 
 function translate(data) {
   //according to language change, reload dictionary
-  var lnphrases = require('./lang/' + data['lan'] + '.json');
+  var lnphrases = require('./lang/' + data.lan + '.json');
   //pass the current dictionary to Polyglot
   var polyglot = new Polyglot({phrases : lnphrases});
-  return polyglot.t(data['key']);
-};
+  return polyglot.t(data.key);
+}
 
 function currentLang() {
     return lang.currentLanguage;
-};
+}
 
 // make config available app wide
 app.set('config', config);
