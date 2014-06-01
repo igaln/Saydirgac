@@ -376,3 +376,27 @@ input[type=submit].next {
 .table > tfoot > tr > td {
   line-height: 20px;
 }
+.social-wid {
+  margin-top: 10px;
+}
+.fb_iframe_widget {
+  text-align: right;
+  margin-left: 15px;
+}
+.twitter-position {
+  text-align: left;
+}
+@media (max-width: 480px) {
+  header .container {
+    padding-top: 25px;
+    padding-bottom: 0px;
+  }
+  .twitter-position {
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 18px;
+  }
+  .fb_iframe_widget {
+    margin-left: 0px;
+  }
+}
