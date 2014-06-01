@@ -34,7 +34,7 @@ router.get('/getrandomreading', function(req,res) {
     console.log(evidence);
 
     if(evidence === undefined || evidence === null) {
-    
+
          res.redirect("/readings/new");
          return;
     }
@@ -172,7 +172,7 @@ router.get('/:evidence_id/new', function(req, res) {
         });
     }
 
- 
+
   });
 });
 
@@ -186,7 +186,7 @@ router.get('/:reading_id/edit', auth, function(req, res) {
 
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Reading.findById(req.params.reading_id).populate('evidence').exec(function(err, reading) {
-  
+
     if(types.evidence[reading.evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
       // find all candidates related to the ballot on the evidence and send to template
       Candidate.find({city:reading.evidence.city,district:reading.evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
@@ -220,10 +220,10 @@ router.get('/:reading_id/edit', auth, function(req, res) {
 
 // show
 // GET /readings/1/reading
-router.get('/:id/reading', function(req, res) {
-  
+router.get('/:id/show', function(req, res) {
+
   Reading.findById(req.params.id).populate('evidence').exec(function(err, reading) {
-          
+
     var config =  req.app.get('config');
     var types =  require('../config/types.json');
 
@@ -421,7 +421,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
-                         
+
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
@@ -490,7 +490,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
-                        
+
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
@@ -500,7 +500,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                           });
 
                           res.redirect('readings/' + evidence._id + '/thankyou');
-                           
+
                    })
             });
       }); //Candidate Query
@@ -612,7 +612,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
-                       
+
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
@@ -681,7 +681,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                    //save updated evidence
                    evidence.save(function(err, evidence){
 
-                        
+
                           Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
                                 progress_results.forEach(function(progress){
