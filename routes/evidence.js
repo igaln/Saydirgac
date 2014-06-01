@@ -234,7 +234,7 @@ router.post('/', multipartMiddleware, function(req, res) {
 
       var params = {
         Bucket: "journosweb",
-        Key: "  saydirachaziranbir/images/" + filetosave,
+        Key: "saydirachaziranbir/images/" + filetosave,
         Body: data,
         ContentType: 'application/image'
       };
