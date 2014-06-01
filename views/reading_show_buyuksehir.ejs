@@ -1,59 +1,44 @@
-
 <div class="row">
  <div class="col-xs-12">
   <h4>
-    <%= title %>
+    <%= t('tutanakdetaylari') %>
   </h4>
 </div>
 </div>
+
 <div class="row ">
-      <div class="col-xs-6">
-<table class="table table-condensed">
-    <tr>
-        <th scope="row">Sehir</th>
-        <td><%= evidence.city %></td>
-    </tr>
-    <tr>
-        <th scope="row">Ilce</th>
-        <td><%= evidence.district %></td>
-    </tr>
-     <tr>
-        <th scope="row">Sandik Numarasi</th>
-        <td><%= evidence.no %></td>
-    </tr>
-      <tr>
-        <th scope="row">Sandik Turu</th>
-        <td><%=  types.evidence[evidence.type]  %></td>
-    </tr>
-      <tr>
-        <th scope="row"></th>
-        <td></td>
-    </tr>
-</table>
-   </div>
-   <% if(!evidence.resolved) {%>
-    <div class="col-xs-5">
-       <form id="flag">
-       	   <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
-           <input type="submit" id="flagbutton" class="btn btn-default btn-danger btn-lg btn-block" value="FLAG"/>
-       </form>
-    </div>
-     <% } %>
+  <div class="col-xs-8">
+    <h2>
+      <%= evidence.city || "(İl)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; <%= t('sandik') %> <%= evidence.no || "(No)" %>
+    </h2>
+    <h4>
+      <%= types.evidence[evidence.type] || "(Tutanak türü)" %>
+    </h4>
+  </div>
+
+  <% if(!evidence.resolved) {%>
+  <div class="col-xs-4">
+     <form id="flag">
+     	  <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
+        <input type="submit" id="flagbutton" class="btn btn-default btn-danger btn-lg btn-block" value="<%= t('flag') %>"/>
+     </form>
+  </div>
+  <% } %>
 </div>
 
 <div class="row ">
-          <div class="col-xs-12">
-              <img src="<%=s3path + evidence.img %>" width="100%">
-          </div>
+  <div class="col-xs-12">
+    <img src="<%=s3path + evidence.img %>" class="img-responsive tutanak" width="100%">
+  </div>
 </div>
-<hr>
-
 
 <div class="row" >
 	<div class="col-xs-6">
  		<div class="row">
 			<div class="col-xs-12">
-	    		<h4>Veriler</h4>
+	    		<h4>
+            <%= t('tutanakverileri') %>
+          </h4>
 	    	</div>
 	    </div>
 	   	<div class="row tutanak-form">
@@ -148,18 +133,20 @@
  	<div class="col-xs-6">
 		<div class="row">
 			<div class="col-xs-12">
-	    		<h4>Adaylar</h4>	
+	    		<h4>
+            <%= t('adaylar') %>
+          </h4>
 	    	</div>
 	    </div>
 		<div class="row">
 			<div class="col-xs-4">
-	    		Parti
+	    		<%= t('parti') %>
 	    	</div>
  			<div class="col-xs-5">
-	    		Aday Isim
+	    		<%= t('aday') %>
 	    	</div>
 	    	<div class="col-xs-3">
-	    		Oy SAYISI
+	    		<%= t('oysayisi') %>
 	    	</div>
 	    </div>
 	    	<div class="row">
@@ -182,6 +169,8 @@
 	     <% } %>
 	</div>
 </div>
+
+<hr>
 
 <script type="text/javascript">
 $("#flag").submit(function(event) {

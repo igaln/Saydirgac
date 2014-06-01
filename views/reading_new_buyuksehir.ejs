@@ -1,25 +1,28 @@
 <div class="row edit-header">
  <div class="col-xs-12">
-    <h3><%= title %></h3>
-    Resimdeki sayıları resmin altındaki forma yazınız.
+    <h4>
+      <%= t('tutanakoku') %>
+    </h4>
+    <%= t('sayilariformayaz') %>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-12">
-    <p>
-      <h4><%= evidence.city || "(Şehir)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; Sandık <%= evidence.no || "(No)" %></h4>
-      <%= types.evidence[evidence.type] || "(Tutanak tipi)" %>
-    </p>
+  <div class="col-xs-8">
+    <h2>
+      <%= evidence.city || "(İl)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; <%= t('sandik') %> <%= evidence.no || "(No)" %>
+    </h2>
+    <h4>
+      <%= types.evidence[evidence.type] || "(Tutanak türü)" %>
+    </h4>
   </div>
 </div>
 
 <div class="row ">
   <div class="col-xs-12">
-    <img src="<%=s3path + evidence.img %>" width="100%" class="tutanak">
+    <img src="<%=s3path + evidence.img %>" class="img-responsive tutanak" width="100%">
   </div>
 </div>
-
 
 <form role="form" id="evidence_edit" class="form-horizontal" action="/readings" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
@@ -29,7 +32,9 @@
            <div class="col-xs-6">
              <div class="row">
                <div class="col-xs-12">
-                 <h4>Tutanak verileri</h4>
+                 <h4>
+                   <%= t('tutanakverileri') %>
+                 </h4>
                </div>
              </div>
              <div class="row tutanak-form">
@@ -125,18 +130,20 @@
     <div class="col-xs-6">
       <div class="row">
         <div class="col-xs-12">
-          <h4>Adaylar</h4>
+          <h4>
+            <%= t('adaylar') %>
+          </h4>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-4">
-          Parti
+          <%= t('parti') %>
         </div>
         <div class="col-xs-5">
-          Aday
+          <%= t('aday') %>
         </div>
         <div class="col-xs-3">
-          Oy Sayısı
+          <%= t('oysayisi') %>
         </div>
       </div>
 
@@ -162,7 +169,7 @@
 
   <div class="row">
   <div class="col-xs-12">
-    <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="KAYDET"/>
+    <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="<%= t('kaydet') %>"/>
   </div>
   </div>
 

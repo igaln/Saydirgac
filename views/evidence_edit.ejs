@@ -1,7 +1,7 @@
 <div class="row">
  <div class="col-xs-12">
   <h3 class="title">
-    <%= title %>
+    <%= t('tutanakdetaylarinigir') %>
   </h3>
 </div>
 </div>
@@ -10,16 +10,16 @@
   <input type="hidden" id="event_id" name="event_id" value="<%= evidence._id %>"/>
   <div class="form-group col-md-4 col-md-offset-3">
     <select class="form-control tutanak-meta-verileri" name="city"  id="city"  style="background-color:#FFF;">
-      <option value="">İl Seç</option>
+      <option value=""><%= t('ilsec') %></option>
     </select>
     <select class="form-control tutanak-meta-verileri" name="district"  id="district"  style="background-color:#FFF;">
-      <option value="">İlçe Seç</option>
+      <option value=""><%= t('ilcesec') %></option>
     </select>
     <select class="form-control tutanak-meta-verileri" name="no"  id="no"  style="background-color:#FFF;">
-      <option value="">Sandık Seç</option>
+      <option value=""><%= t('sandikno') %></option>
     </select>
     <select class="form-control tutanak-meta-verileri" name="type"  id="type"  style="background-color:#FFF;">
-      <option value="">Tur Seç</option>
+      <option value=""><%= t('tutanakturu') %></option>
       <option value="il_belediye_baskanligi">İl Belediye Başkanlığı Sonuç Tutanağı</option>
       <option value="ilce_belediye_baskanligi_belediye_meclis_uyeligi">İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı</option>
     </select>
@@ -28,7 +28,7 @@
     <img src="<%=s3path + evidence.img %>" class="tutanak img-thumbnail">
   </div>
   <div class="col-md-6 col-md-offset-3">
-    <input type="submit" class="btn btn-default btn-primary btn-lg btn-block btn-outline-blue" value="Kaydet"/>
+    <input type="submit" class="btn btn-default btn-primary btn-lg btn-block btn-outline-blue" value="<%= t('kaydet') %>"/>
   </div>
 </form>
 
