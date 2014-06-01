@@ -56,9 +56,7 @@ Event.remove({}, function(err) {
   });
 });
 
-
 var pop_progress = function(data, event){
-
   var objEvent = new Progress({type: "Event",
                   id: event.id,
                   name: event.name,
