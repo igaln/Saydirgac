@@ -29,6 +29,9 @@
 .btn-block {
   margin: 20px 0 40px 0;
 }
+.btn-danger {
+  margin: 20px 0 10px 0;
+}
 .btn-social {
   display: inline-block;
   width: 40px;
@@ -212,6 +215,9 @@ footer .footer-below {
 a {
   color: #00B7FF;
 }
+.label > a {
+  color: #FFFFFF;
+}
 .tutanak-form {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -220,6 +226,7 @@ a {
   font-size: 12px;
 }
 img.tutanak {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 .result-row {
@@ -355,8 +362,18 @@ input[type=submit].next {
   margin-bottom: 30px;
   text-transform: uppercase;
 }
+<<<<<<< HEAD
 .panel-state {
   background-image: url('/images/arrow.png');
   background-repeat: no-repeat !important;
   background-size: 20px 10px;
+=======
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  line-height: 20px;
+>>>>>>> bfe011c72486ed6914d3bb55bcc4b24391328ff6
 }

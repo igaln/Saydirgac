@@ -31,11 +31,15 @@
       <%= date.getHours() %>:<%= date.getMinutes() %>
       <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
     </td>
-    <% if(evidence.reading) { %>
     <td>
-      <%- link_to("Sayım", "/readings/"+evidence.reading.id+"/show") %>
+      <% if(evidence.flag > 0) { %>
+        <span class="label label-danger"><%= t('flag') %></span>
+      <% } else if(evidence.reading) { %>
+        <span class="label label-success"><a href="readings/<%= evidence.reading.id %>/show"><%= t('sayim') %></a></span>
+      <% } else if(evidence.entered) { %>
+      <span class="label label-default">Sadece resim</span>
+      <% } %>
     </td>
-     <% } %>
   </tr>
   <% }); %>
 </table>
