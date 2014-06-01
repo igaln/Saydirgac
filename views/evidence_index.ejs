@@ -32,7 +32,9 @@
       <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
     </td>
     <% if(evidence.reading) { %>
-    <td><%- link_to("Sayım", "/readings/"+evidence.reading.id+"/reading") %></td>
+    <td>
+      <%- link_to("Sayım", "/readings/"+evidence.reading.id+"/show") %>
+    </td>
      <% } %>
   </tr>
   <% }); %>

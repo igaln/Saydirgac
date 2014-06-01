@@ -24,7 +24,27 @@ router.get('/:format?', function(req, res) {
       });
     }
   });
-
 });
+
+// index
+// GET /progress/dashboard/
+router.get('/dashboard/live', function(req, res) {
+
+
+  var data = {};
+
+  Progress.find(function(err, progresses){
+   
+      prop
+
+   
+      res.render('progress_dashboard', {
+        title: 'Durum',
+        progresses: progresses
+      });
+    
+  });
+});
+
 
 module.exports = router;

@@ -56,64 +56,80 @@ Event.remove({}, function(err) {
 
 var pop_progress = function(data, event){
 
-  var objEvent = {type: "Event",
+  var objEvent = new Progress({type: "Event",
                   id: event.id,
                   name: event.name,
                   box_count: 0
-                  };
+                  });
 
+  
+  //BEGIN CITY CREATION
   var cities = data.cities;
   for (var i = 0; i < cities.length; i++) {
-    var objCity = { type: "City",
+    
+    var objCity = new Progress({ type: "City",
                     id: event.id + "_" + cities[i].name,
                     name: cities[i].name,
-                    box_count: 0
-                  };
+                    box_count: 0,
+                    parent: event
+                  });
 
+    // BEGIN DISTRICT OBJECT CREATION
     var districts = cities[i].districts;
     for (var j = 0; j < districts.length; j++) {
-      var objDistrict = { type: "District",
-                          id: cities[i].name + "_" + districts[j].name,
-                          name: districts[j].name,
+         
+          var objDistrict =  new Progress({ type: "District",
+                              id: cities[i].name + "_" + districts[j].name,
+                              name: districts[j].name,
+                              box_count: 0
+                            });
+
+          objDistrict.parent = objCity;
+
+
+          boxes = districts[j].boxes;
+         
+          if(boxes.to && boxes.from){
+            
+            objEvent.box_count += boxes.to + 1 - boxes.from;
+            objCity.box_count += boxes.to + 1 - boxes.from;
+            objDistrict.box_count = boxes.to + 1 - boxes.from;
+
+           objDistrict.save(function(err, progress) {
+              if (err) return handleError(err);
+              console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name + " " + progress.box_count + " boxes");
+            });
+          }
+
+          for (var no = boxes.from; no < boxes.to+1; no++) {
+            
+            var objBox = new Progress({ type: "Box",
+                          id: districts[j].name + "_" + no.toString(),
+                          name: no.toString(),
                           box_count: 0
-                        };
+                        });
 
-      boxes = districts[j].boxes;
-      if(boxes.to && boxes.from){
-        objEvent.box_count += boxes.to + 1 - boxes.from;
-        objCity.box_count += boxes.to + 1 - boxes.from;
-        objDistrict.box_count = boxes.to + 1 - boxes.from;
+            objBox.parent = objDistrict;
+            objBox.save(function(err, progress) {
+              if (err) return handleError(err);
+              console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name);
+            });
+          }
+    } // FINISH DISTRICT CREATION
 
-        new Progress(objDistrict).save(function(err, progress) {
-          if (err) return handleError(err);
-          console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name + " " + progress.box_count + " boxes");
-        });
-      }
-
-      for (var no = boxes.from; no < boxes.to+1; no++) {
-        var objBox ={ type: "Box",
-                      id: districts[j].name + "_" + no.toString(),
-                      name: no.toString(),
-                      box_count: 0
-                    };
-        new Progress(objBox).save(function(err, progress) {
-          if (err) return handleError(err);
-          console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name);
-        });
-      }
-    }
-
-    new Progress(objCity).save(function(err, progress) {
+      objCity.save(function(err, progress) {
       if (err) return handleError(err);
       console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name + " " + progress.box_count + " boxes");
     });
 
-  }
+  } // END CITY OBJECT CREATION
 
-  new Progress(objEvent).save(function(err, progress) {
+  objEvent.save(function(err, progress) {
     if (err) return handleError(err);
     console.log("Progress " + progress.id + " " + progress.type + " : " + progress.name + " " + progress.box_count + " boxes");
   });
+
+  // SAVE EVENT OBJECT
 
 };
 

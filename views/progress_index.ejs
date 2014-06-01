@@ -3,15 +3,7 @@
   <%= title %>
 </h3>
 
-<table class="table">
-  <tr>
-    <th>Type</th>
-    <th>Name</th>
-    <th>Sandık Sayısı</th>
-    <th>Tutanak Sayısı (%)</th>
-    <th>Okuma Sayısı (%)</th>
-    <th>Güncelleme</th>
-  </tr>
+
   <% progresses.forEach( function(progress){ %>
   <tr>
     <td lang="en"><%= progress.type %></td>
@@ -36,4 +28,3 @@
     </td>
   </tr>
   <% }); %>
-</table>

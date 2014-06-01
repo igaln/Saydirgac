@@ -11,7 +11,9 @@ var Progress = new Schema({
   reading_count:            {type: Number, default: 0},                 // has to be distinct reading count
   flag_count:               {type: Number, default: 0},
   created_at:               {type: Date, default: Date.now},
-  updated_at:               {type: Date, default: Date.now}
+  updated_at:               {type: Date, default: Date.now},
+  parent:                   {type: ObjectId, ref: 'Progress'},
+  children:                 [Progress]
 });
 
 module.exports = mongoose.model('Progress', Progress);
