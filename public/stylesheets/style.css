@@ -348,3 +348,6 @@ input[type=submit].next {
   background-repeat: no-repeat !important;
   background-position: 60px 50px !important;
 }
+.top-logo {
+  margin-bottom: 0px;
+}
