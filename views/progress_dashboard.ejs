@@ -33,7 +33,7 @@
           <%= progress.evidence_count %>  (%<%= round((progress.evidence_count / progress.box_count) * 100) %>)
         </div>
         <div class="col-xs-2">
-          <%= progress.evidence_count %>  (%<%= round((progress.reading_count / progress.box_count) * 100) %>)
+          <%= progress.reading_count %>  (%<%= round((progress.reading_count / progress.evidence_count) * 100) %>)
         </div>
         <div class="col-xs-2">
           <% var date = new Date(progress.updated_at); %>
@@ -67,7 +67,7 @@
             <%= progress_district.evidence_count %>  (%<%= round((progress_district.evidence_count / progress_district.box_count) * 100) %>)
           </div>
           <div class="col-xs-2">
-            <%= progress_district.evidence_count %>  (%<%= round((progress_district.reading_count / progress_district.box_count) * 100) %>)
+            <%= progress_district.reading_count %>  (%<%= round((progress_district.reading_count / progress_district.evidence_count) * 100) %>)
           </div>
           <div class="col-xs-2">
             <% var date = new Date(progress_district.updated_at); %>
