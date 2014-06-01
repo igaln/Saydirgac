@@ -131,7 +131,7 @@ router.get('/:evidence_id/new', function(req, res) {
 
     if(evidence.read) {
       console.log("ALREADY READ");
-      res.redirect('/readings/' + evidence.reading  + '/reading');
+      res.redirect('/readings/' + evidence.reading  + '/show');
     } else {
 
       evidence.locked = true;
@@ -620,7 +620,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                                     progress.save();
                                 })
                           });
-                          res.redirect('/readings/' + reading.id  + '/reading');
+                          res.redirect('/readings/' + reading.id  + '/show');
 
                           //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    });
@@ -690,7 +690,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                                 })
                           });
 
-                          res.redirect('/readings/' + reading.id  + '/reading');
+                          res.redirect('/readings/' + reading.id  + '/show');
 
                           //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                    })

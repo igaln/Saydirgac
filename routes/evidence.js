@@ -186,6 +186,14 @@ router.post('/flag',function(req,res){
     Evidence.findById(req.body.evidence_id,function(err,evidence) {
           if (err) return handleError(err);
 
+          Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
+
+                                progress_results.forEach(function(progress){
+                                    progress.reading_count--;
+                                    progress.save();
+                                })
+                          });
+
           evidence.flag++;
           evidence.save(function(err,reading) {
                 res.send( JSON.stringify({flagcount:evidence.flag}));
