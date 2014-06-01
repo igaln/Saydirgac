@@ -46,14 +46,34 @@
       <% } else if(evidence.flag > 0) { %>
         <span class="label label-danger"><%= t('flag') %></span>
       <% } else if(evidence.reading) { %>
-        <span class="label label-success"><a href="/readings/<%= evidence.reading.id %>/show"><%= t('sayim') %></a></span>
+        <a href="/readings/<%= evidence.reading.id %>/show">
+          <span class="label label-success"><%= t('sayim') %></span>
+        </a>
       <% } else if(evidence.entered) { %>
-      <span class="label label-info"><%= t('tutanakoku') %></span>
+        <% if(evidence.locked) { %>
+          <span class="label label-warning"><%= t('tutanakokunuyor') %></span>
+        <% } else { %>
+          <a href="/readings/<%= evidence.id %>/new">
+            <span class="label label-primary"><%= t('tutanakoku') %></span>
+          </a>
+        <% } %>
       <% } else { %>
-        <span class="label label-default"><%= t('sadeceresim') %></span>
+        <a href="/evidences/<%= evidence.id %>/edit">
+          <span class="label label-default"><%= t('sadeceresim') %></span>
+        </a>
       <% } %>
     </td>
   </tr>
   <% }); %>
 </table>
 
+<!-- tutanak editle:
+evidences/evidence_id/edit
+sehir/ilce/il
+
+tutanak a reading ekle:
+readings/evidence_id/new
+
+reading olmus bir tutanagi editle:
+readings/reading_id/edit
+ -->
