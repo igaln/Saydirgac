@@ -101,10 +101,10 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// connect to Mongo when the app initializes
-// TODO: move connector user pass to a config file
 
-if(process.env.env === "local" || process.env.env === "development")
+
+// add this to run POPULATE SCRIPTS at different env  || process.env.env === "development"  || process.env.env === "production"
+if(process.env.env === "local")
   mongoose.connect(config.mongoURI);
 else
   mongoose.connect(process.env.MONGOHQ_URL);
