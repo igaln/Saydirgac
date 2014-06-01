@@ -14,25 +14,33 @@
     </ul>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-8">
-    <h3 class="">
-      <%= evidence.city || "(Şehir)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; Sandık <%= evidence.no || "(No)" %>
-    </h3>
-    <h5><%= types.evidence[evidence.type] || "(Tutanak tipi)" %></h5>
+    <h2>
+      <%= evidence.city || "(İl)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; <%= t('sandik') %> <%= evidence.no || "(No)" %>
+    </h2>
+    <h4>
+      <%= types.evidence[evidence.type] || "(Tutanak türü)" %>
+    </h4>
   </div>
+
   <div class="col-md-4">
     <a href="/evidences/new">
-      <input type="submit" class="btn btn-outline-orange btn-lg btn-block" value="TUTANAK EKLE"/></a>
+      <input type="submit" class="btn btn-outline-blue btn-lg btn-block" value="<%= t('tutanakyukle') %>"/>
+    </a>
   </div>
+
   <div class="col-md-12">
     <img class="tutanak img-responsive" src="<%=s3path + evidence.img %>" width="100%">
     <% var date = new Date(evidence.created_at); %>
     <%= date.getHours() %>:<%= date.getMinutes() %>
-    <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %> tarihinde eklenmiştir
+    <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %> <%= t('tarihindeeklenmistir') %>
   </div>
   <div class="col-md-12">
-    <a class="btn btn-outline-orange btn-sm" href="/evidences">Tüm Tutanaklar</a>
+    <a class="btn btn-outline-orange btn-sm" href="/evidences">
+      <%= t('tumtutanaklar') %>
+    </a>
   </div>
 </div>
 
