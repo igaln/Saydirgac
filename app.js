@@ -104,7 +104,7 @@ app.use(function(req, res, next) {
 // connect to Mongo when the app initializes
 // TODO: move connector user pass to a config file
 
-if(process.env.env === "local")
+if(process.env.env === "local" || process.env.env === "production")
   mongoose.connect(config.mongoURI);
 else
   mongoose.connect(process.env.MONGOHQ_URL);
