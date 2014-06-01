@@ -26,10 +26,10 @@
 
   <body id="page-top" >
     <header>
-      <ul class='lang-switch list-inline'>
-        <li><a href="/lang/tr" class='tr<%= settings.lang %>'>TR</a></li>
-        <li><a href="/lang/kd" class='kd<%= settings.lang %>'>KD</a></li>
-        <li><a href="/lang/en" class='en<%= settings.lang %>'>EN</a></li>
+      <ul class="lang-switch list-inline">
+        <li><a href="/lang/tr" class='tr<%= settings.lang %>'>Türkçe</a></li>
+        <li><a href="/lang/kd" class='kd<%= settings.lang %>'>Kurdî</a></li>
+        <li><a href="/lang/en" class='en<%= settings.lang %>'>English</a></li>
       </ul>
       <div class="container">
         <div class="row">
@@ -43,6 +43,29 @@
       <%- body %>
     </div>
 
+    <footer>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-12 license">
+            Saydirac.com'da toplanan veriler herkesin kullanımına açıktır ve <br />
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" title="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)">Creative Commons</a>
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" title="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)">
+                <img src="../fonts/cc.svg" alt="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)">
+                <img src="../fonts/by.svg" alt="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)">
+                <img src="../fonts/sa.svg" alt="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)">
+              </a>
+              ile lisanslanmıştır...
+              <!-- <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" title="Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)">Creative Commons Attribution-ShareAlike 4.0</a> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 credit">
+            <%= t('yazilim') %> &copy; 2014 Saydıraç
+          </div>
+        </div>
+      </div>
+    </footer>
+
     <ul class="admin-menu list-inline" style="display: block; position:fixed; bottom:0; margin:0; width:100%; left:0px; padding-left:10px; background:#000; font-family:courier">
       Admin
       <li><a href="/">Anasayfa</a></li>
@@ -53,11 +76,11 @@
       <li><a href="/readings/flagged">Flagged</a></li>
     </ul>
 
-  <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/javascripts/bootstrapValidator.min.js"></script>
-  <script type="text/javascript" src="/javascripts/cbpAnimatedHeader.min.js"></script>
-  <script type="text/javascript" src="/javascripts/freelancer.js"></script>
-   <script type="text/javascript" src="/javascripts/spin.min.js"></script>
-   <script type="text/javascript" src="/javascripts/jquery.spin.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="/javascripts/cbpAnimatedHeader.min.js"></script>
+    <script type="text/javascript" src="/javascripts/freelancer.js"></script>
+    <script type="text/javascript" src="/javascripts/spin.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.spin.js"></script>
   </body>
 </html>

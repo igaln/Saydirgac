@@ -1,14 +1,30 @@
 
 <div class="row">
    <div class="col-md-12">
-      <h3 class="title text-center gray">
-        <%= current_event.name %>
-      </h3>
+      <p class="lead text-center gray">
+        <%= t('1haziranbaslik') %>
+      </p>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <form id="tutanak" role="form" action="/evidences" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+      <input type="hidden" id="event_id" name="event_id" value="<%= current_event._id %>"/>
+      <span class="file-input btn btn-large btn-block btn-file round-button-blue">
+        <%= t('tutanakyukle') %>
+        <input type="file" id="files" name="image">
+        <img src="../images/yukle.png" class="img-responsive button-icon" alt="say ikonu" />
+      </span>
+    </form>
+  </div>
+</div>
+
 <div class="row">
    <div class="col-md-12">
-      <h4 class="percentage-label text-center"><span class="blue">YÜKLENEN</span> TUTANAK SAYISI</h4>
+      <h4 class="percentage-label text-center">
+        <%= t('tutuanaklariyuklenensandiklar') %>
+      </h4>
   </div>
 </div>
 <div class="row">
@@ -18,23 +34,15 @@
       </h5>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12 text-center">
-    <form id="tutanak" role="form" action="/evidences" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-      <input type="hidden" id="event_id" name="event_id" value="<%= current_event._id %>"/>
-      <span class="file-input btn btn-large btn-block btn-file round-button-blue">
-        Tutanak Yükle<input type="file" id="files" name="image">
-        <img src="../images/yukle.png" class="img-responsive button-icon" id='camera' alt="say ikonu" />
-      </span>
-    </form>
-  </div>
-</div>
+
 <div class="row">
    <div class="col-md-12 text-center">
       <h4>
-       <a class="btn btn-outline-orange" href="/evidences"> BÜTÜN TUTANAKLAR </a>
+       <a class="btn btn-outline-orange" href="/evidences"><%= t('tumtutanaklar') %></a>
       </h4>
   </div>
+</div>
+
 <div class="row">
   <div class="col-md-12 text-center">
     <ul class="list-inline">
@@ -47,6 +55,7 @@
     </ul>
  </div>
 </div>
+
  <script type="text/javascript">
     $(document).ready(function(){
       $(".file-input").change(function() {
