@@ -62,7 +62,6 @@ router.get('/getrandomreading', function(req,res) {
             // find all candidates related to the ballot on the evidence and send to template
             Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
 
-
                 res.render('reading_new_ilce_belediye', {
                   title: 'Tutanak Oku',
                   evidence:evidence,
@@ -83,14 +82,16 @@ router.get('/getrandomreading', function(req,res) {
                   types:types
                 });
             }); // Candidate Query
-          } else if(types.evidence[reading.evidence.type] == 'İl Genel Meclis Tutanağı') {
+          } else if(types.evidence[evidence.type] == 'İl Genel Meclis Tutanağı') {
 
                // find all candidates related to the ballot on the evidence and send to template
-              Candidate.find({city:reading.evidence.city,district:reading.evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+              Candidate.find({city:evidence.city,district:evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+
+                  console.log("FOUND CANDIES" + candidates);
+
                   res.render('reading_new_buyuksehir', {
                     title: 'Tutanak Oku',
-                    evidence:reading.evidence,
-                    reading:reading,
+                    evidence:evidence,
                     candidates:candidates,
                     s3path: config.s3URL + config.s3Path,
                     types:types
@@ -148,6 +149,10 @@ router.get('/:evidence_id/new', function(req, res) {
     if(evidence.read) {
       console.log("ALREADY READ");
       res.redirect('/readings/' + evidence.reading  + '/show');
+    } if(evidence.locked) {
+      console.log("BeING READ");
+
+       res.redirect(req.header('Referer') || '/');
     } else {
 
       evidence.locked = true;
@@ -183,14 +188,13 @@ router.get('/:evidence_id/new', function(req, res) {
                     types:types
                   });
               }); // Candidate Query
-            } else if(types.evidence[reading.evidence.type] == 'İl Genel Meclis Tutanağı') {
+            } else if(types.evidence[evidence.type] == 'İl Genel Meclis Tutanağı') {
 
                // find all candidates related to the ballot on the evidence and send to template
-              Candidate.find({city:reading.evidence.city,district:reading.evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+              Candidate.find({city:evidence.city,district:evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
                   res.render('reading_new_buyuksehir', {
                     title: 'Tutanak Oku',
-                    evidence:reading.evidence,
-                    reading:reading,
+                    evidence:evidence,
                     candidates:candidates,
                     s3path: config.s3URL + config.s3Path,
                     types:types
@@ -282,6 +286,20 @@ router.get('/:id/show', function(req, res) {
         });
 
       } else if(types.evidence[reading.evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
+
+        reading.baskan_results.forEach(function(res) {
+            console.log(res.person);
+        })
+
+        res.render('reading_show_buyuksehir', {
+          title: 'Tutanak Goster',
+          evidence:reading.evidence,
+          reading:reading,
+          baskan_results:reading.baskan_results,
+          s3path: config.s3URL + config.s3Path,
+          types:types
+        });
+      } else if(types.evidence[reading.evidence.type] == 'İl Genel Meclis Tutanağı') {
 
         reading.baskan_results.forEach(function(res) {
             console.log(res.person);
@@ -474,7 +492,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                                     progress.save();
                                 })
                           });
-                          res.redirect('readings/' + evidence._id + '/thankyou');
+                          res.redirect('/readings/' + evidence._id + '/thankyou');
 
 
                           //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
@@ -548,7 +566,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                                 })
                           });
 
-                          res.redirect('readings/' + evidence._id + '/thankyou');
+                          res.redirect('/readings/' + evidence._id + '/thankyou');
 
                    })
             });
@@ -619,7 +637,7 @@ router.post('/', multipartMiddleware,function(req, res) {
                                 })
                           });
 
-                          res.redirect('readings/' + evidence._id + '/thankyou');
+                          res.redirect('/readings/' + evidence._id + '/thankyou');
 
                    })
             });
@@ -886,7 +904,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                                 })
                           });
 
-                          res.redirect('readings/' + evidence._id + '/thankyou');
+                          res.redirect('/readings/' + evidence._id + '/thankyou');
 
                    })
             });
