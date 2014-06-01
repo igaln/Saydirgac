@@ -10,5 +10,11 @@
     "s3URL": "https://s3.amazonaws.com",
     "s3Path": "/journosweb/sayman/images/",
     "errorHandlerOptions": {"dumpExceptions": false, "showStack": false}
+  },
+  "local": {
+    "mongoURI":"mongodb://newyork:newyork@oceanic.mongohq.com:10008/app25757454",
+    "s3URL": "https://s3.amazonaws.com",
+    "s3Path": "/journosweb/sayman/images/",
+    "errorHandlerOptions": {"dumpExceptions": false, "showStack": false}
   }
 }

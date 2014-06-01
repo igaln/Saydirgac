@@ -103,7 +103,11 @@ app.use(function(req, res, next) {
 
 // connect to Mongo when the app initializes
 // TODO: move connector user pass to a config file
-mongoose.connect(config.mongoURI);
+
+if(process.env.env === "local")
+  mongoose.connect(config.mongoURI);
+else
+  mongoose.connect(process.env.MONGOHQ_URL);
 
 /// error handlers
 // development error handler
