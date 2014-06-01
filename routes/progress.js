@@ -29,11 +29,10 @@ router.get('/:format?', function(req, res) {
 // index
 // GET /progress/dashboard/
 router.get('/dashboard/live', function(req, res) {
-
-
+  
   var data = {};
 
-  Progress.find(function(err, progresses){
+  Progress.find({}).populate('reading').exec(function(err, progresses){
 
       res.render('progress_dashboard', {
         title: 'Durum',

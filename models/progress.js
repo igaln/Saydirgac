@@ -2,6 +2,8 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.Types.ObjectId;
 
+var Reading = require('./reading');
+
 var Progress = new Schema({
   type:                     {type: String, required: true, index: true}, // event, city, district, no
   id:                       {type: String, required: true, index: true},        // event_city, city_district, district_no
@@ -13,7 +15,7 @@ var Progress = new Schema({
   created_at:               {type: Date, default: Date.now},
   updated_at:               {type: Date, default: Date.now},
   parent:                   {type: ObjectId, ref: 'Progress'},
-  children:                 [Progress]
+  reading:                  {type: ObjectId, ref: 'Reading'}
 });
 
 module.exports = mongoose.model('Progress', Progress);
