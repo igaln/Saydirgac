@@ -23,7 +23,7 @@ var auth = connect.basicAuth('saydirac', 'saydirac');
 
 // index
 // GET /readings
-router.get('/', function(req, res) {
+router.get('/',auth, function(req, res) {
   Reading.find(function(err, readings){
     res.render('reading_index', {
       title: 'Okunanlar',
