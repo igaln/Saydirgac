@@ -27,7 +27,7 @@
 <div class="row">
    <div class="col-md-12 text-center">
       <h5 class="percentage">
-        %<%= round((progress.reading_count / progress.evidence_count) * 100) %>
+        %<%= Math.round((progress.reading_count / progress.evidence_count) * 100) %>
       </h5>
       <%= progress.reading_count %> <%= t('sayilantutanak') %> / <%= progress.evidence_count %> <%= t('tutanakfotosu') %>
   </div>
