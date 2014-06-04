@@ -49,7 +49,7 @@ router.get('/dashboard/unread/:format?', function(req, res) {
   var results = [];
 
   Progress
-        .find({reading_count:0}).exec(function(err, progresses){
+        .find({evidence_count:0}).exec(function(err, progresses){
            if (err) return handleError(err);
 
         progresses.forEach(function(progress) {
