@@ -5,6 +5,7 @@
 
 <table class="table">
   <tr>
+    <th>Id</th>
     <th>Type</th>
     <th>Name</th>
     <th>Sandık Sayısı</th>
@@ -14,7 +15,9 @@
   </tr>
   <% progresses.forEach( function(progress){ %>
   <tr>
+    <td lang='tr'><%= progress.id %></td>
     <td lang="en"><%= progress.type %></td>
+
     <td><%= progress.name %></td>
     <td><%= progress.box_count %></td>
     <td>
