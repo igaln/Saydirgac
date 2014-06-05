@@ -104,7 +104,7 @@ app.use(function(req, res, next) {
 
 
 
-// add this to run POPULATE SCRIPTS at different env  || process.env.env === "development"  || process.env.env === "production"
+// add this to run POPULATE SCRIPTS at different env  || process.env.env === "development"  || 
 
 if(process.env.env === 'local')
   mongoose.connect(config.mongoURI);
