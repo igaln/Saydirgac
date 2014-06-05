@@ -54,6 +54,13 @@ router.get('/getrandomreading', function(req,res) {
     evidence.locked = true;
     evidence.updated_at = Date.now();
 
+    //todo: check the process of editing unfinished eviences
+    if(evidence.type == '') {
+
+        res.redirect('/evidences/' + evidence.id + '/edit');
+
+    };
+
     evidence.save(function(err,evidence) {
 
            if (err) return handleError(err);
@@ -61,6 +68,10 @@ router.get('/getrandomreading', function(req,res) {
            if(types.evidence[evidence.type] == 'İlçe Belediye Başkanlığı ve Belediye Meclis Üyeliği Sonuç Tutanağı') {
             // find all candidates related to the ballot on the evidence and send to template
             Candidate.find({city:evidence.city,district:evidence.district,$or:[{type:"ilce_belediye_baskanligi"},{type:"belediye_meclis_uyeligi"}]}, function(err, candidates) {
+
+               if (err) return handleError(err);
+
+                console.log("FOUND CANDIES" + candidates);
 
                 res.render('reading_new_ilce_belediye', {
                   title: 'Tutanak Oku',
@@ -74,6 +85,10 @@ router.get('/getrandomreading', function(req,res) {
           } else if(types.evidence[evidence.type] == 'İl Belediye Başkanlığı Sonuç Tutanağı') {
              // find all candidates related to the ballot on the evidence and send to template
             Candidate.find({city:evidence.city,district:evidence.district,type:"il_belediye_baskanligi"}, function(err, candidates) {
+                 if (err) return handleError(err);
+
+                  console.log("FOUND CANDIES" + candidates);
+
                 res.render('reading_new_buyuksehir', {
                   title: 'Tutanak Oku',
                   evidence:evidence,
@@ -86,6 +101,7 @@ router.get('/getrandomreading', function(req,res) {
 
                // find all candidates related to the ballot on the evidence and send to template
               Candidate.find({city:evidence.city,district:evidence.district,type:"il_genel_meclis_uyeligi"}, function(err, candidates) {
+                 if (err) return handleError(err);
 
                   console.log("FOUND CANDIES" + candidates);
 
