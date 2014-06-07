@@ -1,14 +1,14 @@
-<div class="row edit-header">
- <div class="col-xs-12">
- 		<h4>
-      <%= t('tutanakoku') %>
-    </h4>
+<div class="row">
+  <ol class="breadcrumb" style='background:#7c321e'>
+    <li><a href="/evidences"><%= t('tumtutanaklar') %></a></li>
+    <li class="active"><%= t('tutanakoku') %></li>
+    <br />
     <%= t('sayilariformayaz') %>
-	</div>
+  </ol>
 </div>
 
-<div class="row">
-	<div class="col-xs-8">
+<div class="row tutanak-header">
+	<div class="col-md-8 col-xs-12">
     <h2>
       <%= evidence.city || "(İl)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; <%= t('sandik') %> <%= evidence.no || "(No)" %>
     </h2>
@@ -19,10 +19,11 @@
 </div>
 
 <div class="row ">
-  <div class="col-xs-12">
+  <div class="col-md-6 col-xs-12">
     <img src="<%=s3path + evidence.img %>" class="img-responsive tutanak" width="100%">
   </div>
-</div>
+
+  <div class="col-md-6 col-xs-12">
 
 <form role="form" id="evidence_edit" class="form-horizontal" action="/readings" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 
@@ -36,7 +37,7 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="ilce">
 				<div class="row" >
-					<div class="col-xs-6">
+          <div class="col-md-6 col-xs-12">
 				 		<div class="row">
 							<div class="col-xs-12">
 					    		<h4>
@@ -133,28 +134,12 @@
 					    	</div>
 					    </div>
 					</div>
-				 	<div class="col-xs-6">
+          <div class="col-md-6 col-xs-12">
 						<div class="row">
 							<div class="col-xs-12">
 					    		<h4>
 					    			<%= t('adaylar') %>
 					    		</h4>
-					    	</div>
-					    </div>
-						<div class="row">
-							<div class="col-xs-4">
-					    		<%= t('parti') %>
-					    	</div>
-				 			<div class="col-xs-5">
-					    		<%= t('aday') %>
-					    	</div>
-					    	<div class="col-xs-3">
-					    		<%= t('oysayisi') %>
-					    	</div>
-					    </div>
-					    	<div class="row">
-							<div class="col-xs-12">
-					    		<hr>
 					    	</div>
 					    </div>
 					     <% for(var k=0; k< candidates.length; k++) {%>
@@ -177,7 +162,7 @@
 			</div> <!-- ILCE -->
 			<div class="tab-pane" id="belediye">
 				<div class="row" >
-					<div class="col-xs-6">
+					<div class="col-md-6 col-xs-12">
 				 		<div class="row">
 							<div class="col-xs-12">
 					    		<h4>
@@ -274,7 +259,7 @@
 					    	</div>
 					    </div>
 					</div>
-				 	<div class="col-xs-6">
+					<div class="col-md-6 col-xs-12">
 						<div class="row">
 							<div class="col-xs-12">
 					    		<h4>
@@ -322,3 +307,5 @@
 		</div>
 
 </form>
+</div>
+</div>

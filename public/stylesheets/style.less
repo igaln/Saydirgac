@@ -173,8 +173,7 @@ header {
 }
 
 header .container {
-    padding-top: 50px;
-   /*  padding-bottom: 50px; */
+    padding-top: 20px;
 }
 
 header img {
@@ -258,14 +257,16 @@ a {
   color: #FFFFFF;
 }
 .tutanak-form {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  input { padding: 4px; }
+  div { height:100%; vertical-align: bottom }
 }
 .tutanak-label {
-  font-size: 12px;
+  font-size: 13px;
 }
 img.tutanak {
-  margin-top: 20px;
+  // margin-top: 20px;
   margin-bottom: 20px;
 }
 .result-row {
@@ -352,8 +353,7 @@ img.tutanak {
 }
 
 .lang-switch {
-  position:fixed;
-  /*position: absolute;*/
+  position: absolute;
   top:0;
   right:0;
   font-size: .9em;
@@ -412,11 +412,13 @@ input[type=submit].next {
 
 .top-logo {
   margin-bottom: 0px;
+  width: 20em;
 }
-
 .logo-subtitle {
-  margin-bottom: 30px;
-  text-transform: uppercase;
+  text-transform: capitalize;
+  margin-bottom: 40px;
+  margin-top:-2px;
+  margin-left:-4.7em;
 }
 
 .panel-state {
@@ -446,7 +448,6 @@ input[type=submit].next {
 @media(max-width:480px) {
   header .container {
    padding-top: 25px;
-   padding-bottom: 0px;
   }
 
   .twitter-position {
@@ -458,6 +459,39 @@ input[type=submit].next {
   .fb_iframe_widget {
     margin-left: 0px;
   }
-
-
 }
+
+.dark { 
+  background:rgb(38,38,46);
+}
+
+hr.separator { 
+  border-color:rgb(38,38,46); 
+}
+
+.table-subheader { 
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.tutanak-header { 
+  margin-bottom: 14px;
+}
+
+.btn { .glyphicon { margin-right:4px; } }
+.popover { border-radius:0; border:none; padding:0 }
+.popover-content { padding:0 }
+
+
+.tablesorter {
+  th:hover { 
+    cursor: pointer;
+  }
+  th.tablesorter-headerAsc { 
+    background: url(../images/white-asc.gif) no-repeat left center;
+  }
+  th.tablesorter-headerDesc { 
+    background: url(../images/white-desc.gif) no-repeat left center;
+  }  
+}
+
