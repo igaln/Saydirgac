@@ -62,7 +62,7 @@
           </a>
         <% } else if(evidence.entered) { %>
           <% if(evidence.locked) { %>
-            <span class="label label-warning"><%= t('tutanakokunuyor') %></span>
+            <span class="label label-default"><%= t('tutanakokunuyor') %></span>
           <% } else { %>
             <a href="/readings/<%= evidence.id %>/new">
               <span class="label label-primary"><%= t('tutanakoku') %></span>

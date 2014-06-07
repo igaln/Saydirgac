@@ -229,6 +229,11 @@ a {
   height: 100%;
   vertical-align: bottom;
 }
+input.input-sm {
+  font-weight: bold;
+  font-size: 1.0em;
+  letter-spacing: -0.1em;
+}
 .tutanak-label {
   font-size: 13px;
 }
