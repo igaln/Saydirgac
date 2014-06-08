@@ -1,73 +1,82 @@
-<h3 class="title">
-  <%= t('tumtutanaklar') %>
-</h3>
+<div class="row">
+  <ol class="breadcrumb dark">
+    <li><a href="/">ANA SAYFA</a></li>
+    <li class="active"><%= t('tumtutanaklar') %></li>
+  </ol>
+</div>
+<!-- <h3 class="title"><%= t('tumtutanaklar') %></h3> -->
 
-<table class="table">
-  <tr>
-    <th><%= t('fotograf') %></th>
-    <th><%= t('il') %></th>
-    <th><%= t('ilce') %></th>
-    <th><%= t('sandikno') %></th>
-    <th><%= t('tutanakturu') %></th>
-    <th><%= t('gonderimtarihi') %></th>
-    <th><%= t('durum') %></th>
-  </tr>
-  <% evidences.forEach( function(evidence){ %>
-  <tr>
-    <td>
-       <% if(evidence.resolved) { %>
-        <a href="/readings/<%= evidence.reading._id %>/show">
-      <% } else if(evidence.flag > 0) { %>
-        <a href="/readings/<%= evidence.reading._id %>/show">
-      <% } else if(evidence.reading) { %>
-        <a href="/readings/<%= evidence.reading._id %>/show">
-      <% } else if(evidence.entered) { %>
-        <a href="/readings/<%= evidence.id %>/new">
-      <% } else { %>
-        <a href="/evidences/<%= evidence.id %>/edit">
-      <% } %>
-        <img class="img-responsive" src="<%=s3path + evidence.img %>" width="200">
-      </a>
-    </td>
-    <td><%= evidence.city %></td>
-    <td><%= evidence.district %></td>
-    <td><%= evidence.no %></td>
-    <td>
-      <%= types.evidence[evidence.type] || "(Tutanak tipi)" %>
-    </td>
-    <td>
-      <% var date = new Date(evidence.created_at); %>
-      <%= date.getHours() %>:<%= date.getMinutes() %>
-      <%= date.getDate() %>.<%= date.getMonth()+1 %>.<%= date.getFullYear() %>
-    </td>
-    <td>
-      <% if(evidence.resolved) { %>
-        <a href="/readings/<%= evidence.reading.id %>/show">
-          <span class="label label-success"><%= t('sayim') %></span>
-        </a>
-      <% } else if(evidence.flag > 0) { %>
-          <!-- readings/reading_id/edit reading_id lazim-->
-          <span class="label label-danger"><%= t('flag') %></span>
-      <% } else if(evidence.reading) { %>
-        <a href="/readings/<%= evidence.reading.id %>/show">
-          <span class="label label-success"><%= t('sayim') %></span>
-        </a>
-      <% } else if(evidence.entered) { %>
-        <% if(evidence.locked) { %>
-          <span class="label label-warning"><%= t('tutanakokunuyor') %></span>
-        <% } else { %>
+<table id="evidence-table" class="table tablesorter">
+  <thead>
+    <tr>
+      <th class='visible-lg visible-md'><%= t('fotograf') %></th>
+      <th><%= t('il') %></th>
+      <th><%= t('ilce') %></th>
+      <th><%= t('sandikno') %></th>
+      <th class='visible-lg visible-md'><%= t('tutanakturu') %></th>
+      <th class='visible-lg visible-md'><%= t('gonderimtarihi') %></th>
+      <th><%= t('durum') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% evidences.forEach( function(evidence){ %>
+    <tr>
+       <td class='visible-lg visible-md'>
+<!--          <% if(evidence.resolved) { %>
+          <a href="/readings/<%= evidence.reading._id %>/show">
+        <% } else if(evidence.flag > 0) { %>
+          <a href="/readings/<%= evidence.reading._id %>/show">
+        <% } else if(evidence.reading) { %>
+          <a href="/readings/<%= evidence.reading._id %>/show">
+        <% } else if(evidence.entered) { %>
           <a href="/readings/<%= evidence.id %>/new">
-            <span class="label label-primary"><%= t('tutanakoku') %></span>
+        <% } else { %>
+          <a href="/evidences/<%= evidence.id %>/edit">
+        <% } %>
+          <img class="img-responsive" src="" >
+        </a> -->
+        <a class="tutanak-popover" href="#" data-content="<img src='<%=s3path + evidence.img %>' width='200'>" rel="popover" data-placement="right" data-trigger="hover"><span class='glyphicon glyphicon-file'></span></a>
+
+      </td>
+      <td><%= evidence.city %></td>
+      <td><%= evidence.district %></td>
+      <td><%= evidence.no %></td>
+      <td class='visible-lg visible-md'>
+        <%= types.evidence[evidence.type] || "(Tutanak tipi)" %>
+      </td>
+      <td class='visible-lg visible-md'>
+        <% var date = new Date(evidence.created_at); %>
+        <%= moment(date).format('M.D.YYYY, HH:MM') %>
+      </td>
+      <td>
+        <% if(evidence.resolved) { %>
+          <a href="/readings/<%= evidence.reading.id %>/show">
+            <span class="label label-success"><%= t('sayim') %></span>
+          </a>
+        <% } else if(evidence.flag > 0) { %>
+            <!-- readings/reading_id/edit reading_id lazim-->
+            <span class="label label-danger"><%= t('flagged') %></span>
+        <% } else if(evidence.reading) { %>
+          <a href="/readings/<%= evidence.reading.id %>/show">
+            <span class="label label-success"><%= t('sayim') %></span>
+          </a>
+        <% } else if(evidence.entered) { %>
+          <% if(evidence.locked) { %>
+            <span class="label label-default"><%= t('tutanakokunuyor') %></span>
+          <% } else { %>
+            <a href="/readings/<%= evidence.id %>/new">
+              <span class="label label-primary"><%= t('tutanakoku') %></span>
+            </a>
+          <% } %>
+        <% } else { %>
+          <a href="/evidences/<%= evidence.id %>/edit">
+            <span class="label label-default"><%= t('sadeceresim') %></span>
           </a>
         <% } %>
-      <% } else { %>
-        <a href="/evidences/<%= evidence.id %>/edit">
-          <span class="label label-default"><%= t('sadeceresim') %></span>
-        </a>
-      <% } %>
-    </td>
-  </tr>
-  <% }); %>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
 </table>
 
 <!-- tutanak editle:

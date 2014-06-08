@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 var ejs = require('ejs');
+var moment = require('moment');
 
 var Polyglot = require('node-polyglot');
 

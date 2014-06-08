@@ -24,13 +24,15 @@ var auth = connect.basicAuth('saydirac', 'saydirac');
 router.get('/', function(req, res) {
   var config =  req.app.get('config');
   var types =  require('../config/types.json');
+  var moment = require('moment');
 
   Evidence.find({}).populate('reading').exec(function(err, evidences){
       res.render('evidence_index', {
         title: 'Tutanaklar',
         s3path: config.s3URL + config.s3Path,
         evidences: evidences,
-        types: types
+        types: types, 
+        moment: moment
       });
   });
 });
