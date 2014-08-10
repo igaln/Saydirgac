@@ -378,13 +378,13 @@ router.post('/edit', multipartMiddleware,function(req, res) {
            var input_counter = 0;
            candidates.forEach(function(candidate) {
 
-                candidate.vote = req.body.baskan_adaylar[0][input_counter];
+                candidate.vote = req.body.baskan_adaylar[input_counter];
                 candidate.save();
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           party  :   candidate.party,
                                           person :   candidate.name,
-                                          votes  :   req.body.baskan_adaylar[0][input_counter]
+                                          votes  :   req.body.baskan_adaylar[input_counter]
                                         });
                 input_counter++;
              
