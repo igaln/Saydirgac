@@ -202,6 +202,9 @@ router.get('/:id/show', function(req, res) {
 
   Reading.findById(req.params.id).populate('evidence').exec(function(err, reading) {
 
+     if (err) return handleError(err);
+
+
     console.log("reading " + reading);
 
     var config =  req.app.get('config');
