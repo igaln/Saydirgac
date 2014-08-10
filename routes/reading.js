@@ -222,7 +222,7 @@ router.get('/:evidence_id/thankyou', function(req, res) {
     // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-    console.log(evidence);
+    console.log("THANK YOU");
 
    // if(evidence.locked) {
           res.render('reading_thankyou', {
@@ -304,10 +304,13 @@ router.post('/', multipartMiddleware,function(req, res) {
           // Reading type and evidence
           evidence_reading.evidence   =  evidence._id;
 
+          console("req.body.baskan_adaylar[0] " +req.body.baskan_adaylar[0]);
+
            var input_counter = 0;
+
            candidates.forEach(function(candidate) {
 
-            console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
+                //console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
 
                 candidate.vote = req.body.baskan_adaylar[0][input_counter];
                 candidate.save();
@@ -339,9 +342,6 @@ router.post('/', multipartMiddleware,function(req, res) {
                                                  res.redirect('/readings/' + evidence._id + '/thankyou');
                                           
                                       });
-                                     
-
-
                                       //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
                                });
                         });
