@@ -133,6 +133,9 @@ router.get('/:evidence_id/new', function(req, res) {
         res.redirect('/evidences/');
     }
 
+    if(evidence == null)
+         res.redirect('/evidences/');
+
     if(evidence.read) {
       console.log("ALREADY READ");
       res.redirect('/readings/' + evidence.reading  + '/show');
