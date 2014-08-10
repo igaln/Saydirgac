@@ -19,7 +19,7 @@ var handleError = function(err){
 
 //var dummy = "./config/president_part2.csv";
 
-var dummy = "./config/CB_Secim_Sandık_Adresleri sheet_3.csv";
+var dummy = "./config/data-101150-126385.csv";
 
 
 var data = require("./config/event_data.json");
@@ -32,13 +32,13 @@ var obj = { name: data.event.name,
           };
 
 
-// Event.findOne({},function(err,event) {
+Event.findOne({},function(err,event) {
 
-//   console.log(event);
+  console.log(event);
 
-//    read_president_data(event, dummy);
+   read_president_data(event, dummy);
 
-// });
+});
 
 // Event.remove({}, function(err) {
 //   if (err) return handleError(err);
