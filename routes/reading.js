@@ -381,10 +381,11 @@ router.post('/edit', multipartMiddleware,function(req, res) {
            candidates.forEach(function(candidate) {
 
                 candidate.vote = req.body.baskan_adaylar[input_counter];
-                candidate.save();
+                  candidate.save(function(err,candidate) {
+                     if (err) return handleError(err);
+                });
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
-                                          party  :   candidate.party,
                                           person :   candidate.name,
                                           votes  :   req.body.baskan_adaylar[input_counter]
                                         });
