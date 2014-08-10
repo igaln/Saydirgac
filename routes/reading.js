@@ -127,7 +127,7 @@ router.get('/:evidence_id/new', function(req, res) {
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-    if (err) return handleError(err);
+  //  if (err) return handleError(err);
 
     if(!evidence){
         res.redirect('/progress/president/live');
@@ -137,11 +137,8 @@ router.get('/:evidence_id/new', function(req, res) {
          res.redirect('/progress/president/live');
 
     if(evidence.read) {
-      console.log("ALREADY READ");
       res.redirect('/readings/' + evidence.reading  + '/show');
     } if(evidence.locked) {
-      console.log("BeING READ");
-
        res.redirect(req.header('Referer') || '/');
     } else {
 
@@ -200,8 +197,6 @@ router.get('/:reading_id/edit', auth, function(req, res) {
 // show
 // GET /readings/1/reading
 router.get('/:id/show', function(req, res) {
-
-  console.log("reading");
 
   Reading.findById(req.params.id).populate('evidence').exec(function(err, reading) {
 
