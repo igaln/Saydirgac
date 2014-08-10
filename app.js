@@ -186,10 +186,10 @@ setInterval(function(){
 
              console.log(minutes);
 
-            // if(minutes > 0.1) {
+             if(minutes > 3) {
                 evidence.locked = false;
                 evidence.save();
-            // }
+             }
 
     });
   });
