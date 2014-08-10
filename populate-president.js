@@ -19,7 +19,7 @@ var handleError = function(err){
 
 //var dummy = "./config/president_part2.csv";
 
-var dummy = "./config/president_part1.csv";
+var dummy = "./config/CB_Secim_Sandık_Adresleri sheet_3.csv";
 
 
 var data = require("./config/event_data.json");
@@ -31,31 +31,40 @@ var obj = { name: data.event.name,
             start_date: date
           };
 
-Event.remove({}, function(err) {
-  if (err) return handleError(err);
-  console.log("Event collection removed");
 
-  new Event(obj).save(function(err, event) {
-    if (err) return handleError(err);
+// Event.findOne({},function(err,event) {
 
-    console.log("Event %s created", event.id);
+//   console.log(event);
 
-    Candidate.remove({}, function(err) {
-      if (err) return handleError(err);
-      console.log("Candidate collection removed");
-      read_president_data(event, dummy);
-      //pop_candidate(event, url_in2);
-      //pop_candidate(event, url_in3);
-    });
+//    read_president_data(event, dummy);
 
-    Progress.remove({}, function(err) {
-      if (err) return handleError(err);
-      console.log("Progress collection removed");
-      //pop_progress(data, event);
-    });
+// });
 
-  });
-});
+// Event.remove({}, function(err) {
+//   if (err) return handleError(err);
+//   console.log("Event collection removed");
+
+//   new Event(obj).save(function(err, event) {
+//     if (err) return handleError(err);
+
+//     console.log("Event %s created", event.id);
+
+//     Candidate.remove({}, function(err) {
+//       if (err) return handleError(err);
+//       console.log("Candidate collection removed");
+//       read_president_data(event, dummy);
+//       //pop_candidate(event, url_in2);
+//       //pop_candidate(event, url_in3);
+//     });
+
+//     Progress.remove({}, function(err) {
+//       if (err) return handleError(err);
+//       console.log("Progress collection removed");
+//       //pop_progress(data, event);
+//     });
+
+//   });
+// });
 
 
 var read_president_data = function(event,data) {

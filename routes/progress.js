@@ -44,7 +44,7 @@ router.get('/dashboard/live', function(req, res) {
 });
 
 
-router.get('/cumhur/live',function(req,res) {
+router.get('/president/live',function(req,res) {
 
    var types =  require('../config/types.json');
   var options = {
