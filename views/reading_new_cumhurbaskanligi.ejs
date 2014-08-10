@@ -7,7 +7,6 @@
     <%= t('sayilariformayaz') %>
   </ol>
     </div>
-
 </div>
 
 <div class="row tutanak-header">
@@ -17,14 +16,17 @@
     </h2>
   </div>
 </div>
- <form role="form" id="evidence_edit" class="form-horizontal" action="/readings" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-<div class="row ">
+
+
+  
+  <div class="row ">
   <div class="col-md-6 col-xs-12">
     <img src="<%=s3path + evidence.img %>" class="img-responsive tutanak" width="100%">
   </div>
 
+
   <div class="col-md-6 col-xs-12">
-  
+<form role="form" id="evidence_edit" class="form-horizontal" action="/readings" method="post" accept-charset="utf-8" enctype="multipart/form-data">  
       <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
   <div class="row" >
        
@@ -38,12 +40,14 @@
       </div>
       <% for(var k=0; k< candidates.length; k++) {%>
       <div class="row">
+
         <div class="col-xs-6 tutanak-label">
           <%= candidates[k].name %>
         </div>
         <div class="col-xs-3 tutanak-form">
           <input type="number" class="form-control input-sm" name="baskan_adaylar[]" value=0>
         </div>
+
       </div>
       <% } %>
 

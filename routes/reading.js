@@ -222,7 +222,7 @@ router.get('/:evidence_id/thankyou', function(req, res) {
     // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-    console.log(evidence);
+    console.log("THANK YOU");
 
    // if(evidence.locked) {
           res.render('reading_thankyou', {
@@ -302,48 +302,53 @@ router.post('/', multipartMiddleware,function(req, res) {
 
           var evidence_reading = new Reading({});
           // Reading type and evidence
-          evidence_reading.evidence                            =   evidence._id
+          evidence_reading.evidence   =  evidence._id;
+
+          console.log("req.body.baskan_adaylar[0] " + req.body.baskan_adaylar);
 
            var input_counter = 0;
+
            candidates.forEach(function(candidate) {
 
-                candidate.vote = req.body.baskan_adaylar[0][input_counter];
+                //console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
+
+                candidate.vote = req.body.baskan_adaylar[input_counter];
                 candidate.save();
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           person :   candidate.name,
-                                          votes  :   req.body.baskan_adaylar[0][input_counter]
+                                          votes  :   req.body.baskan_adaylar[input_counter]
                                         });
                 input_counter++;
+
+                if(input_counter == candidates.length) {
+                                 //save reading
+                        evidence_reading.save(function(err,reading) {
+                              if (err) return handleError(err);
+                               //push reading into evidence array
+                               evidence.reading = reading._id;
+                               evidence.read = true;
+                               evidence.locked = false;
+                               //save updated evidence
+                               evidence.save(function(err, evidence){
+
+                                      Progress.findOne({city:evidence.city,district:evidence.district,boxno:evidence.no},function(err,progress){
+
+                                                progress.reading = evidence_reading;
+                                                progress.evidence = evidence;
+                                                progress.completed = true;
+                                                progress.save();
+
+                                                 res.redirect('/readings/' + evidence._id + '/thankyou');
+                                          
+                                      });
+                                      //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
+                               });
+                        });
+
+                }
            });  // end for adding candidates
 
-
-            //save reading
-            evidence_reading.save(function(err,reading) {
-                  if (err) return handleError(err);
-                   //push reading into evidence array
-                   evidence.reading = reading._id;
-                   evidence.read = true;
-                   evidence.locked = false;
-                   //save updated evidence
-                   evidence.save(function(err, evidence){
-
-                          Progress.findOne({city:evidence.city,district:evidence.district,boxno:evidence.no},function(err,progress){
-
-                                    progress.reading = evidence_reading;
-                                    progress.evidence = evidence;
-                                    progress.completed = true;
-                                    progress.save();
-
-                                     res.redirect('/readings/' + evidence._id + '/thankyou');
-                              
-                          });
-                         
-
-
-                          //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
-                   });
-            });
       }); //Candidate Query
 
   }); //Evidence Query

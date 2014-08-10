@@ -8,31 +8,48 @@
 
 <div class="row">
 
- <div class="col-md-4 text-center">
-      <span class=" btn btn-block round-button-blue-candidate ">
-    
-     
-         <div class="percentage-blue">% <%= Math.round((results['Ekmeleddin Mehmet İhsanoğlu'] / totalvotes) * 100) %></div>
-           Ekmeleddin <br/>Mehmet<br/> İhsanoğlu<br/>
-      </span>
-
-  </div>
    <div class="col-md-4 text-center">
     
-      <span class=" btn btn-block round-button-blue-candidate ">
-        <div class="percentage-blue">% <%= Math.round((results['Recep Tayyip Erdoğan'] / totalvotes) * 100) %></div>
+      <span class=" btn btn-block round-button-blue-candidate erdogan-ikon">
+     
+      <%  if(isNaN(results['Recep Tayyip Erdoğan'])) { %>
+             <div class="percentage-blue">% 0</div>
+       <%  } else { %>
+             <div class="percentage-blue">% <%= Math.round((results['Recep Tayyip Erdoğan'] / totalvotes) * 100) %></div>
+       <%  }  %>
+     
       Recep<br/> Tayyip <br/> Erdoğan
     
       </span>
   </div>
+
   <div class="col-md-4 text-center">
    
-       <span class=" btn btn-block round-button-blue-candidate ">
-         <div class="percentage-blue">% <%= Math.round((results['Selahattin Demirtaş'] / totalvotes) * 100) %></div>
+       <span class=" btn btn-block round-button-blue-candidate demirtas-ikon">
+       <%  if(isNaN(results['Selahattin Demirtaş'])) { %>
+           <div class="percentage-blue">% 0 </div>
+        <%  } else { %>
+           <div class="percentage-blue">% <%= Math.round((results['Selahattin Demirtaş'] / totalvotes) * 100) %></div>
+       <%  }  %>
+
        Selahattin <br/> Demirtaş     
       </span>
 
   </div>
+ <div class="col-md-4 text-center">
+      <span class=" btn btn-block round-button-blue-candidate ekmel-ikon">
+    
+        <%  if(isNaN(results['Ekmeleddin Mehmet İhsanoğlu'])) { %>
+         <div class="percentage-blue">% 0 </div>
+        <%  } else { %>
+          <div class="percentage-blue">% <%= Math.round((results['Ekmeleddin Mehmet İhsanoğlu'] / totalvotes) * 100) %></div>
+         
+        <%  }  %>
+          Ekmeleddin <br/>Mehmet<br/> İhsanoğlu<br/>
+      </span>
+
+  </div>
+
 </div>
 
 <div class="row">

@@ -54,7 +54,6 @@ router.get('/cumhur/live',function(req,res) {
     }
   }
   var filter = {};
-
   var results = {};
   var totalvotes  = 0;
 
@@ -68,22 +67,18 @@ router.get('/cumhur/live',function(req,res) {
               totalcompleted.forEach(function(progress_item) {
 
                   //console.log(progress_item.reading.baskan_results[0]);
-
                   for(var i = 0; i < progress_item.reading.baskan_results.length; i++) {
 
                       console.log(progress_item.reading.baskan_results[i].votes);
-                        
-                        totalvotes += parseInt(progress_item.reading.baskan_results[i].votes);
+                      
+                      totalvotes += parseInt(progress_item.reading.baskan_results[i].votes);
+
                       if(results[progress_item.reading.baskan_results[i].person]) 
                         results[progress_item.reading.baskan_results[i].person] += parseInt(progress_item.reading.baskan_results[i].votes);
                       else
                         results[progress_item.reading.baskan_results[i].person] = parseInt(progress_item.reading.baskan_results[i].votes);
                   }
               });
-
-              console.log(results);
-              console.log("total votes " + totalvotes);
-
 
               res.render('progress_cumhur', {
               title: 'Durum',

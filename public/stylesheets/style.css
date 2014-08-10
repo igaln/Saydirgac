@@ -380,6 +380,21 @@ input[type=submit].next {
   left: 3px;
   top: 95px;
 }
+.erdogan-ikon {
+  background-image: url('/images/foto1.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: 50px 10px !important;
+}
+.ekmel-ikon {
+  background-image: url('/images/foto3.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: 50px 10px !important;
+}
+.demirtas-ikon {
+  background-image: url('/images/foto2.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: 50px 10px !important;
+}
 .yukle-ikon {
   background-image: url('/images/yukle.png') !important;
   background-repeat: no-repeat !important;
