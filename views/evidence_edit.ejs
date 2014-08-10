@@ -49,6 +49,7 @@
               $.get( "/candidates/districts/" + $("#city").val(), function( districts ) {
                   //alert( "Load was performed." );
                    $("#district").append('<option value="">Ilçe seçiniz</option>');
+                   districts = districts.sort();
                   $.each(districts, function(key, value){
                       $("#district").append('<option value="'+value+'">'+value+'</option>');
                  });
@@ -62,6 +63,7 @@
                $.get( "/candidates/boxes/" + $("#district").val(), function( boxes ) {
                   //alert( "Load was performed." );
                    $("#no").append('<option value="">Sandık seçiniz</option>');
+                    boxes = boxes.sort();
                   $.each(boxes, function(key, value){
                        $("#no").append('<option value="'+value+'">'+value+'</option>');
                      
