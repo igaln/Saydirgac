@@ -11,12 +11,13 @@
    <div class="col-md-4 text-center">
     
       <span class=" btn btn-block round-button-blue-candidate erdogan-ikon">
-      <% console.log(results['Recep Tayyip Erdoğan']) %>
-      <%  if(results['Recep Tayyip Erdoğan'] == 0) { %>
-             <div class="percentage-blue">% 0 %></div>
+     
+      <%  if(isNaN(results['Recep Tayyip Erdoğan'])) { %>
+             <div class="percentage-blue">% 0</div>
        <%  } else { %>
-             <div class="percentage-blue">% <%= totalvotes %></div>
+             <div class="percentage-blue">% <%= Math.round((results['Recep Tayyip Erdoğan'] / totalvotes) * 100) %></div>
        <%  }  %>
+     
       Recep<br/> Tayyip <br/> Erdoğan
     
       </span>
@@ -25,7 +26,12 @@
   <div class="col-md-4 text-center">
    
        <span class=" btn btn-block round-button-blue-candidate demirtas-ikon">
-         <div class="percentage-blue">% <%= Math.round((results['Selahattin Demirtaş'] / totalvotes) * 100) %></div>
+       <%  if(isNaN(results['Selahattin Demirtaş'])) { %>
+           <div class="percentage-blue">% 0 </div>
+        <%  } else { %>
+           <div class="percentage-blue">% <%= Math.round((results['Selahattin Demirtaş'] / totalvotes) * 100) %></div>
+       <%  }  %>
+
        Selahattin <br/> Demirtaş     
       </span>
 
@@ -33,9 +39,13 @@
  <div class="col-md-4 text-center">
       <span class=" btn btn-block round-button-blue-candidate ekmel-ikon">
     
-     
-         <div class="percentage-blue">% <%= Math.round((results['Ekmeleddin Mehmet İhsanoğlu'] / totalvotes) * 100) %></div>
-           Ekmeleddin <br/>Mehmet<br/> İhsanoğlu<br/>
+        <%  if(isNaN(results['Ekmeleddin Mehmet İhsanoğlu'])) { %>
+         <div class="percentage-blue">% 0 </div>
+        <%  } else { %>
+          <div class="percentage-blue">% <%= Math.round((results['Ekmeleddin Mehmet İhsanoğlu'] / totalvotes) * 100) %></div>
+         
+        <%  }  %>
+          Ekmeleddin <br/>Mehmet<br/> İhsanoğlu<br/>
       </span>
 
   </div>

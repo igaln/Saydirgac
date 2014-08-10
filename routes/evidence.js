@@ -279,7 +279,6 @@ router.post('/', multipartMiddleware, function(req, res) {
 
             new Evidence({ img: filetosave, event:req.body.event_id }).save(function(err, evidence, count) {
                   if (err) return handleError(err);
-
                    event_result.evidences.push(evidence._id);
                    event_result.save(function(err, result) {
                       if (err) return handleError(err);
