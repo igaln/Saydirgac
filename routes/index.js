@@ -7,18 +7,18 @@ router.get('/', function(req, res) {
 
    // res.redirect('/evidences/new');
 
-    var ua = browser.browser_type(req.headers['user-agent']);
+    // var ua = browser.browser_type(req.headers['user-agent']);
 
-    if (ua.Mobile) {
-       res.redirect('/evidences/new');
-    } else {
-       res.redirect('/progress/president/live');
-    }
+    // if (ua.Mobile) {
+    //    res.redirect('/evidences/new');
+    // } else {
+    //    res.redirect('/progress/president/live');
+    // }
 
     //langind
-     // res.render('index', {
-     //     title: 'Saydıraç'
-     // });
+     res.render('index', {
+         title: 'Saydıraç'
+     });
 });
 
 // Set language route

@@ -159,9 +159,9 @@ setInterval(function(){
   Evidence.find({locked:true,read:false,resolved:false},function(err, evidences) {
     if (err) return handleError(err);
   
-    // console.log('----------------');
-    // console.log(evidences.length + " tutanak kiltli"); 
-    // console.log('----------------');
+    console.log('----------------');
+    console.log(evidences.length + " tutanak kiltli"); 
+    console.log('----------------');
     evidences.forEach(function(evidence) {
             var startTime = new Date(evidence.updated_at);
 
@@ -186,7 +186,7 @@ setInterval(function(){
 
              console.log(minutes);
 
-             if(minutes > 3) {
+             if(minutes > 1) {
                 evidence.locked = false;
                 evidence.save();
              }
