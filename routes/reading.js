@@ -390,7 +390,7 @@ router.post('/edit', multipartMiddleware,function(req, res) {
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           person :   candidate.name,
-                                          votes  :  parseInt(req.body.baskan_adaylar[0][input_counter])
+                                          votes  :  parseInt(req.body.baskan_adaylar[0][input_counter]) 
                                         });
                 input_counter++;
              
