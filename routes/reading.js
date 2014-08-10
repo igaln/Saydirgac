@@ -364,7 +364,6 @@ router.post('/', multipartMiddleware,function(req, res) {
 router.post('/edit', multipartMiddleware,function(req, res) {
 
   //req.body.evidence_id
-
  // req.session.user = req.body.twitterid;
   var types =  require('../config/types.json');
 
@@ -383,14 +382,14 @@ router.post('/edit', multipartMiddleware,function(req, res) {
            var input_counter = 0;
            candidates.forEach(function(candidate) {
 
-                candidate.vote = req.body.baskan_adaylar[input_counter];
+                candidate.vote = parseInt(req.body.baskan_adaylar[0][input_counter]);
                   candidate.save(function(err,candidate) {
                      if (err) return handleError(err);
                 });
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           person :   candidate.name,
-                                          votes  :   req.body.baskan_adaylar[input_counter]
+                                          votes  :  parseInt(req.body.baskan_adaylar[0][input_counter]);
                                         });
                 input_counter++;
              
