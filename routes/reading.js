@@ -98,7 +98,7 @@ router.get('/new', function(req, res) {
     Event.find(filter, 'name', options, function(err, events) {
 
       if (events.length > 0)
-          Evidence.count({entered:true,read:false,resolved:false},function(err, evidence_count){
+          Evidence.count({entered:true,read:false,resolved:false,locked:false},function(err, evidence_count){
 
             console.log(evidence_count + " buldum");
 
