@@ -317,35 +317,38 @@ router.post('/', multipartMiddleware,function(req, res) {
                                           votes  :   req.body.baskan_adaylar[0][input_counter]
                                         });
                 input_counter++;
+
+                if(input_counter == candidates.length) {
+                                 //save reading
+                        evidence_reading.save(function(err,reading) {
+                              if (err) return handleError(err);
+                               //push reading into evidence array
+                               evidence.reading = reading._id;
+                               evidence.read = true;
+                               evidence.locked = false;
+                               //save updated evidence
+                               evidence.save(function(err, evidence){
+
+                                      Progress.findOne({city:evidence.city,district:evidence.district,boxno:evidence.no},function(err,progress){
+
+                                                progress.reading = evidence_reading;
+                                                progress.evidence = evidence;
+                                                progress.completed = true;
+                                                progress.save();
+
+                                                 res.redirect('/readings/' + evidence._id + '/thankyou');
+                                          
+                                      });
+                                     
+
+
+                                      //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
+                               });
+                        });
+
+                }
            });  // end for adding candidates
 
-
-            //save reading
-            evidence_reading.save(function(err,reading) {
-                  if (err) return handleError(err);
-                   //push reading into evidence array
-                   evidence.reading = reading._id;
-                   evidence.read = true;
-                   evidence.locked = false;
-                   //save updated evidence
-                   evidence.save(function(err, evidence){
-
-                          Progress.findOne({city:evidence.city,district:evidence.district,boxno:evidence.no},function(err,progress){
-
-                                    progress.reading = evidence_reading;
-                                    progress.evidence = evidence;
-                                    progress.completed = true;
-                                    progress.save();
-
-                                     res.redirect('/readings/' + evidence._id + '/thankyou');
-                              
-                          });
-                         
-
-
-                          //res.redirect('/readings/' + evidence.city + '/' + evidence.district + '/' + evidence.no + '/' + evidence.type);
-                   });
-            });
       }); //Candidate Query
 
   }); //Evidence Query
