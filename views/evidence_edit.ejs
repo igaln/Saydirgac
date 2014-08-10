@@ -34,6 +34,8 @@
 
          // Parse cities
          var cities = <%- cities %>
+
+          cities = cities.sort();
          $.each(cities, function(key, value){
           console.log(value);
               $("#city").append('<option value="'+value+'">'+value+'</option>');
