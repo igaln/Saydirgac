@@ -48,6 +48,7 @@
 
               $.get( "/candidates/districts/" + $("#city").val(), function( districts ) {
                   //alert( "Load was performed." );
+                   $("#district").append('<option value="">Ilçe seçiniz</option>');
                   $.each(districts, function(key, value){
                       $("#district").append('<option value="'+value+'">'+value+'</option>');
                  });

@@ -5,17 +5,15 @@ var browser = require('../lib/browser_utils');
 /* GET home page. */
 router.get('/', function(req, res) {
 
-
-
    // res.redirect('/evidences/new');
 
     var ua = browser.browser_type(req.headers['user-agent']);
+    
     if (ua.Mobile) {
        res.redirect('/evidences/new');
     } else {
        res.redirect('/readings/new');
     }
-
 
     //langind
     // res.render('index', {
