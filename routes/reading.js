@@ -304,7 +304,7 @@ router.post('/', multipartMiddleware,function(req, res) {
           // Reading type and evidence
           evidence_reading.evidence   =  evidence._id;
 
-          console.log("req.body.baskan_adaylar[0] " + req.body.baskan_adaylar[0]);
+          console.log("req.body.baskan_adaylar[0] " + req.body.baskan_adaylar);
 
            var input_counter = 0;
 
