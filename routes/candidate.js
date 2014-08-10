@@ -32,10 +32,8 @@ router.get('/', function(req, res) {
 // GET /candidates
 router.get('/length', function(req, res) {
 
- console.log("get candidates");
 
   Candidate.count(function(err, count){
-    console.log(count);
       res.send({"length":count});
   });
 

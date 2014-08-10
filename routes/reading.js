@@ -305,6 +305,9 @@ router.post('/', multipartMiddleware,function(req, res) {
           evidence_reading.evidence   =  evidence._id;
 
           console.log("req.body.baskan_adaylar[0] " + req.body.baskan_adaylar);
+           console.log("req.body.baskan_adaylar[0] " + req.body.baskan_adaylar[0]);
+
+           console.log("candidate length " + candidates.length)
 
            var input_counter = 0;
 
@@ -312,14 +315,14 @@ router.post('/', multipartMiddleware,function(req, res) {
 
                 //console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
 
-                candidate.vote = req.body.baskan_adaylar[input_counter];
+                candidate.vote = parseInt(req.body.baskan_adaylar[input_counter]);
                 candidate.save(function(err,candidate) {
                      if (err) return handleError(err);
                 });
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           person :   candidate.name,
-                                          votes  :   req.body.baskan_adaylar[input_counter]
+                                          votes  :   parseInt(req.body.baskan_adaylar[input_counter])
                                         });
                 input_counter++;
 
