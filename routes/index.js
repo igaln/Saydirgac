@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
     //    res.redirect('/progress/president/live');
     // }
 
-    langind
+    //langind
      res.render('index', {
          title: 'Saydıraç'
      });
