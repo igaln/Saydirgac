@@ -1,0 +1,76 @@
+<div class="row">
+  <ol class="breadcrumb dark">
+    <li><a href="/evidences"><%= t('tumtutanaklar') %></a></li>
+    <li class="active"><%= t('tutanakdetaylari') %></li>
+  </ol>
+</div>
+
+<div class="row tutanak-header">
+  <div class="col-md-8 col-xs-12">
+    <h2>
+      <%= evidence.city || "(İl)" %> &rarr; <%= evidence.district || "(İlçe)" %> &rarr; <%= t('sandik') %> <%= evidence.no || "(No)" %>
+    </h2>
+  </div>
+
+  <% if(!evidence.resolved) {%>
+  <div class="col-md-4 col-xs-12">
+     <form id="flag">
+        <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
+        <button type="submit" class="btn btn-default btn-danger pull-right">
+          <span class="glyphicon glyphicon-flag"></span> <%= t('flag') %>
+        </button>
+<!--        <p class="form-note">
+          <%= t('flagnote') %>
+        </p> -->
+     </form>
+  </div>
+  <% } %>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <img src="<%=s3path + evidence.img %>" class="img-responsive tutanak" width="100%">
+  </div>
+
+      <div class="col-md-6 col-xs-12">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2><%= t('adaylar') %></h2>
+          </div>
+        </div>
+         <% for(var k=0; k< baskan_results.length; k++) {%>
+        <div class="row">
+        <div class="col-xs-8 tutanak-label">
+            <%= baskan_results[k].person %>
+          </div>
+          <div class="col-xs-3 tutanak-form">
+            <input type="number" class="form-control input-sm" disabled name="baskan_adaylar[]" value=<%= baskan_results[k].votes %>>
+          </div>
+        </div>
+         <% } %>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$("#flag").submit(function(event) {
+  console.log("submit");
+  function subscallback(e) {
+    console.log("hllo");
+    console.log(e);
+
+    $( "#flagbutton" ).prop( "disabled", true );
+  }
+  $.ajax({
+    type: "POST",
+    url: "/evidences/flag",
+    data: {"evidence_id":$("#evidence_id").val()},
+    success: subscallback,
+    dataType: "json"
+  });
+  event.preventDefault();
+});
+</script>

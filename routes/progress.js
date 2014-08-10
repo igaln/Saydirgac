@@ -9,6 +9,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var Progress = mongoose.model('Progress');
+var Event = mongoose.model('Event');
 
 // index
 // GET /progress
@@ -40,6 +41,66 @@ router.get('/dashboard/live', function(req, res) {
       });
     
   });
+});
+
+
+router.get('/cumhur/live',function(req,res) {
+
+   var types =  require('../config/types.json');
+  var options = {
+    limit: 1,
+    sort: {
+      date_added: 1 //Sort by Date Added ASC
+    }
+  }
+  var filter = {};
+
+  var results = {};
+  var totalvotes  = 0;
+
+  Event.find(filter, 'name', options, function(err, events) {
+    if (events.length > 0){
+      
+      Progress.count({type:'BOX'},function(err, total){
+        
+        Progress.find({type:'BOX',completed:true}).populate("reading").exec(function(err, totalcompleted){
+
+              totalcompleted.forEach(function(progress_item) {
+
+                  //console.log(progress_item.reading.baskan_results[0]);
+
+                  for(var i = 0; i < progress_item.reading.baskan_results.length; i++) {
+
+                      console.log(progress_item.reading.baskan_results[i].votes);
+                        
+                        totalvotes += parseInt(progress_item.reading.baskan_results[i].votes);
+                      if(results[progress_item.reading.baskan_results[i].person]) 
+                        results[progress_item.reading.baskan_results[i].person] += parseInt(progress_item.reading.baskan_results[i].votes);
+                      else
+                        results[progress_item.reading.baskan_results[i].person] = parseInt(progress_item.reading.baskan_results[i].votes);
+                  }
+              });
+
+              console.log(results);
+              console.log("total votes " + totalvotes);
+
+
+              res.render('progress_cumhur', {
+              title: 'Durum',
+              current_event: events[0],
+              types: types,
+              progress: {totalboxes:total,totalcompleted:totalcompleted.length},
+              results:results,
+              totalvotes:totalvotes
+              });
+        });
+    });
+    }else{
+      res.send("Sorry, nothing is happening in the world.")
+    }
+  });
+
+
 });
 
 // index

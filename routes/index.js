@@ -6,12 +6,17 @@ var browser = require('../lib/browser_utils');
 router.get('/', function(req, res) {
 
 
-    var ua = browser.browser_type(req.headers['user-agent']);
-    if (ua.Mobile) {
-       res.redirect('/evidences/new');
-    } else {
-       res.redirect('/readings/new');
-    }
+
+    res.redirect('/evidences/new');
+
+    // var ua = browser.browser_type(req.headers['user-agent']);
+    // if (ua.Mobile) {
+    //    res.redirect('/evidences/new');
+    // } else {
+    //    res.redirect('/readings/new');
+    // }
+
+
     //langind
     // res.render('index', {
     //     title: 'Saydıraç'

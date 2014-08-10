@@ -83,6 +83,22 @@
   background: #07708c;
   border: solid 1px #07708c;
 }
+.round-button-blue-candidate {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  line-height: 14px;
+  border-radius: 50%;
+  color: #383a46;
+  text-align: center;
+  text-decoration: none;
+  background: #0cb6e3;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: all 0.3s ease-in-out;
+  text-wrap: normal;
+}
 .round-button-blue {
   display: inline-block;
   width: 200px;
@@ -93,11 +109,15 @@
   text-align: center;
   text-decoration: none;
   background: #0cb6e3;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
   margin-top: 15px;
   transition: all 0.3s ease-in-out;
-  text-wrap: normal;
+}
+.percentage-blue {
+  font-size: 20px;
+  margin-top: 115px;
+  margin-bottom: 12px;
 }
 .round-button-blue:hover,
 .round-button-blue:focus,

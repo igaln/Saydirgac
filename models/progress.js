@@ -2,20 +2,29 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.Types.ObjectId;
 
-var Reading = require('./reading');
+// var Reading = require('./reading');
+// var Evidence = require('./evidence');
 
 var Progress = new Schema({
-  type:                     {type: String, required: true, index: true}, // event, city, district, no
-  id:                       {type: String, required: true, index: true},        // event_city, city_district, district_no
-  name:                     {type: String},
-  box_count:                {type: Number, required: true},             // num of uniqe boxes that has evidences, only iterate for event, city, district
-  evidence_count:           {type: Number, default: 0},                 // has to be distinct evidence count
-  reading_count:            {type: Number, default: 0},                 // has to be distinct reading count
-  flag_count:               {type: Number, default: 0},
+
+  type:                     {type: String, required: true, index: true},        // changed to 1 type of progress, by BOX IS
+  
+  csv_id:               {type:Number, default:0, index: true},
+  city:                 {type: String, default: "", index: true},
+  region:               {type: String, default: "", index: true},
+  district:             {type: String, default: "", index: true},
+  subdistrict:          {type: String, default: "", index: true},
+  boxdistrict:          {type: String, default: "", index: true},
+  boxno:                {type: String, default: "", index: true},
+
+
   created_at:               {type: Date, default: Date.now},
   updated_at:               {type: Date, default: Date.now},
-  parent:                   {type: ObjectId, ref: 'Progress'},
-  reading:                  {type: ObjectId, ref: 'Reading'}
+  reading:                  {type: ObjectId, ref: 'Reading'},
+  evidence:                 {type: ObjectId, ref: 'Evidence'},
+  event:                    {type: ObjectId, ref: "Event"},
+
+  completed:               {type: Boolean,default: false, index: true}
 });
 
 module.exports = mongoose.model('Progress', Progress);

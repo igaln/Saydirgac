@@ -18,12 +18,7 @@
     <select class="form-control tutanak-meta-verileri" name="no"  id="no"  style="background-color:#FFF;">
       <option value=""><%= t('sandikno') %></option>
     </select>
-    <select class="form-control tutanak-meta-verileri" name="type"  id="type"  style="background-color:#FFF;">
-      <option value=""><%= t('tutanakturu') %></option>
-     <!--  <option value="il_belediye_baskanligi">İl Belediye Başkanlığı Sonuç Tutanağı</option> -->
-      <option value="il_genel_meclis_uyeligi">İl Genel Meclis Üyeliği</option>
-      <option value="ilce_belediye_baskanligi_belediye_meclis_uyeligi">Belediye Başkanlığı ve Belediye Meclis Üyeliği</option>
-    </select>
+
   </div>
   <div class="col-md-2">
     <img src="<%=s3path + evidence.img %>" class="tutanak img-thumbnail">
@@ -36,13 +31,12 @@
  <script type="text/javascript">
     $(document).ready(function() {
 
-         // Get the cities, districts and boxes from EJS
-         var election_data = <%- yskveri %>
 
          // Parse cities
-         var cities = election_data.cities
-         $.each(election_data.cities, function(key, value){
-              $("#city").append('<option value="'+key+'">'+value.name+'</option>');
+         var cities = <%- cities %>
+         $.each(cities, function(key, value){
+          console.log(value);
+              $("#city").append('<option value="'+value+'">'+value+'</option>');
          });
 
          $( "#city" ).change(function() {
@@ -51,30 +45,29 @@
               $("#district").empty();
               $("#no").empty();
 
-              // parse districts for the selected value
-              if(cities[$("#city").val()]) {
-                var districts = cities[$("#city").val()].districts;
-                $.each(districts, function(key, value){
-                     $("#district").append('<option value="'+key+'">'+value.name+'</option>');
-                });
-              }
 
-              $("#no").append('<option>Sandık seç</option>');
-              var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes;
-              for (var i = boxes.from; i < boxes.to+1; i++) {
-                $("#no").append('<option value="'+i+'">'+i+'</option>');
-              };
+              $.get( "/candidates/districts/" + $("#city").val(), function( districts ) {
+                  //alert( "Load was performed." );
+                  $.each(districts, function(key, value){
+                      $("#district").append('<option value="'+value+'">'+value+'</option>');
+                 });
+              });
          });
 
          $( "#district" ).change(function() {
               // console.log($("#district").val());
               $("#no" ).empty();
 
-              $("#no").append('<option value="">Sandık seçiniz</option>');
-              var boxes = cities[$("#city").val()].districts[$("#district").val()].boxes;
-              for (var i = boxes.from; i < boxes.to+1; i++) {
-                $("#no").append('<option value="'+i+'">'+i+'</option>');
-              };
+               $.get( "/candidates/boxes/" + $("#district").val(), function( boxes ) {
+                  //alert( "Load was performed." );
+                   $("#no").append('<option value="">Sandık seçiniz</option>');
+                  $.each(boxes, function(key, value){
+                       $("#no").append('<option value="'+value+'">'+value+'</option>');
+                     
+                 });
+              });
+
+              
          });
 
     $('#evidence_edit').bootstrapValidator({
@@ -125,7 +118,7 @@
                $.ajax({
                   type: "POST",
                   url: "/evidences",
-                  data: {"city":city,"district":district,"no":no,"type":type,"event_id":event_id},
+                  data: {"city":city,"district":district,"no":no,"event_id":event_id},
                   success: function (response) {
                      window.location = '/evidences/' + response._id + '/saved';
                   },

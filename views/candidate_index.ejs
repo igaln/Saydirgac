@@ -7,8 +7,6 @@
   <tr>
     <th>İl</th>
     <th>İlçe</th>
-    <th>Parti</th>
-    <th>Türü</th>
     <th>Aday</th>
     <th>Sivil Oy Sonucu</th>
     <th>Resmi Oyu Sonucu</th>
@@ -17,9 +15,7 @@
   <tr>
     <td><%= candidate.city %></td>
     <td><%= candidate.district %></td>
-    <td><%= candidate.party %></td>
-    <td><%= candidate_types[candidate.type] %></td>
-    <td><%= candidate.person %></td>
+    <td><%= candidate.name %></td>
     <td><%= candidate.vote ? candidate.vote : "" %></td>
     <td><%= candidate.official_vote ? candidate.official_vote : "" %></td>
   </tr>

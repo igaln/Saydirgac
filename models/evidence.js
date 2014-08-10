@@ -2,9 +2,6 @@ var mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.Types.ObjectId;
 
-// var Candidate = require('./candidate');
-// var Event = require('./event');
-// var Reading = require('./reading');
 
 var Evidence = new Schema({
 

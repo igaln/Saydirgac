@@ -104,8 +104,9 @@ app.use(function(req, res, next) {
 });
 
 
-
 // add this to run POPULATE SCRIPTS at different env  || process.env.env === "development"  || 
+
+console.log(process.env.AWS_ACCESS_KEY_ID);
 
 if(process.env.env === 'local')
   mongoose.connect(config.mongoURI);
@@ -158,9 +159,9 @@ setInterval(function(){
   Evidence.find({locked:true,read:false,resolved:false},function(err, evidences) {
     if (err) return handleError(err);
   
-    console.log('----------------');
-    console.log(evidences.length + " tutanak kiltli"); 
-    console.log('----------------');
+    // console.log('----------------');
+    // console.log(evidences.length + " tutanak kiltli"); 
+    // console.log('----------------');
     evidences.forEach(function(evidence) {
             var startTime = new Date(evidence.updated_at);
 
@@ -185,10 +186,10 @@ setInterval(function(){
 
              console.log(minutes);
 
-             if(minutes > 5) {
+            // if(minutes > 0.1) {
                 evidence.locked = false;
                 evidence.save();
-             }
+            // }
 
     });
   });

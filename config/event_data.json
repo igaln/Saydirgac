@@ -1,25 +1,7 @@
-{ "event": {"name":"Türkiye 2014 Yerel Seçim Tekrarı, 1 Haziran 2014",
+{ "event": {"name":"2014 Türkiye Cumhurbaşkanlığı Seçimi",
 						"country":"Türkiye",
-						"type":"Yerel Seçim Tekrarı",
+						"type":"Cumhurbaşkanlığı",
 						"startdate":""},
 	"cities": [
-		{
-			"name": "Ağrı",
-		  	 "districts":	[
-		  	 				{ "name": "Ağrı Merkez", "boxes": {"from":1001, "to":1196} }
-							]
-		},
-		{
-			"name":  "Yalova",
-			"districts":	[
-								{ "name": "Yalova Merkez", "boxes": {"from":1001, "to":1244}}
-							]
-		},
-		{
-			"name":  "Eskişehir",
-			"districts":	[
-								{ "name": "Mahmudiye", "boxes": {"from":1001, "to":1030}}
-							]
-		}
 	]
 }

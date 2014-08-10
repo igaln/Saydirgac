@@ -1,0 +1,70 @@
+
+<div class="row">
+ <div class="col-xs-12">
+  <h4>
+    <%= title %>
+  </h4>
+</div>
+</div>
+<div class="row ">
+      <div class="col-xs-6">
+<table class="table table-condensed">
+    <tr>
+        <th scope="row">Sehir</th>
+        <td><%= evidence.city %></td>
+    </tr>
+    <tr>
+        <th scope="row">Ilce</th>
+        <td><%= evidence.district %></td>
+    </tr>
+     <tr>
+        <th scope="row">Sandik Numarasi</th>
+        <td><%= evidence.no %></td>
+    </tr>
+      <tr>
+        <th scope="row"></th>
+        <td></td>
+    </tr>
+</table>
+   </div>
+  
+</div>
+
+<hr>
+
+<form role="form" id="evidence_edit" class="form-horizontal" action="/readings/edit" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+ 
+ <input type="hidden" id="evidence_id" name="evidence_id" value="<%= evidence._id %>"/>
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <img src="<%=s3path + evidence.img %>" class="img-responsive tutanak" width="100%">
+  </div>
+
+      <div class="col-md-6 col-xs-12">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2><%= t('adaylar') %></h2>
+          </div>
+        </div>
+         <% for(var k=0; k< reading.baskan_results.length; k++) {%>
+        <div class="row">
+        <div class="col-xs-8 tutanak-label">
+            <%= reading.baskan_results[k].person %>
+          </div>
+          <div class="col-xs-3 tutanak-form">
+            <input type="number" class="form-control input-sm" name="baskan_adaylar[]" value=<%= reading.baskan_results[k].votes %>>
+          </div>
+        </div>
+         <% } %>
+      </div>
+    </div>
+
+  <div class="row">
+  <div class="col-xs-12">
+    <input type="submit" class="btn btn-default btn-primary btn-lg btn-block" value="KAYDET"/>
+  </div>
+  </div>
+
+</form>
+

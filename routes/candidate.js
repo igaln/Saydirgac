@@ -14,16 +14,56 @@ var Candidate = mongoose.model('Candidate');
 // GET /candidates
 router.get('/', function(req, res) {
 
-  var types =  require('../config/types.json');
+  //var types =  require('../config/types.json');
 
-  console.log(types);
+ // console.log(types);
 
-  Candidate.find(function(err, candidates){
+ console.log("get candidates");
+
+  Candidate.find().limit(50).exec(function(err, candidates){
     res.render('candidate_index', {
       title: 'Adaylar',
-      candidates: candidates,
-      candidate_types: types.candidate
+      candidates: candidates
     });
+  });
+
+});
+
+// GET /candidates
+router.get('/length', function(req, res) {
+
+ console.log("get candidates");
+
+  Candidate.count(function(err, count){
+    console.log(count);
+      res.send({"length":count});
+  });
+
+});
+
+router.get('/cities', function(req,res) {
+
+   Candidate.find().distinct('city',function(err, cities){
+        res.send(cities);
+  });
+
+});
+
+
+router.get('/districts/:city',function(req,res) {
+
+
+   Candidate.find( {city:req.params.city}).distinct('district', function(err, districts){
+        res.send(districts);
+  });
+
+});
+
+router.get('/boxes/:district', function(req,res) {
+
+
+   Candidate.find({district:req.params.district}).distinct('boxno',function(err, boxes){
+        res.send(boxes);
   });
 
 });

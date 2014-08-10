@@ -12,6 +12,7 @@ var Evidence = mongoose.model('Evidence');
 var Event = mongoose.model('Event');
 var Box = mongoose.model('Box');
 var Progress = mongoose.model('Progress');
+var Candidate = mongoose.model('Candidate');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -25,6 +26,8 @@ router.get('/', function(req, res) {
   var config =  req.app.get('config');
   var types =  require('../config/types.json');
   var moment = require('moment');
+
+  
 
   Evidence.find({}).populate('reading').exec(function(err, evidences){
       res.render('evidence_index', {
@@ -71,6 +74,9 @@ router.get('/:id/evidence', function(req, res) {
 // GET /evidences/new
 router.get('/new', function(req, res) {
 
+
+  console.log(req.session.user);
+
   var types =  require('../config/types.json');
   var options = {
     limit: 1,
@@ -109,13 +115,19 @@ router.get('/:id/:edit', function(req, res) {
 
     Evidence.findById(req.params.id, function(err, evidence) {
 
-      res.render('evidence_edit', {
-        title: 'Tutanak Detaylarını Gir',
-        evidence: evidence,
-        message: false,
-        s3path: config.s3URL + config.s3Path,
-        yskveri: JSON.stringify(yskveri)
+       Candidate.find().distinct('city',function(err, cities){
+        console.log(cities);
+            
+             res.render('evidence_edit', {
+              title: 'Tutanak Detaylarını Gir',
+              evidence: evidence,
+              message: false,
+              s3path: config.s3URL + config.s3Path,
+              yskveri: {},
+              cities: JSON.stringify(cities)
+          });
       });
+     
     });
 
   } else if(req.params.edit === "show") {
@@ -188,13 +200,13 @@ router.post('/flag',function(req,res){
     Evidence.findById(req.body.evidence_id,function(err,evidence) {
           if (err) return handleError(err);
 
-          Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
+          // Progress.find({$or:[{type:"City",id:evidence.event +'_'+ evidence.city},{type:"District",id:evidence.city + '_' + evidence.district},{type:"Event",id:evidence.event},{type:"Box",id:evidence.district + '_' + evidence.no}]},function(err,progress_results){
 
-                                progress_results.forEach(function(progress){
-                                    progress.reading_count--;
-                                    progress.save();
-                                })
-                          });
+          //                       progress_results.forEach(function(progress){
+          //                           progress.reading_count--;
+          //                           progress.save();
+          //                       })
+          //                 });
 
           evidence.flag++;
           evidence.save(function(err,reading) {
@@ -219,10 +231,23 @@ router.post('/', multipartMiddleware, function(req, res) {
 
     
     //AWS.config.loadFromPath('./config/s3creds.json');
-    AWS.config.update({
+
+    //if(process.env.env === 'local')
+
+    console.log(process.env.AWS_ACCESS_KEY_ID);
+    console.log(process.env.AWS_SECRET_ACCESS_KEY);
+   
+    // AWS.config.update({
+    //   region: 'us-east-1',
+    //   accessKeyId: process.env.AWS_ACCESS_KEY,
+    //   secretAccessKey: process.env.AWS_SECRET_KEY
+    // });
+
+
+      AWS.config.update({
       region: 'us-east-1',
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_KEY
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
     });
 
     var s3 = new AWS.S3({
@@ -236,7 +261,7 @@ router.post('/', multipartMiddleware, function(req, res) {
 
       var params = {
         Bucket: "journosweb",
-        Key: "saydirachaziranbir/images/" + filetosave,
+        Key: "cumhurbaskanligi/images/" + filetosave,
         Body: data,
         ContentType: 'application/image'
       };
@@ -244,7 +269,7 @@ router.post('/', multipartMiddleware, function(req, res) {
       s3.putObject(params, function(error, data) {
 
         if (error) {
-          callback(error, null);
+          handleError(error, null);
         } else {
 
           console.log("S3 uploaded, saving...");
@@ -273,6 +298,7 @@ router.post('/', multipartMiddleware, function(req, res) {
 
     } else {
 
+        console.log("save evidence");
 
         Evidence.findOne({_id:req.body.event_id}, function (err, doc) {
            if (err) return handleError(err);
@@ -280,16 +306,19 @@ router.post('/', multipartMiddleware, function(req, res) {
               doc.city = req.body.city;
               doc.district = req.body.district;
               doc.no = req.body.no;
-              doc.type =req.body.type;
               doc.entered = true;
 
-              Progress.find({$or:[{type:"City",id:doc.event +'_'+ doc.city},{type:"District",id:doc.city + '_' + doc.district},{type:"Event",id:doc.event},{type:"Box",id:doc.district + '_' + doc.no}]},function(err,progress_results){
 
-                    progress_results.forEach(function(progress){
-                        progress.evidence_count++;
-                        progress.save();
-                    })
-              });
+              console.log("found evidence " +doc);
+
+              //TODO: progress ad step
+              // Progress.find({$or:[{type:"City",id:doc.event +'_'+ doc.city},{type:"District",id:doc.city + '_' + doc.district},{type:"Event",id:doc.event},{type:"Box",id:doc.district + '_' + doc.no}]},function(err,progress_results){
+
+              //       progress_results.forEach(function(progress){
+              //           progress.evidence_count++;
+              //           progress.save();
+              //       })
+              // });
 
               doc.save(function(err, doc) {
                   if (err) return handleError(err);

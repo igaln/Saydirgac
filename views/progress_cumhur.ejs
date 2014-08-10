@@ -1,0 +1,83 @@
+<div class="row">
+   <div class="col-md-12">
+      <p class="lead text-center gray">
+        <%= t('1haziranbaslik') %>
+      </p>
+  </div>
+</div>
+
+<div class="row">
+
+ <div class="col-md-4 text-center">
+      <span class=" btn btn-block round-button-blue-candidate ">
+    
+     
+         <div class="percentage-blue">% <%= Math.round((results['Ekmeleddin Mehmet İhsanoğlu'] / totalvotes) * 100) %></div>
+           Ekmeleddin <br/>Mehmet<br/> İhsanoğlu<br/>
+      </span>
+
+  </div>
+   <div class="col-md-4 text-center">
+    
+      <span class=" btn btn-block round-button-blue-candidate ">
+        <div class="percentage-blue">% <%= Math.round((results['Recep Tayyip Erdoğan'] / totalvotes) * 100) %></div>
+      Recep<br/> Tayyip <br/> Erdoğan
+    
+      </span>
+  </div>
+  <div class="col-md-4 text-center">
+   
+       <span class=" btn btn-block round-button-blue-candidate ">
+         <div class="percentage-blue">% <%= Math.round((results['Selahattin Demirtaş'] / totalvotes) * 100) %></div>
+       Selahattin <br/> Demirtaş     
+      </span>
+
+  </div>
+</div>
+
+<div class="row">
+   <div class="col-md-12 text-center">
+   <h1>% <%= Math.round((progress.totalcompleted / progress.totalboxes) * 100) %></h1>
+      <h6>
+        toplam: <%= progress.totalboxes %> & sayilan: <%= progress.totalcompleted %>
+      </h6>
+  </div>
+</div>
+
+
+<div class="row">
+   <div class="col-md-4 text-center">
+      <h4>
+        <a class="btn btn-outline-orange" href="/evidences"><%= t('tumtutanaklar') %></a>
+      </h4>
+  </div>
+     <div class="col-md-4 text-center">
+      <h4>
+        <a class="btn btn-outline-orange" href="/readings/new"><%= t('tutanakoku') %></a>
+      </h4>
+  </div>
+     <div class="col-md-4 text-center">
+      <h4>
+        <a class="btn btn-outline-orange" href="/evidences/new"><%= t('tutanakyukle') %></a>
+      </h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <ul class="list-inline">
+      <li><a href="https://www.facebook.com/saydirac?ref=hl" class="btn-social"><i class="fa fa-fw fa-facebook"></i></a></li>
+      <!-- <li><a href="#" class="btn-social"><i class="fa fa-fw fa-google-plus"></i></a></li> -->
+      <li><a href="http://www.twitter.com/saydirac" class="btn-social"><i class="fa fa-fw fa-twitter"></i></a></li>
+    </ul>
+ </div>
+</div>
+
+ <script type="text/javascript">
+    $(document).ready(function(){
+      $(".file-input").change(function() {
+            $('#tutanak').submit();
+            $('#tutanak').spin();
+      });
+    });
+</script>
