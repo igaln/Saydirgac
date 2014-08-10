@@ -302,10 +302,12 @@ router.post('/', multipartMiddleware,function(req, res) {
 
           var evidence_reading = new Reading({});
           // Reading type and evidence
-          evidence_reading.evidence                            =   evidence._id
+          evidence_reading.evidence   =  evidence._id;
 
            var input_counter = 0;
            candidates.forEach(function(candidate) {
+
+            console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
 
                 candidate.vote = req.body.baskan_adaylar[0][input_counter];
                 candidate.save();
