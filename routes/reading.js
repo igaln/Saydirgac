@@ -204,6 +204,9 @@ router.get('/:id/show', function(req, res) {
 
      if (err) return handleError(err);
 
+     if(!reading)
+        res.redirect('/evidences');
+
 
     console.log("reading " + reading);
 
