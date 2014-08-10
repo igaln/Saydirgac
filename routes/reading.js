@@ -312,12 +312,12 @@ router.post('/', multipartMiddleware,function(req, res) {
 
                 //console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
 
-                candidate.vote = req.body.baskan_adaylar[0][input_counter];
+                candidate.vote = req.body.baskan_adaylar[input_counter];
                 candidate.save();
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           person :   candidate.name,
-                                          votes  :   req.body.baskan_adaylar[0][input_counter]
+                                          votes  :   req.body.baskan_adaylar[input_counter]
                                         });
                 input_counter++;
 
