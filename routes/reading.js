@@ -313,7 +313,9 @@ router.post('/', multipartMiddleware,function(req, res) {
                 //console.log("aday " + candidate.name + " OY " + req.body.baskan_adaylar[0]);
 
                 candidate.vote = req.body.baskan_adaylar[input_counter];
-                candidate.save();
+                candidate.save(function(err,candidate) {
+                     if (err) return handleError(err);
+                });
                 evidence_reading.baskan_results.push(
                                          {id    :   candidate._id,
                                           person :   candidate.name,
