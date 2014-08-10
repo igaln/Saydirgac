@@ -127,14 +127,14 @@ router.get('/:evidence_id/new', function(req, res) {
   // first pull the evidence TODO: 2 type of templates according to Evidence
   Evidence.findById(req.params.evidence_id,function(err, evidence) {
 
-  //  if (err) return handleError(err);
+   if (err) return handleError(err);
 
-    if(!evidence){
-        res.redirect('/progress/president/live');
-    }
+    // if(!evidence){
+    //     res.redirect('/progress/president/live');
+    // }
 
-    if(evidence == null)
-         res.redirect('/progress/president/live');
+    // if(evidence == null)
+    //      res.redirect('/progress/president/live');
 
     if(evidence.read) {
       res.redirect('/readings/' + evidence.reading  + '/show');
