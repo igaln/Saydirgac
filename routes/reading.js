@@ -129,13 +129,13 @@ router.get('/:evidence_id/new', function(req, res) {
 
   if (err) return res.serverError(err);
 
-    // if(evidence == null)
-    //      res.redirect('/progress/president/live');
+    if(evidence == null)
+         res.redirect('/evidences');
 
     if(evidence.read) {
-      res.redirect('/readings/' + evidence.reading  + '/show');
+       res.redirect('/readings/' + evidence.reading  + '/show');
     } if(evidence.locked) {
-       res.redirect(req.header('Referer') || '/');
+        res.redirect('/evidences');
     } else {
 
       evidence.locked = true;
